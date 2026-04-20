@@ -27,6 +27,12 @@ public class RutaController {
         return ResponseEntity.ok(rutaService.getAllRutas(dificultad, search));
     }
 
+    @GetMapping("/mis-rutas")
+    public ResponseEntity<List<RutaResponse>> getMyRutas(
+            @AuthenticationPrincipal Usuario usuario) {
+        return ResponseEntity.ok(rutaService.getMyRutas(usuario.getIdUsuario()));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<RutaResponse> getRutaById(@PathVariable Integer id) {
         return ResponseEntity.ok(rutaService.getRutaById(id));

@@ -94,6 +94,13 @@ public class RutaService {
         return rutas.stream().map(this::toRutaResponse).toList();
     }
 
+    public List<RutaResponse> getMyRutas(Integer idUsuario) {
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        List<Ruta> rutas = rutaRepository.findByUsuarioIdUsuario(idUsuario);
+        return rutas.stream().map(this::toRutaResponse).toList();
+    }
+
     public RutaResponse toRutaResponse(Ruta ruta) {
         Double mediaPuntuacion = resenaRepository.findAveragePuntuacionByRutaIdRuta(ruta.getIdRuta());
         return RutaResponse.builder()

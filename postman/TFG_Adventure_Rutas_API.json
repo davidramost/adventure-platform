@@ -1,0 +1,183 @@
+{
+    "info": {
+        "_postman_id": "6027ba71-96e6-491a-8273-321e11fd1f5e",
+        "name": "TFG Adventure - Rutas API",
+        "description": "Colección para probar los endpoints de rutas del proyecto TFG Adventure",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Rutas",
+            "item": [
+                {
+                    "name": "Listar todas las rutas",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text",
+                                "description": "Token JWT del usuario"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/rutas",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "rutas"
+                            ]
+                        },
+                        "description": "Obtiene todas las rutas disponibles en la aplicación. Puede filtrar por dificultad o hacer búsqueda por texto."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Listar mis rutas",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text",
+                                "description": "Token JWT del usuario autenticado"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/rutas/mis-rutas",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "rutas",
+                                "mis-rutas"
+                            ]
+                        },
+                        "description": "Obtiene solo las rutas creadas por el usuario autenticado. Requiere autenticación JWT."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Obtener ruta por ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/rutas/1",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "rutas",
+                                "1"
+                            ]
+                        },
+                        "description": "Obtiene una ruta específica por su ID"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Crear ruta",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"titulo\": \"Ruta del Cares\",\n  \"nombreRuta\": \"Cares\",\n  \"descripcion\": \"Sendero espectacular en Picos de Europa\",\n  \"distanciaKm\": 12.5,\n  \"duracionEstimada\": \"4 horas\",\n  \"dificultad\": \"MEDIA\",\n  \"desnivelMetros\": 450,\n  \"imagenUrl\": \"https://ejemplo.com/cares.jpg\",\n  \"idUbicacion\": 1\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/rutas",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "rutas"
+                            ]
+                        },
+                        "description": "Crea una nueva ruta. El usuario autenticado será el propietario de la ruta."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Eliminar ruta",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/rutas/1",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "rutas",
+                                "1"
+                            ]
+                        },
+                        "description": "Elimina una ruta (solo el propietario o admin pueden eliminarla)"
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8080",
+            "type": "string",
+            "description": "URL base del servidor backend"
+        },
+        {
+            "key": "token",
+            "value": "",
+            "type": "string",
+            "description": "Token JWT del usuario (obtener mediante login)"
+        }
+    ]
+}
