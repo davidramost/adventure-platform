@@ -1,0 +1,1833 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f0f3f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedorLogoSuperior {
+    text-align: center;
+    background-color: #37474F;
+    min-height: 50px;
+}
+
+.logoSuperior {
+    width: 350px;
+}
+
+header.portada {
+    background: linear-gradient(135deg, #455A64 0%, #263238 100%);
+    overflow: hidden;
+}
+
+.navbar {
+    position: relative;
+    padding: 1.5em 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.iconoMenu {
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+}
+
+.logo-desktop {
+    display: block;
+    margin-right: 20px;
+}
+
+.logo-desktop img {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+.enlacesNav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.enlacesNav li {
+    display: inline-block;
+    margin: 0 1.5em;
+}
+
+.enlacesNav li a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.enlacesNav li a:hover {
+    color: #ccc;
+}
+
+.login {
+    position: relative;
+    z-index: 10;
+}
+
+.login a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.menuUsuario {
+    position: relative;
+    display: inline-block;
+}
+
+.nombreUsuario {
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0.5em 1em;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+}
+
+.nombreUsuario:hover {
+    border-color: white;
+}
+
+.menuDesplegable {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 10px;
+    min-width: 150px;
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    margin-top: 0;
+    background-clip: padding-box;
+    overflow: hidden;
+}
+
+.menuDesplegable::before {
+    content: "";
+    position: absolute;
+    top: -1em;
+    left: 0;
+    width: 100%;
+    height: 1em;
+    background: transparent;
+}
+
+.menuUsuario:hover .menuDesplegable {
+    display: block;
+}
+
+.menuDesplegable a {
+    display: block;
+    padding: 1em 1.5em;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menuDesplegable a:last-child {
+    border-bottom: none;
+}
+
+.menuDesplegable a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.portadaContenido {
+    position: relative;
+    padding: 2em 3em 3em 3em;
+}
+
+.tituloPortada {
+    text-align: center;
+    color: white;
+    font-size: 64px;
+    margin: 0.5em 0;
+    font-weight: bold;
+    letter-spacing: 8px;
+    font-stretch: condensed;
+    text-transform: uppercase;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.portadaGrid {
+    padding: 2em;
+    display: block;
+    overflow: hidden;
+}
+
+.portadaIconos {
+    float: left;
+    margin-top: 3em;
+}
+
+.cajaIcono {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    border: 2px solid white;
+    border-radius: 10px;
+    text-align: center;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    vertical-align: middle;
+}
+
+.cajaIcono img {
+    width: 40px;
+    height: 40px;
+    margin-top: 13px;
+}
+
+
+.portadaTextoGrupo {
+    float: right;
+    width: 50%;
+    text-align: left;
+}
+
+.portadaDescripcion {
+    color: white;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 1.5em;
+}
+
+.botonBorde {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    border: 2px solid white;
+    padding: 0.8em 1.5em;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.botonBorde:hover {
+    background-color: white;
+    color: #1a1a2e;
+}
+
+.iconoFlecha {
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+    margin-left: 0.3em;
+}
+
+.contenedorPrincipal {
+    padding: 4em 5%;
+}
+
+.seccionInfo {
+    padding: 4em 0;
+    overflow: hidden;
+    display: table;
+    width: 100%;
+}
+
+.infoTexto {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+    box-sizing: border-box;
+    padding-right: 2em;
+}
+
+.infoTexto h2 {
+    color: #263238;
+    font-size: 48px;
+    margin: 0 0 1em 0;
+    line-height: 1.2;
+}
+
+.infoTexto p {
+    color: #546E7A;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 1.5em;
+}
+
+.enlaceFlecha {
+    color: #263238;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.enlaceFlecha:hover {
+    color: #455A64;
+}
+
+.enlaceFlecha .iconoFlecha {
+    background-color: #263238;
+    border-radius: 50%;
+    padding: 5px;
+    width: 25px;
+    height: 25px;
+}
+
+.infoTarjeta {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+}
+
+.contenedorVideo {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.videoFondo {
+    width: 100%;
+    display: block;
+    filter: brightness(0.7);
+}
+
+.infoTarjeta img {
+    width: 100%;
+    display: block;
+    border-radius: 15px;
+    filter: brightness(0.7);
+}
+
+.superposicionPlay {
+    position: absolute;
+    bottom: 1.5em;
+    left: 1.5em;
+    color: white;
+    display: block;
+    overflow: hidden;
+}
+
+.superposicionPlay .iconoPlay {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin-right: 0.8em;
+}
+
+.superposicionPlay span {
+    display: block;
+    float: left;
+    font-size: 14px;
+    line-height: 1.4;
+    padding-top: 0.3em;
+}
+
+.superposicionPlay span br+span {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.seccionSenderos {
+    padding: 4em 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+.tarjetaSendero {
+    display: inline-block;
+    width: 28%;
+    margin: 0 2%;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    vertical-align: top;
+    text-decoration: none;
+}
+
+.tarjetaSendero img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+    border-radius: 15px;
+    filter: brightness(0.7);
+}
+
+.badge {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 0.5em 1.5em;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.detallesTarjeta {
+    position: absolute;
+    bottom: 1.5em;
+    left: 1.5em;
+    text-align: left;
+    color: white;
+}
+
+.detallesTarjeta h3 {
+    margin: 0 0 0.3em 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.detallesTarjeta .distance {
+    font-size: 14px;
+    color: #ccc;
+}
+
+footer {
+    background-color: #263238;
+    padding: 3em 5%;
+}
+
+.footerContenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.footerColumna {
+    width: 25%;
+}
+
+.footerColumna a,
+.footerColumna p {
+    display: block;
+    margin: 0;
+    margin-bottom: 0.5em;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.footerColumna a:last-child,
+.footerColumna p:last-child {
+    margin-bottom: 0;
+}
+
+.footerColumna a:hover {
+    text-decoration: underline;
+}
+
+.footerCentro {
+    width: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footerLogo {
+    width: 8em;
+    height: auto;
+    margin-bottom: 1em;
+}
+
+.alinearDerecha {
+    text-align: right;
+}
+
+.iconosSociales {
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.iconosSociales a {
+    display: inline-block;
+    margin: 0 0.8em;
+    text-decoration: none;
+}
+
+
+.textoSociales {
+    color: white;
+    font-size: 14px;
+    font-style: italic;
+    margin: 0 0 0.5em 0;
+}
+
+.rutaSeccion {
+    background: linear-gradient(135deg, #455A64 0%, #263238 100%);
+    padding: 3em 0;
+    text-align: center;
+}
+
+.contenidoRuta {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: left;
+}
+
+.contenidoRuta h1 {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    font-style: italic;
+    margin: 0 0 1em 0;
+    letter-spacing: 2px;
+}
+
+.imagenPrincipal img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.descripcionRuta {
+    color: white;
+    margin-bottom: 2em;
+}
+
+.descripcionRuta h2 {
+    font-size: 24px;
+    font-weight: normal;
+    font-style: italic;
+    margin: 0 0 1em 0;
+    color: white;
+}
+
+.descripcionRuta h3 {
+    font-size: 16px;
+    font-weight: normal;
+    font-style: italic;
+    margin: 1.5em 0 0.5em 0;
+    color: white;
+}
+
+.descripcionRuta p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #ccc;
+    margin-bottom: 1em;
+}
+
+.paginacion {
+    text-align: right;
+    margin-top: 2em;
+    color: white;
+}
+
+.paginacion a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 0.3em;
+}
+
+.paginacion a:hover {
+    color: #ccc;
+}
+
+.paginacion span {
+    font-size: 16px;
+    margin: 0 0.5em;
+}
+
+.footerPaginaContenido {
+    background-color: #263238;
+    text-align: center;
+    padding: 2em 0;
+}
+
+.footerPaginaContenido .logoFooter img {
+    width: 350px;
+}
+
+.formularioRuta {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.formularioGrupo {
+    margin-bottom: 1.5em;
+}
+
+.formularioGrupo label {
+    display: block;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 0.5em;
+}
+
+.formularioGrupo input,
+.formularioGrupo select,
+.formularioGrupo textarea {
+    width: 100%;
+    padding: 1em;
+    font-size: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.formularioGrupo input::placeholder,
+.formularioGrupo textarea::placeholder {
+    color: #aaa;
+}
+
+.formularioGrupo input:focus,
+.formularioGrupo select:focus,
+.formularioGrupo textarea:focus {
+    border-color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.formularioGrupo select option {
+    background-color: #1a1a2e;
+    color: white;
+}
+
+.formularioFila {
+    display: table;
+    width: 100%;
+    margin-bottom: 1.5em;
+}
+
+.formularioFila .formularioGrupo {
+    display: table-cell;
+    width: 48%;
+    margin-bottom: 0;
+}
+
+.formularioFila .formularioGrupo:first-child {
+    padding-right: 2%;
+}
+
+.formularioFila .formularioGrupo:last-child {
+    padding-left: 2%;
+}
+
+.formularioDuracion {
+    display: block;
+}
+
+.formularioDuracion input {
+    display: inline-block;
+    width: 40%;
+    margin-right: 0.5em;
+    vertical-align: middle;
+}
+
+.formularioDuracion span {
+    color: white;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+
+.formularioImagen input[type="file"] {
+    display: none;
+}
+
+.botonImagen {
+    display: inline-block;
+    padding: 1em 2em;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.botonImagen:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: white;
+}
+
+.iconoSubir {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+
+.formularioBotones {
+    margin-top: 2em;
+    text-align: right;
+}
+
+.botonCancelar {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8em 2em;
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    margin-right: 1em;
+    cursor: pointer;
+    line-height: 1.2em;
+    min-height: 3.5em;
+    box-sizing: border-box;
+}
+
+.botonCancelar:hover {
+    border-color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.botonGuardar {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8em 2em;
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 30px;
+    color: #1a1a2e;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    line-height: 1.2em;
+    min-height: 3.5em;
+    box-sizing: border-box;
+}
+
+.botonGuardar:hover {
+    background-color: #ddd;
+    border-color: #ddd;
+}
+
+.iconoCheck {
+    width: 20px;
+    height: 20px;
+    margin-left: 0.5em;
+    vertical-align: middle;
+}
+
+.formularioImagenExaminar {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 1.5em;
+}
+
+.examinarFila {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+.examinarFila input[type="file"] {
+    flex: 1;
+    min-width: 200px;
+    color: white;
+    font-size: 14px;
+    padding: 0.5em;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.examinarFila input[type="file"]::file-selector-button {
+    background-color: #546E7A;
+    color: white;
+    border: none;
+    padding: 0.5em 1.2em;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-right: 1em;
+}
+
+.examinarFila input[type="file"]::file-selector-button:hover {
+    background-color: #607D8B;
+}
+
+.botonExaminar {
+    padding: 0.7em 2em;
+    background-color: #607D8B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.botonExaminar:hover {
+    background-color: #78909C;
+}
+
+.examinarInfo {
+    margin-top: 0.8em;
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.imagenesResumen {
+    margin-top: 1.2em;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 1em;
+}
+
+.imagenesContador {
+    color: #81C784;
+    font-size: 15px;
+    margin-bottom: 0.8em;
+}
+
+.tablaImagenes {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.tablaImagenes th,
+.tablaImagenes td {
+    padding: 0.6em 0.8em;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.tablaImagenes th {
+    background-color: rgba(255, 255, 255, 0.08);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.tablaImagenes tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tablaImagenes tfoot td {
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: none;
+    color: #81C784;
+}
+
+.mensajeExito {
+    background-color: rgba(76, 175, 80, 0.25);
+    border: 1px solid #4CAF50;
+    color: #81C784;
+    padding: 1em;
+    border-radius: 10px;
+    margin-bottom: 1.5em;
+    text-align: center;
+    font-size: 14px;
+}
+
+.categoriaPrincipal {
+    background-color: #2d2d2d;
+    flex: 1;
+}
+
+.categoriaToolbar {
+    padding: 1.5em 5%;
+    background-color: #1a1a2e;
+    background-image: url("../Img/fondo.jpg");
+    background-size: cover;
+    background: linear-gradient(135deg, #455A64 0%, #263238 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
+}
+
+.categoriaToolbar h1 {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    line-height: 36px;
+}
+
+.cajaBusqueda {
+    background-color: #555;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.cajaBusqueda input {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 0.6em 1em;
+    font-size: 14px;
+    width: 150px;
+    outline: none;
+}
+
+.cajaBusqueda input::placeholder {
+    color: #aaa;
+}
+
+.cajaBusqueda button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 0.6em 1em;
+    cursor: pointer;
+}
+
+.cajaBusqueda button:hover {
+    color: #ccc;
+}
+
+.listaRutas {
+    padding: 0;
+    margin: 0;
+}
+
+.seccionTiempo {
+    padding-left: 20px;
+    border-left: 2px solid #555;
+}
+
+.seccionTiempo h3 {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 1em;
+}
+
+.tarjetaTiempo {
+    background-color: rgba(85, 85, 85, 0.5);
+    border-radius: 10px;
+    padding: 1.5em;
+    display: flex;
+    gap: 2em;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.temperaturaInfo {
+    text-align: center;
+    min-width: 150px;
+}
+
+.temperatura {
+    font-size: 48px;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+}
+
+.sensacionTermica {
+    color: #aaa;
+    font-size: 14px;
+    margin: 0.5em 0 0 0;
+}
+
+.detallesTiempo {
+    flex: 1;
+}
+
+.detallesTiempo p {
+    color: #ddd;
+    font-size: 14px;
+    margin: 0.7em 0;
+    line-height: 1.5;
+}
+
+.detallesTiempo strong {
+    color: white;
+}
+
+.alertaTiempo {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    color: #ddd;
+    padding: 1em;
+    border-radius: 10px;
+    margin-top: 0;
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.consejosSeguridad {
+    margin-top: 15px;
+    text-align: left;
+}
+
+.consejosSeguridad ul {
+    margin: 10px 0;
+    padding-left: 20px;
+    font-style: normal;
+}
+
+.consejosSeguridad .enlace-tiempo-container {
+    margin-top: 10px;
+}
+
+.consejosSeguridad a {
+    color: #FFD700;
+    text-decoration: underline;
+}
+
+.tarjetaRuta {
+    display: block;
+    background-color: #4a4a4a;
+    border-bottom: 2px solid #333;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.tarjetaRutaEnlace {
+    display: table;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+    padding-right: 50px;
+    box-sizing: border-box;
+}
+
+.tarjetaRutaEnlace:hover {
+    background-color: #555;
+}
+
+.tarjetaRutaImagen {
+    display: table-cell;
+    vertical-align: middle;
+    width: 280px;
+}
+
+.tarjetaRutaImagen img {
+    width: 280px;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+}
+
+.sinFoto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    background-color: #37474F;
+}
+
+.sinFoto img {
+    width: 50px;
+    height: 50px;
+    opacity: 0.4;
+    object-fit: contain;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.imagenPrincipal .sinFoto img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    box-shadow: none;
+}
+
+.tarjetaRutaInfo {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 1em 1.5em;
+}
+
+.tarjetaRutaInfo h2 {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 0.3em 0;
+}
+
+.tarjetaRutaUbicacion {
+    color: #bbb;
+    font-size: 13px;
+    margin: 0 0 0.5em 0;
+}
+
+.tarjetaRutaEstadisticas {
+    color: #ddd;
+    font-size: 13px;
+}
+
+.tarjetaRutaEstadisticas span {
+    margin-right: 0.3em;
+    vertical-align: middle;
+}
+
+.iconoEstrella {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 0.2em;
+}
+
+.tarjetaRutaMapa {
+    display: table-cell;
+    vertical-align: middle;
+    width: 70px;
+    text-align: center;
+    padding-right: 1em;
+}
+
+.iconoMapa {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+}
+
+.botonMarcador {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    margin-top: -15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.iconoFavorito {
+    width: 30px;
+    height: 30px;
+}
+
+.iconoBuscar {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.loginPrincipal {
+    min-height: 60vh;
+    display: table;
+    width: 100%;
+    background: linear-gradient(135deg, #455A64 0%, #263238 100%);
+}
+
+.loginContenedor {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    padding: 3em;
+}
+
+.loginContenedor h1 {
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0 0 1.5em 0;
+    letter-spacing: 2px;
+}
+
+.loginFormulario {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.mensajeError {
+    background-color: rgba(255, 100, 100, 0.3);
+    border: 1px solid #ff6464;
+    color: white;
+    padding: 1em;
+    border-radius: 10px;
+    margin-bottom: 1.5em;
+    text-align: center;
+    font-size: 14px;
+}
+
+.loginCampo {
+    margin-bottom: 1.5em;
+    text-align: left;
+}
+
+.loginCampo label {
+    display: block;
+    color: white;
+    font-size: 14px;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+}
+
+.loginInputGrupo {
+    position: relative;
+}
+
+.iconoInput {
+    position: absolute;
+    left: 15px;
+    top: 45%;
+    margin-top: -9px;
+    width: 25px;
+    height: 25px;
+}
+
+.loginInputGrupo input {
+    width: 100%;
+    padding: 1em 1em 1em 3em;
+    font-size: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.loginInputGrupo input::placeholder {
+    color: #aaa;
+}
+
+.loginInputGrupo input:focus {
+    border-color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.loginBoton {
+    width: 100%;
+    padding: 1em 2em;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a1a2e;
+    background-color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 1em;
+}
+
+.loginBoton:hover {
+    background-color: #ddd;
+}
+
+.iconoBotonLogin {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    margin-left: 0.5em;
+}
+
+.loginEnlaces {
+    margin-top: 2em;
+}
+
+.loginEnlaces a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.loginEnlaces a:hover {
+    text-decoration: underline;
+}
+
+.iconoVolver {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+
+.registroImagen input[type="file"] {
+    display: none;
+}
+
+.botonImagenRegistro {
+    display: block;
+    padding: 1em 2em;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.botonImagenRegistro:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: white;
+}
+
+.iconoSubirRegistro {
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+
+.info-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.info-container>* {
+    flex: 1 1 400px;
+    width: 100%;
+    min-width: 0;
+}
+
+#map {
+    height: 400px;
+    z-index: 0;
+    border-radius: 8px;
+}
+
+.header-grid {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.header-grid>* {
+    flex: 1 1 400px;
+    width: 100%;
+}
+
+.imagenPrincipal img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
+    max-height: 500px;
+}
+
+@media (max-width: 850px) {
+
+    header.portada {
+        min-height: auto;
+        overflow: visible;
+    }
+
+    .iconoMenu {
+        display: block;
+    }
+
+    .logo-desktop {
+        display: none;
+    }
+
+    .enlacesNav {
+        display: none;
+    }
+
+    .enlacesNav.mostrar-menu {
+        display: block !important;
+        background-color: #263238;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        transform: none;
+        z-index: 2000;
+        text-align: center;
+        padding: 1em 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .enlacesNav.mostrar-menu li {
+        display: block;
+        margin: 1.5em 0;
+    }
+
+    .tituloPortada {
+        font-size: 36px;
+        letter-spacing: 4px;
+    }
+
+    .portadaIconos,
+    .portadaTextoGrupo {
+        float: none;
+        width: 100%;
+    }
+
+    .seccionInfo {
+        display: block;
+    }
+
+    .infoTexto,
+    .infoTarjeta {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 2em;
+    }
+
+    .infoTexto h2 {
+        font-size: 32px;
+    }
+
+    .tarjetaSendero {
+        display: block;
+        width: 90%;
+        margin: 0 auto 2em auto;
+    }
+
+    .footerContenido {
+        display: block;
+    }
+
+    .footerColumna,
+    .footerCentro {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1.5em;
+    }
+
+    .alinearDerecha {
+        text-align: center;
+    }
+
+    .contenidoRuta h1 {
+        font-size: 28px;
+    }
+
+    .descripcionRuta h2 {
+        font-size: 20px;
+    }
+
+    .categoriaToolbar h1 {
+        text-align: center;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+
+    .cajaBusqueda {
+        margin: 0 auto;
+        width: auto;
+        max-width: 90%;
+        justify-content: center;
+    }
+
+    .tarjetaRuta {
+        display: block;
+    }
+
+    .tarjetaRutaEnlace {
+        display: block;
+        padding-right: 0;
+    }
+
+    .tarjetaRutaImagen {
+        display: block;
+        width: 100%;
+    }
+
+    .tarjetaRutaImagen img {
+        width: 100%;
+        height: 180px;
+    }
+
+    .tarjetaRutaInfo {
+        display: block;
+        padding: 2em;
+    }
+
+    .tarjetaRutaMapa {
+        display: none;
+    }
+
+    .botonMarcador {
+        top: 15px;
+        right: 15px;
+        margin-top: 0;
+    }
+
+    .loginContenedor {
+        padding: 2em 1.5em;
+    }
+
+    .loginContenedor h1 {
+        font-size: 28px;
+    }
+
+    .loginFormulario {
+        max-width: 100%;
+    }
+
+    .formularioFila {
+        display: block;
+    }
+
+    .formularioFila .formularioGrupo {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 1.5em;
+    }
+
+    .formularioDuracion input {
+        width: 25%;
+    }
+
+    .formularioBotones {
+        text-align: center;
+    }
+
+    .botonCancelar,
+    .botonGuardar {
+        display: block;
+        width: 100%;
+        margin: 0 0 1em 0;
+    }
+
+    .seccionTiempo {
+        padding-left: 0;
+        border-left: none;
+        margin-top: 2em;
+        border-top: 2px solid #555;
+        padding-top: 2em;
+    }
+
+    .header-grid {
+        flex-direction: column;
+    }
+
+    .contenedorPrincipal {
+        padding: 2em 5%;
+    }
+
+    .seccionInfo {
+        padding-top: 2em;
+        padding-bottom: 0;
+    }
+
+    .seccionSenderos {
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+
+    .tituloSenderos {
+        font-size: 28px;
+        margin-bottom: 1em;
+    }
+}
+
+.swiper {
+    width: 100%;
+    height: 60vh;
+    padding-bottom: 50px;
+    margin-top: 20px;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #263238;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8);
+    transition: filter 0.3s ease;
+}
+
+.swiper-slide:hover img {
+    filter: brightness(1);
+}
+
+.slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.slide-caption h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    letter-spacing: 1px;
+    font-style: italic;
+    color: white;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.swiper-pagination-bullet {
+    background: #ccc;
+    opacity: 0.5;
+}
+
+
+.swiper-pagination-bullet-active {
+    background: white;
+    opacity: 1;
+}
+
+.header-general {
+    background: linear-gradient(135deg, #455A64 0%, #263238 100%);
+    position: relative;
+    z-index: 1000;
+}
+
+.seccionComentarios {
+    margin-top: 4em;
+    padding-top: 2em;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.seccionComentarios h3 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 1.5em;
+}
+
+.formularioResena {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 2em;
+    border-radius: 15px;
+    margin-bottom: 3em;
+}
+
+.formularioResena .form-group {
+    margin-bottom: 1.5em;
+}
+
+.formularioResena label {
+    display: block;
+    color: white;
+    margin-bottom: 0.5em;
+}
+
+.formularioResena textarea {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    padding: 1em;
+    font-family: inherit;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rating-input input {
+    display: none;
+}
+
+.rating-input label {
+    cursor: pointer;
+    font-size: 30px;
+    color: #dadada;
+    margin: 0;
+    padding: 0 5px;
+    transition: color 0.2s;
+}
+
+.rating-input label:hover,
+.rating-input label:hover~label,
+.rating-input input:checked~label {
+    color: #FFD700;
+}
+
+.tarjetaResena {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.resenaHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.8em;
+}
+
+.resenaUserInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.resenaUsuario {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 0.2em;
+}
+
+.resenaFecha {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.resenaRatingStatic {
+    color: #FFD700;
+    font-size: 14px;
+}
+
+.star-static {
+    color: #555;
+}
+
+.star-static.filled {
+    color: #FFD700;
+}
+
+.resenaBody p {
+    color: #ddd;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.login-prompt {
+    text-align: center;
+    padding: 2em;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-bottom: 2em;
+}
+
+.login-prompt p {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 1em;
+}
+
+.login-prompt a {
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.mensajeExito {
+    background-color: rgba(100, 255, 100, 0.2);
+    border: 1px solid #64ff64;
+    color: white;
+    padding: 1em;
+    border-radius: 10px;
+    margin-bottom: 1.5em;
+}
+
+.no-resenas {
+    color: white;
+    font-style: italic;
+    text-align: center;
+    padding: 2em;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.info-page-main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #f0f3f5;
+    padding: 40px 20px;
+}
+
+.info-section {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.info-section h1 {
+    color: #37474F;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.info-text p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    text-align: left;
+}
+
+.info-text em {
+    font-size: 0.9em;
+    color: #888;
+    display: block;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.tituloSenderos {
+    color: #263238;
+    font-size: 48px;
+    margin: 0 0 1em 0;
+    line-height: 1.2;
+    text-align: center;
+}

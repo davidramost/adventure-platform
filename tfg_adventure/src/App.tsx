@@ -1,0 +1,28 @@
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import CategoryPage from './pages/CategoryPage';
+import ContentPage from './pages/ContentPage';
+import GalleryPage from './pages/GalleryPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import CreatePage from './pages/CreatePage';
+import FavoritesPage from './pages/FavoritesPage';
+import InfoPage from './pages/InfoPage';
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/senderos" element={<CategoryPage />} />
+      <Route path="/ruta/:id" element={<ContentPage />} />
+      <Route path="/galeria" element={<GalleryPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/registro" element={<RegisterPage />} />
+      <Route path="/crear-ruta" element={<CreatePage />} />
+      <Route path="/favoritos" element={<FavoritesPage />} />
+      <Route path="/info" element={<InfoPage />} />
+    </Routes>
+  );
+}
+
+export default App;
