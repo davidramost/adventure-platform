@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary-dark: #263238;
+  --color-primary: #37474F;
+  --color-primary-light: #455A64;
+  --color-secondary: #546E7A;
+  --color-accent: #607D8B;
+  --color-surface: #4a4a4a;
+  --color-surface-dark: #2d2d2d;
+  --color-bg: #f0f3f5;
+  --color-success: #4CAF50;
+  --color-error: #ff6464;
+  --font-sans: "Montserrat", sans-serif;
+  --font-display: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+@layer base {
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    min-height: 100vh;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
