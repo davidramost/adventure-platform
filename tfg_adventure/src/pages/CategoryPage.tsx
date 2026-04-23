@@ -1,15 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
+import { getAllRutas } from '../services/rutaService';
+import type { Ruta } from '../types';
 
 export default function CategoryPage() {
-  const { rutas, usuario, esFavorito, toggleFavorito, deleteRuta } = useAuth();
+  const { usuario, esFavorito, toggleFavorito, deleteRuta } = useAuth();
+  const [rutas, setRutas] = useState<Ruta[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const [search, setSearch] = useState('');
 
   const dificultadFilter = searchParams.get('dificultad');
+
+  useEffect(() => {
+    const fetchRutas = async () => {
+      try {
+        const data = await getAllRutas();
+        setRutas(data);
+      } catch (error) {
+        console.error("Error fetching rutas:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRutas();
+  }, []);
 
   const filteredRutas = rutas.filter(ruta => {
     const matchDificultad = !dificultadFilter ||
@@ -49,7 +67,9 @@ export default function CategoryPage() {
 
         {/* Route list */}
         <section>
-          {filteredRutas.length > 0 ? (
+          {loading ? (
+            <p className="text-white text-center py-8">Cargando rutas...</p>
+          ) : filteredRutas.length > 0 ? (
             filteredRutas.map(ruta => (
               <article key={ruta.id_ruta} className="block bg-surface border-b-2 border-[#333] relative">
                 <Link
@@ -78,7 +98,7 @@ export default function CategoryPage() {
                     <div className="text-[#ddd] text-[13px] flex flex-wrap gap-1 items-center">
                       <span className="flex items-center gap-1">
                         <img src="/Img/Icons/star.png" alt="Estrella" className="w-4 h-4 align-middle" />
-                        {ruta.media_puntuacion.toFixed(1)}
+                        {(ruta.media_puntuacion ?? 0).toFixed(1)}
                       </span>
                       <span>• {ruta.duracion_estimada}</span>
                       <span>• {ruta.distancia_km}km</span>
