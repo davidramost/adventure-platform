@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
 export default function Header({ transparent = false }: { transparent?: boolean }) {
   const { usuario, logout } = useAuth();
+  const { totalItems } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
@@ -60,10 +62,31 @@ export default function Header({ transparent = false }: { transparent?: boolean 
             SENDEROS
           </Link>
         </li>
+        <li>
+          <Link
+            to="/tienda"
+            className="text-white no-underline text-sm font-medium tracking-wider hover:text-gray-300 transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
+            TIENDA
+          </Link>
+        </li>
       </ul>
 
-      {/* Login / User menu */}
-      <div className="relative z-10 hidden md:block">
+      {/* Right side: Cart + Login / User menu */}
+      <div className="relative z-10 hidden md:flex items-center gap-6">
+        {/* Cart Icon */}
+        <Link to="/carrito" className="relative text-white hover:text-gray-300 transition-colors flex items-center group">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          {totalItems > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-primary-dark group-hover:border-primary-light transition-colors">
+              {totalItems}
+            </span>
+          )}
+        </Link>
         {usuario ? (
           <div
             className="relative"

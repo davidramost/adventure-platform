@@ -8,6 +8,9 @@ import RegisterPage from './pages/RegisterPage';
 import CreatePage from './pages/CreatePage';
 import FavoritesPage from './pages/FavoritesPage';
 import InfoPage from './pages/InfoPage';
+import StorePage from './pages/StorePage';
+import ProductPage from './pages/ProductPage';
+import CartPage from './pages/CartPage';
 
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
       <Route path="/crear-ruta" element={<CreatePage />} />
       <Route path="/favoritos" element={<FavoritesPage />} />
       <Route path="/info" element={<InfoPage />} />
+      <Route path="/tienda" element={<StorePage />} />
+      <Route path="/producto/:id" element={<ProductPage />} />
+      <Route path="/carrito" element={<CartPage />} />
     </Routes>
   );
 }
