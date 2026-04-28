@@ -85,11 +85,10 @@ export default function HomePage() {
                            hover:bg-white hover:text-primary-dark transition-colors group"
               >
                 Descubre más
-                <img
-                  src="/Img/Icons/arrow_right.png"
-                  alt="Flecha"
-                  className="w-[30px] h-[30px] ml-2 invert group-hover:invert-0 transition-all group-hover:translate-x-1"
-                />
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-all">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
               </Link>
             </div>
           </div>
@@ -116,11 +115,10 @@ export default function HomePage() {
               Ver catálogo
               <span className="ml-3 w-8 h-8 rounded-full bg-primary-dark flex items-center justify-center
                               group-hover:bg-primary-light group-hover:translate-x-1 transition-all">
-                <img
-                  src="/Img/Icons/arrow_right.png"
-                  alt="Flecha"
-                  className="w-5 h-5 invert"
-                />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
               </span>
             </Link>
           </div>

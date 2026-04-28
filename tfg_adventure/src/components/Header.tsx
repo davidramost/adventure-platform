@@ -73,32 +73,24 @@ export default function Header({ transparent = false }: { transparent?: boolean 
         </li>
       </ul>
 
-      {/* Right side: Cart + Login / User menu */}
+      {/* Right side: Login/User menu + Cart */}
       <div className="relative z-10 hidden md:flex items-center gap-6">
-        {/* Cart Icon */}
-        <Link to="/carrito" className="relative text-white hover:text-gray-300 transition-colors flex items-center group">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          {totalItems > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-primary-dark group-hover:border-primary-light transition-colors">
-              {totalItems}
-            </span>
-          )}
-        </Link>
+        {/* Login / User menu */}
         {usuario ? (
           <div
             className="relative"
             onMouseEnter={() => setUserMenuOpen(true)}
             onMouseLeave={() => setUserMenuOpen(false)}
           >
-            <span className="text-white text-sm cursor-pointer px-4 py-2 border border-white/50 rounded-full hover:border-white transition-colors">
-              {usuario.nombre_usuario}
-            </span>
+            <button className="text-white hover:text-gray-300 transition-colors flex items-center justify-center w-8 h-8">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </button>
 
             {userMenuOpen && (
-              <div className="absolute top-full right-0 mt-0 pt-2">
+              <div className="absolute top-full left-0 mt-0 pt-2">
                 <div className="bg-black/90 rounded-xl min-w-[160px] overflow-hidden shadow-xl">
                   <Link
                     to="/favoritos"
@@ -123,10 +115,26 @@ export default function Header({ transparent = false }: { transparent?: boolean 
             )}
           </div>
         ) : (
-          <Link to="/login" className="text-white no-underline text-sm hover:text-gray-300 transition-colors">
-            Iniciar sesión
+          <Link to="/login" className="text-white hover:text-gray-300 transition-colors flex items-center justify-center w-8 h-8">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
           </Link>
         )}
+
+        {/* Cart Icon */}
+        <Link to="/carrito" className="relative text-white hover:text-gray-300 transition-colors flex items-center group">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          {totalItems > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-primary-dark group-hover:border-primary-light transition-colors">
+              {totalItems}
+            </span>
+          )}
+        </Link>
       </div>
     </nav>
   );

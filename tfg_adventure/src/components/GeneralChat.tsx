@@ -24,7 +24,6 @@ export default function GeneralChat() {
     const [input, setInput] = useState('');
     const [sending, setSending] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const bottomRef = useRef<HTMLDivElement>(null);
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     const loadMessages = useCallback(async () => {
@@ -44,10 +43,6 @@ export default function GeneralChat() {
             if (intervalRef.current) clearInterval(intervalRef.current);
         };
     }, [usuario, loadMessages]);
-
-    useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages]);
 
     async function handleSend(e: React.FormEvent) {
         e.preventDefault();
@@ -141,7 +136,6 @@ export default function GeneralChat() {
                             );
                         })
                     )}
-                    <div ref={bottomRef} />
                 </div>
 
                 {/* Input */}

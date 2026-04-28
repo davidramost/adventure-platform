@@ -11,12 +11,18 @@ export default function LoginPage() {
   const [contrasena, setContrasena] = useState('');
   const [recordar, setRecordar] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
+
     const err = await login(email.trim(), contrasena.trim());
     if (err) {
       setError(err);
+      setContrasena('');
+      setLoading(false);
     } else {
       if (recordar) {
         localStorage.setItem('email_recordado', email);
@@ -47,7 +53,10 @@ export default function LoginPage() {
             <div className="mb-6 text-left">
               <label htmlFor="email" className="block text-white text-sm mb-2 font-medium">Email</label>
               <div className="relative">
-                <img src="/Img/Icons/mail.png" alt="Email" className="absolute left-4 top-1/2 -translate-y-1/2 w-[25px] h-[25px]" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
                 <input
                   type="email"
                   id="email"
@@ -55,8 +64,9 @@ export default function LoginPage() {
                   onChange={e => setEmail(e.target.value)}
                   placeholder="Tu correo electrónico"
                   required
+                  disabled={loading}
                   className="w-full p-4 pl-12 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none 
-                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15"
+                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
             </div>
@@ -72,8 +82,9 @@ export default function LoginPage() {
                   onChange={e => setContrasena(e.target.value)}
                   placeholder="Tu contraseña"
                   required
+                  disabled={loading}
                   className="w-full p-4 pl-12 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none 
-                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15"
+                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
             </div>
@@ -84,18 +95,35 @@ export default function LoginPage() {
                 id="recordar"
                 checked={recordar}
                 onChange={e => setRecordar(e.target.checked)}
-                className="w-auto"
+                disabled={loading}
+                className="w-auto disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <label htmlFor="recordar" className="text-white text-sm cursor-pointer">Recordar mi email</label>
             </div>
 
             <button
               type="submit"
+              disabled={loading}
               className="w-full p-4 text-base font-medium text-primary-dark bg-white border-none rounded-full cursor-pointer mt-4
-                         hover:bg-gray-200 transition-colors"
+                         hover:bg-gray-200 transition-colors flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Entrar
-              <img src="/Img/Icons/arrow_right_black.png" alt="Entrar" className="w-[25px] h-[25px] align-middle ml-2" />
+              {loading ? (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="animate-spin">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.25"></circle>
+                    <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="2" fill="none"></path>
+                  </svg>
+                  <span>Iniciando sesión...</span>
+                </>
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                  <span>Entrar</span>
+                </>
+              )}
             </button>
           </form>
 
