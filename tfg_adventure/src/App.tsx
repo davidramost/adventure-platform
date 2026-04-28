@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CreatePage from './pages/CreatePage';
 import FavoritesPage from './pages/FavoritesPage';
+import ProfilePage from './pages/ProfilePage';
 import InfoPage from './pages/InfoPage';
 import StorePage from './pages/StorePage';
 import ProductPage from './pages/ProductPage';
@@ -23,6 +24,7 @@ function App() {
       <Route path="/registro" element={<RegisterPage />} />
       <Route path="/crear-ruta" element={<CreatePage />} />
       <Route path="/favoritos" element={<FavoritesPage />} />
+      <Route path="/perfil" element={<ProfilePage />} />
       <Route path="/info" element={<InfoPage />} />
       <Route path="/tienda" element={<StorePage />} />
       <Route path="/producto/:id" element={<ProductPage />} />

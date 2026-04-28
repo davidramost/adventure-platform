@@ -9,11 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UsuarioResponse {
+public class AvatarUpdateRequest {
 
-    private Integer idUsuario;
-    private String nombreUsuario;
-    private String email;
     private String imagen;
-    private String rol;
 }
