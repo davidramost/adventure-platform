@@ -10,4 +10,6 @@ import java.util.List;
 public interface MensajeRepository extends JpaRepository<Mensaje, Integer> {
 
     List<Mensaje> findByRutaIdRutaOrderByFechaHoraDesc(Integer idRuta);
+
+    List<Mensaje> findByRutaIsNullOrderByFechaHoraAsc();
 }

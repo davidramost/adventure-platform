@@ -31,7 +31,7 @@ public class Mensaje {
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_ruta", nullable = false)
+    @JoinColumn(name = "id_ruta", nullable = true)
     @ToString.Exclude
     private Ruta ruta;
 }
