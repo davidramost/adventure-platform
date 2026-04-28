@@ -21,7 +21,10 @@ export default function Header({ transparent = false }: { transparent?: boolean 
       {/* Mobile menu button */}
       <button
         className="block md:hidden cursor-pointer bg-transparent border-none"
-        onClick={() => setMenuOpen(!menuOpen)}
+        onClick={() => {
+          setMenuOpen(!menuOpen);
+          setUserMenuOpen(false);
+        }}
       >
         <img src="/Img/Icons/lineas.png" className="w-[35px]" alt="Menú" />
       </button>
@@ -74,15 +77,24 @@ export default function Header({ transparent = false }: { transparent?: boolean 
       </ul>
 
       {/* Right side: Login/User menu + Cart */}
-      <div className="relative z-10 hidden md:flex items-center gap-6">
+      <div className="relative z-10 flex items-center gap-4 md:gap-6">
         {/* Login / User menu */}
         {usuario ? (
           <div
             className="relative"
-            onMouseEnter={() => setUserMenuOpen(true)}
+            onMouseEnter={() => {
+              setUserMenuOpen(true);
+              setMenuOpen(false);
+            }}
             onMouseLeave={() => setUserMenuOpen(false)}
           >
-            <button className="text-white hover:text-gray-300 transition-colors flex items-center justify-center w-8 h-8">
+            <button 
+              onClick={() => {
+                setUserMenuOpen(!userMenuOpen);
+                setMenuOpen(false);
+              }}
+              className="text-white hover:text-gray-300 transition-colors flex items-center justify-center w-8 h-8"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
@@ -90,22 +102,27 @@ export default function Header({ transparent = false }: { transparent?: boolean 
             </button>
 
             {userMenuOpen && (
-              <div className="absolute top-full left-0 mt-0 pt-2">
+              <div className="absolute top-full right-1/2 translate-x-1/2 pt-2">
                 <div className="bg-black/90 rounded-xl min-w-[160px] overflow-hidden shadow-xl">
                   <Link
                     to="/favoritos"
+                    onClick={() => setUserMenuOpen(false)}
                     className="block px-5 py-3 text-white no-underline text-sm border-b border-white/10 hover:bg-white/10 transition-colors"
                   >
                     Favoritos
                   </Link>
                   <Link
                     to="/crear-ruta"
+                    onClick={() => setUserMenuOpen(false)}
                     className="block px-5 py-3 text-white no-underline text-sm border-b border-white/10 hover:bg-white/10 transition-colors"
                   >
                     Crear ruta
                   </Link>
                   <button
-                    onClick={logout}
+                    onClick={() => {
+                      logout();
+                      setUserMenuOpen(false);
+                    }}
                     className="block w-full text-left px-5 py-3 text-white text-sm bg-transparent border-none cursor-pointer hover:bg-white/10 transition-colors"
                   >
                     Cerrar sesión

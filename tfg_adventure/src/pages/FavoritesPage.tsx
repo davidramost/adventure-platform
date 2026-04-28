@@ -50,7 +50,7 @@ export default function FavoritesPage() {
                     <div className="text-[#ddd] text-[13px] flex flex-wrap gap-1 items-center">
                       <span className="flex items-center gap-1">
                         <img src="/Img/Icons/star.png" alt="Estrella" className="w-4 h-4" />
-                        {ruta.media_puntuacion.toFixed(1)}
+                        {ruta.media_puntuacion?.toFixed(1) || 'N/A'}
                       </span>
                       <span>• {ruta.duracion_estimada}</span>
                       <span>• {ruta.distancia_km}km</span>
