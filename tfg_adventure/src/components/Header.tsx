@@ -88,7 +88,7 @@ export default function Header({ transparent = false }: { transparent?: boolean 
             }}
             onMouseLeave={() => setUserMenuOpen(false)}
           >
-            <button 
+            <button
               onClick={() => {
                 setUserMenuOpen(!userMenuOpen);
                 setMenuOpen(false);
