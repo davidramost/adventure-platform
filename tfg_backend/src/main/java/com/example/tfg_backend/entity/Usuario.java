@@ -33,9 +33,8 @@ public class Usuario implements UserDetails {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Lob
     @Column(name = "imagen")
-    private byte[] imagen;
+    private String imagen;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore

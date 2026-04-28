@@ -1,5 +1,6 @@
 package com.example.tfg_backend.dto;
 
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,11 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UsuarioResponse {
+public class UpdateUsuarioRequest {
 
-    private Integer idUsuario;
+    @Size(min = 1, max = 255, message = "Nombre de usuario debe tener entre 1 y 255 caracteres")
     private String nombreUsuario;
-    private String email;
-    private String imagen;
-    private String rol;
 }

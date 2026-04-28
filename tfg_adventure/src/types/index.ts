@@ -35,6 +35,7 @@ export interface Usuario {
     nombre_usuario: string;
     email: string;
     rol: 'admin' | 'usuario';
+    imagen?: string | null;
 }
 
 export interface AuthResponse {
@@ -76,6 +77,14 @@ export interface ResenaRequest {
 export interface ErrorResponse {
     message: string;
     timestamp: string;
+}
+
+export interface UpdateUsuarioRequest {
+    nombre_usuario?: string;
+}
+
+export interface UploadAvatarResponse {
+    imagen: string;
 }
 
 export interface Mensaje {
