@@ -77,3 +77,12 @@ export interface ErrorResponse {
     message: string;
     timestamp: string;
 }
+
+export interface Mensaje {
+    id_mensaje: number;
+    contenido: string;
+    fecha_hora: string;
+    id_usuario: number;
+    nombre_usuario: string;
+    id_ruta: number | null;
+}

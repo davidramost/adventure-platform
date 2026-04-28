@@ -1,5 +1,6 @@
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/TfgBackendApplication.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/config/DotenvEnvironmentPostProcessor.java
+/Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/config/JacksonConfig.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/config/SecurityConfig.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/controller/AuthController.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/controller/FavoritoController.java

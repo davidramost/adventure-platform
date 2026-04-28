@@ -32,4 +32,17 @@ public class MensajeController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(mensajeService.createMensaje(idRuta, request, usuario.getIdUsuario()));
     }
+
+    @GetMapping("/general")
+    public ResponseEntity<List<MensajeResponse>> getGeneralMessages() {
+        return ResponseEntity.ok(mensajeService.getGeneralMessages());
+    }
+
+    @PostMapping("/general")
+    public ResponseEntity<MensajeResponse> createGeneralMessage(
+            @Valid @RequestBody MensajeRequest request,
+            @AuthenticationPrincipal Usuario usuario) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(mensajeService.createGeneralMessage(request, usuario.getIdUsuario()));
+    }
 }

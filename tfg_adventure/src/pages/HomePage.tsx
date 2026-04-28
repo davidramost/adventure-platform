@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import GeneralChat from '../components/GeneralChat';
 import { useAuth } from '../context/AuthContext';
 
 export default function HomePage() {
@@ -181,6 +182,10 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+        {/* Chat general */}
+        <div className="px-[5%] pb-8">
+          <GeneralChat />
+        </div>
       </main>
 
       <Footer />

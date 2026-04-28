@@ -29,6 +29,7 @@ com/example/tfg_backend/security/JwtTokenProvider.class
 com/example/tfg_backend/service/AuthService.class
 com/example/tfg_backend/entity/Producto$ProductoBuilder.class
 com/example/tfg_backend/entity/Producto.class
+com/example/tfg_backend/config/JacksonConfig.class
 com/example/tfg_backend/repository/FavoritoRepository.class
 com/example/tfg_backend/config/SecurityConfig.class
 com/example/tfg_backend/dto/RutaResponse.class

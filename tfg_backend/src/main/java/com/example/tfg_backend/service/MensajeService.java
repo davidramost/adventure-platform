@@ -43,6 +43,24 @@ public class MensajeService {
         return toMensajeResponse(mensaje);
     }
 
+    public List<MensajeResponse> getGeneralMessages() {
+        return mensajeRepository.findByRutaIsNullOrderByFechaHoraAsc()
+                .stream().map(this::toMensajeResponse).toList();
+    }
+
+    public MensajeResponse createGeneralMessage(MensajeRequest request, Integer idUsuario) {
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        Mensaje mensaje = Mensaje.builder()
+                .ruta(null)
+                .usuario(usuario)
+                .contenido(request.getContenido())
+                .fechaHora(LocalDateTime.now())
+                .build();
+        mensaje = mensajeRepository.save(mensaje);
+        return toMensajeResponse(mensaje);
+    }
+
     private MensajeResponse toMensajeResponse(Mensaje mensaje) {
         return MensajeResponse.builder()
                 .idMensaje(mensaje.getIdMensaje())
@@ -50,7 +68,7 @@ public class MensajeService {
                 .fechaHora(mensaje.getFechaHora())
                 .idUsuario(mensaje.getUsuario().getIdUsuario())
                 .nombreUsuario(mensaje.getUsuario().getNombreUsuario())
-                .idRuta(mensaje.getRuta().getIdRuta())
+                .idRuta(mensaje.getRuta() != null ? mensaje.getRuta().getIdRuta() : null)
                 .build();
     }
 }
