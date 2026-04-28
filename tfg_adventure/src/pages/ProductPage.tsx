@@ -75,8 +75,14 @@ export default function ProductPage() {
 
           {/* Details */}
           <div className="md:w-3/5 p-8 md:p-12 flex flex-col">
-            <h1 className="text-white text-3xl md:text-4xl font-bold mb-4">{producto.nombre}</h1>
-            <p className="text-primary-light text-3xl font-bold mb-6">{producto.precio.toFixed(2)} €</p>
+            <h1 className="text-white text-3xl md:text-4xl font-bold mb-6">{producto.nombre}</h1>
+            <div className="mb-8">
+              <span className="text-gray-400 text-sm font-medium block mb-2">PRECIO</span>
+              <p className="text-white text-5xl md:text-6xl font-bold tracking-tight">
+                {producto.precio.toFixed(2)}
+                <span className="text-3xl md:text-4xl ml-2">€</span>
+              </p>
+            </div>
 
             <div className="mb-8">
               <h3 className="text-white text-lg mb-2 font-medium">Descripción</h3>
