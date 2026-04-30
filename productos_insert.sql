@@ -23,7 +23,7 @@ VALUES -- CALZADO (8 productos)
         89.99,
         45,
         'Calzado',
-        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1553062407/800/600'
     ),
     (
         'Zapatilla Trail Running MT Cushion 3',
@@ -31,7 +31,7 @@ VALUES -- CALZADO (8 productos)
         64.99,
         60,
         'Calzado',
-        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1553062407/800/600'
     ),
     (
         'Bota de Alta Montaña Alpinism 100',
@@ -39,7 +39,7 @@ VALUES -- CALZADO (8 productos)
         179.99,
         20,
         'Calzado',
-        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1553062407/800/600'
     ),
     (
         'Sandalia Trekking Arpenaz 500',
@@ -47,7 +47,7 @@ VALUES -- CALZADO (8 productos)
         24.99,
         80,
         'Calzado',
-        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1553062407/800/600'
     ),
     (
         'Bota Senderismo Niño MH100',
@@ -55,7 +55,7 @@ VALUES -- CALZADO (8 productos)
         39.99,
         35,
         'Calzado',
-        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1553062407/800/600'
     ),
     (
         'Zapatilla de Aproximación Simond Edge',
@@ -63,7 +63,7 @@ VALUES -- CALZADO (8 productos)
         74.99,
         25,
         'Calzado',
-        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1553062407/800/600'
     ),
     (
         'Bota Senderismo Ligera NH150',
@@ -71,7 +71,7 @@ VALUES -- CALZADO (8 productos)
         54.99,
         55,
         'Calzado',
-        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1553062407/800/600'
     ),
     (
         'Calcetín Técnico Trekking Medio MT500',
@@ -79,7 +79,7 @@ VALUES -- CALZADO (8 productos)
         14.99,
         100,
         'Accesorios',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     ),
     -- MOCHILAS (7 productos)
     (
@@ -88,7 +88,7 @@ VALUES -- CALZADO (8 productos)
         19.99,
         70,
         'Mochilas',
-        'https://images.unsplash.com/photo-1548693846-d5a7b0c84d39?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1548693846/800/600'
     ),
     (
         'Mochila Senderismo 40L NH Escape 500',
@@ -96,7 +96,7 @@ VALUES -- CALZADO (8 productos)
         59.99,
         40,
         'Mochilas',
-        'https://images.unsplash.com/photo-1548693846-d5a7b0c84d39?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1548693846/800/600'
     ),
     (
         'Mochila Montaña 60L Forclaz 60',
@@ -104,7 +104,7 @@ VALUES -- CALZADO (8 productos)
         89.99,
         25,
         'Mochilas',
-        'https://images.unsplash.com/photo-1548693846-d5a7b0c84d39?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1548693846/800/600'
     ),
     (
         'Mochila de Día Hiking 10L NH100',
@@ -112,7 +112,7 @@ VALUES -- CALZADO (8 productos)
         9.99,
         90,
         'Mochilas',
-        'https://images.unsplash.com/photo-1548693846-d5a7b0c84d39?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1548693846/800/600'
     ),
     (
         'Mochila Escalada y Via Ferrata 22L',
@@ -120,7 +120,7 @@ VALUES -- CALZADO (8 productos)
         49.99,
         30,
         'Mochilas',
-        'https://images.unsplash.com/photo-1548693846-d5a7b0c84d39?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1548693846/800/600'
     ),
     (
         'Mochila de Hidratación Trail 10L',
@@ -128,7 +128,7 @@ VALUES -- CALZADO (8 productos)
         34.99,
         45,
         'Mochilas',
-        'https://images.unsplash.com/photo-1548693846-d5a7b0c84d39?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1548693846/800/600'
     ),
     (
         'Mochila Trekking Mujer Arpenaz 30L',
@@ -136,7 +136,7 @@ VALUES -- CALZADO (8 productos)
         44.99,
         35,
         'Mochilas',
-        'https://images.unsplash.com/photo-1548693846-d5a7b0c84d39?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1548693846/800/600'
     ),
     -- ROPA (8 productos)
     (
@@ -145,7 +145,7 @@ VALUES -- CALZADO (8 productos)
         49.99,
         50,
         'Ropa',
-        'https://images.unsplash.com/photo-1607522370275-f14206abe4d3?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1607522370275/800/600'
     ),
     (
         'Forro Polar Trekking MH500 Fleece',
@@ -153,7 +153,7 @@ VALUES -- CALZADO (8 productos)
         34.99,
         60,
         'Ropa',
-        'https://images.unsplash.com/photo-1607522370275-f14206abe4d3?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1607522370275/800/600'
     ),
     (
         'Pantalón Trekking Convertible NH500',
@@ -161,7 +161,7 @@ VALUES -- CALZADO (8 productos)
         29.99,
         65,
         'Ropa',
-        'https://images.unsplash.com/photo-1607522370275-f14206abe4d3?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1607522370275/800/600'
     ),
     (
         'Camiseta Técnica Merino 100% Hombre',
@@ -169,7 +169,7 @@ VALUES -- CALZADO (8 productos)
         39.99,
         55,
         'Ropa',
-        'https://images.unsplash.com/photo-1607522370275-f14206abe4d3?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1607522370275/800/600'
     ),
     (
         'Chaqueta Softshell Alpinism 100',
@@ -177,7 +177,7 @@ VALUES -- CALZADO (8 productos)
         69.99,
         40,
         'Ropa',
-        'https://images.unsplash.com/photo-1607522370275-f14206abe4d3?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1607522370275/800/600'
     ),
     (
         'Legging Trekking Mujer NH100',
@@ -185,7 +185,7 @@ VALUES -- CALZADO (8 productos)
         19.99,
         70,
         'Ropa',
-        'https://images.unsplash.com/photo-1607522370275-f14206abe4d3?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1607522370275/800/600'
     ),
     (
         'Poncho Lluvia Ultraligero NH',
@@ -193,7 +193,7 @@ VALUES -- CALZADO (8 productos)
         14.99,
         80,
         'Ropa',
-        'https://images.unsplash.com/photo-1607522370275-f14206abe4d3?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1607522370275/800/600'
     ),
     (
         'Chaleco Acolchado Down MH700',
@@ -201,7 +201,7 @@ VALUES -- CALZADO (8 productos)
         59.99,
         30,
         'Ropa',
-        'https://images.unsplash.com/photo-1607522370275-f14206abe4d3?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1607522370275/800/600'
     ),
     -- BASTONES (3 productos)
     (
@@ -210,7 +210,7 @@ VALUES -- CALZADO (8 productos)
         44.99,
         40,
         'Bastones',
-        'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1551632811/800/600'
     ),
     (
         'Bastones Aluminio NH100',
@@ -218,7 +218,7 @@ VALUES -- CALZADO (8 productos)
         19.99,
         75,
         'Bastones',
-        'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1551632811/800/600'
     ),
     (
         'Bastón Nórdico Nordic Walking Light',
@@ -226,7 +226,7 @@ VALUES -- CALZADO (8 productos)
         24.99,
         50,
         'Bastones',
-        'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1551632811/800/600'
     ),
     -- ILUMINACIÓN (3 productos)
     (
@@ -235,7 +235,7 @@ VALUES -- CALZADO (8 productos)
         19.99,
         85,
         'Iluminación',
-        'https://images.unsplash.com/photo-1581822261-b9f9d2c7b7c2?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1581822261/800/600'
     ),
     (
         'Frontal Recargable USB Onnight 900',
@@ -243,7 +243,7 @@ VALUES -- CALZADO (8 productos)
         49.99,
         45,
         'Iluminación',
-        'https://images.unsplash.com/photo-1581822261-b9f9d2c7b7c2?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1581822261/800/600'
     ),
     (
         'Linterna Compacta de Mano 250lm',
@@ -251,7 +251,7 @@ VALUES -- CALZADO (8 productos)
         14.99,
         60,
         'Iluminación',
-        'https://images.unsplash.com/photo-1581822261-b9f9d2c7b7c2?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1581822261/800/600'
     ),
     -- ACCESORIOS (5 productos)
     (
@@ -260,7 +260,7 @@ VALUES -- CALZADO (8 productos)
         29.99,
         55,
         'Accesorios',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     ),
     (
         'Guantes de Trekking Stretch',
@@ -268,7 +268,7 @@ VALUES -- CALZADO (8 productos)
         12.99,
         90,
         'Accesorios',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     ),
     (
         'Gorro Merino Trek 900',
@@ -276,7 +276,7 @@ VALUES -- CALZADO (8 productos)
         16.99,
         75,
         'Accesorios',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     ),
     (
         'Buff Multifunción Merino 190',
@@ -284,7 +284,7 @@ VALUES -- CALZADO (8 productos)
         22.99,
         80,
         'Accesorios',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     ),
     (
         'Cinturón Riñonera Running Belt 1L',
@@ -292,7 +292,7 @@ VALUES -- CALZADO (8 productos)
         9.99,
         95,
         'Accesorios',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     ),
     -- ESCALADA (7 productos)
     (
@@ -301,7 +301,7 @@ VALUES -- CALZADO (8 productos)
         29.99,
         35,
         'Escalada',
-        'https://images.unsplash.com/photo-1522163723-68b36b6d0bfd?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1522163723/800/600'
     ),
     (
         'Cuerda Dinámica 10mm x 50m Simond',
@@ -309,7 +309,7 @@ VALUES -- CALZADO (8 productos)
         89.99,
         15,
         'Escalada',
-        'https://images.unsplash.com/photo-1522163723-68b36b6d0bfd?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1522163723/800/600'
     ),
     (
         'Mosquetón HMS con Seguro Automático',
@@ -317,7 +317,7 @@ VALUES -- CALZADO (8 productos)
         19.99,
         50,
         'Escalada',
-        'https://images.unsplash.com/photo-1522163723-68b36b6d0bfd?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1522163723/800/600'
     ),
     (
         'Pies de Gato Escalada Rock+ Simond',
@@ -325,7 +325,7 @@ VALUES -- CALZADO (8 productos)
         49.99,
         25,
         'Escalada',
-        'https://images.unsplash.com/photo-1522163723-68b36b6d0bfd?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1522163723/800/600'
     ),
     (
         'Casco de Escalada Simond Orbit',
@@ -333,7 +333,7 @@ VALUES -- CALZADO (8 productos)
         39.99,
         30,
         'Escalada',
-        'https://images.unsplash.com/photo-1522163723-68b36b6d0bfd?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1522163723/800/600'
     ),
     (
         'Magnesio Escalada Polvo + Bolsa',
@@ -341,7 +341,7 @@ VALUES -- CALZADO (8 productos)
         14.99,
         70,
         'Escalada',
-        'https://images.unsplash.com/photo-1522163723-68b36b6d0bfd?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1522163723/800/600'
     ),
     (
         'Crampones de Aluminio 10 Puntas',
@@ -349,7 +349,7 @@ VALUES -- CALZADO (8 productos)
         34.99,
         20,
         'Escalada',
-        'https://images.unsplash.com/photo-1522163723-68b36b6d0bfd?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1522163723/800/600'
     ),
     -- CAMPING (6 productos)
     (
@@ -358,7 +358,7 @@ VALUES -- CALZADO (8 productos)
         69.99,
         20,
         'Camping',
-        'https://images.unsplash.com/photo-1504851149312-7a075b496cc7?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1504851149312/800/600'
     ),
     (
         'Saco de Dormir 15°C Arpenaz',
@@ -366,7 +366,7 @@ VALUES -- CALZADO (8 productos)
         24.99,
         40,
         'Camping',
-        'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1523987355523/800/600'
     ),
     (
         'Saco de Dormir Plumón 0°C Forclaz',
@@ -374,7 +374,7 @@ VALUES -- CALZADO (8 productos)
         99.99,
         15,
         'Camping',
-        'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1523987355523/800/600'
     ),
     (
         'Esterilla Autoinflable 3cm Trek 500',
@@ -382,7 +382,7 @@ VALUES -- CALZADO (8 productos)
         39.99,
         30,
         'Camping',
-        'https://images.unsplash.com/photo-1504851149312-7a075b496cc7?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1504851149312/800/600'
     ),
     (
         'Hornillo de Gas Camping Gaz S 2500',
@@ -390,7 +390,7 @@ VALUES -- CALZADO (8 productos)
         19.99,
         50,
         'Camping',
-        'https://images.unsplash.com/photo-1504851149312-7a075b496cc7?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1504851149312/800/600'
     ),
     (
         'Batería Solar 10000mAh Outdoor',
@@ -398,7 +398,7 @@ VALUES -- CALZADO (8 productos)
         44.99,
         25,
         'Camping',
-        'https://images.unsplash.com/photo-1504851149312-7a075b496cc7?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1504851149312/800/600'
     ),
     -- HIDRATACIÓN (5 productos)
     (
@@ -407,7 +407,7 @@ VALUES -- CALZADO (8 productos)
         7.99,
         100,
         'Hidratación',
-        'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1602143407151/800/600'
     ),
     (
         'Botella Aislante Acero 0,5L Trek',
@@ -415,7 +415,7 @@ VALUES -- CALZADO (8 productos)
         17.99,
         80,
         'Hidratación',
-        'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1602143407151/800/600'
     ),
     (
         'Bolsa de Hidratación 2L Softflask',
@@ -423,7 +423,7 @@ VALUES -- CALZADO (8 productos)
         14.99,
         60,
         'Hidratación',
-        'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1602143407151/800/600'
     ),
     (
         'Pastillas Potabilizadoras Micropur 50 ud',
@@ -431,7 +431,7 @@ VALUES -- CALZADO (8 productos)
         9.99,
         90,
         'Hidratación',
-        'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1602143407151/800/600'
     ),
     (
         'Filtro de Agua Portátil LifeStraw Trek',
@@ -439,7 +439,7 @@ VALUES -- CALZADO (8 productos)
         29.99,
         35,
         'Hidratación',
-        'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1602143407151/800/600'
     ),
     -- SEGURIDAD (5 productos)
     (
@@ -448,7 +448,7 @@ VALUES -- CALZADO (8 productos)
         19.99,
         65,
         'Seguridad',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     ),
     (
         'GPS de Mano Garmin eTrex 32x',
@@ -456,7 +456,7 @@ VALUES -- CALZADO (8 productos)
         219.99,
         8,
         'Seguridad',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     ),
     (
         'Silbato de Emergencia Fox 40 Micro',
@@ -464,7 +464,7 @@ VALUES -- CALZADO (8 productos)
         4.99,
         100,
         'Seguridad',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     ),
     (
         'Manta Térmica de Emergencia 160x210cm',
@@ -472,7 +472,7 @@ VALUES -- CALZADO (8 productos)
         3.99,
         100,
         'Seguridad',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     ),
     (
         'Spray Repelente Insectos DEET 50%',
@@ -480,7 +480,7 @@ VALUES -- CALZADO (8 productos)
         11.99,
         75,
         'Seguridad',
-        'https://images.unsplash.com/photo-1510797215324-721bb9e15c7b?auto=format&fit=crop&w=800&q=80'
+        'https://picsum.photos/seed/1510797215324/800/600'
     );
 -- ============================================================
 -- FIN DEL SCRIPT

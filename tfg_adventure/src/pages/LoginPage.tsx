@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, usuario } = useAuth();
   const navigate = useNavigate();
+
+  if (usuario) return <Navigate to="/" replace />;
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [recordar, setRecordar] = useState(false);

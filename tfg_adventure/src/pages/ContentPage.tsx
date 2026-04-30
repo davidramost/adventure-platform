@@ -8,7 +8,7 @@ import type { Resena } from '../types';
 
 export default function ContentPage() {
   const { id } = useParams<{ id: string }>();
-  const { rutas, usuario } = useAuth();
+  const { rutas, usuario, loading } = useAuth();
   const [resenas, setResenas] = useState<Resena[]>([]);
   const [comentario, setComentario] = useState('');
   const [puntuacion, setPuntuacion] = useState(0);
@@ -22,6 +22,23 @@ export default function ContentPage() {
       resenaService.getResenasByRuta(idRuta).then(setResenas).catch(() => setResenas([]));
     }
   }, [idRuta]);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <header className="bg-gradient-to-br from-primary-light to-primary-dark">
+          <Header transparent />
+        </header>
+        <main className="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-light to-primary-dark">
+          <div className="text-center text-white">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent mx-auto mb-4" />
+            <p>Cargando ruta...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!ruta) {
     return (
