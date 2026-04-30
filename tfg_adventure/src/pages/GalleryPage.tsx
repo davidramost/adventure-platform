@@ -48,9 +48,8 @@ export default function GalleryPage() {
                 {rutasConImagen.map((ruta, index) => (
                   <div
                     key={ruta.id_ruta}
-                    className={`absolute inset-0 transition-opacity duration-700 ${
-                      index === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                    }`}
+                    className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                      }`}
                   >
                     <Link
                       to={`/ruta/${ruta.id_ruta}`}
@@ -59,7 +58,7 @@ export default function GalleryPage() {
                       <img
                         src={ruta.imagen_url}
                         alt={ruta.nombre_ruta}
-                        className="w-full h-full object-cover brightness-[0.8] hover:brightness-100 transition-all duration-300"
+                        className="w-full h-full object-cover brightness-[0.8] hover:brightness-100 transition-[filter] duration-300"
                       />
                       <div className="absolute bottom-0 left-0 w-full bg-black/60 text-white py-5 text-center">
                         <h3 className="m-0 text-2xl font-bold">{ruta.nombre_ruta}</h3>
@@ -71,6 +70,7 @@ export default function GalleryPage() {
                 {/* Navigation buttons */}
                 <button
                   onClick={prevSlide}
+                  aria-label="Diapositiva anterior"
                   className="absolute left-4 top-1/2 -translate-y-1/2 z-20 
                              w-12 h-12 rounded-full bg-black/40 text-white text-2xl border-none cursor-pointer
                              hover:bg-black/60 transition-colors flex items-center justify-center"
@@ -79,6 +79,7 @@ export default function GalleryPage() {
                 </button>
                 <button
                   onClick={nextSlide}
+                  aria-label="Diapositiva siguiente"
                   className="absolute right-4 top-1/2 -translate-y-1/2 z-20 
                              w-12 h-12 rounded-full bg-black/40 text-white text-2xl border-none cursor-pointer
                              hover:bg-black/60 transition-colors flex items-center justify-center"
@@ -92,9 +93,9 @@ export default function GalleryPage() {
                     <button
                       key={index}
                       onClick={() => setCurrent(index)}
-                      className={`w-3 h-3 rounded-full border-none cursor-pointer transition-colors ${
-                        index === current ? 'bg-white' : 'bg-white/40'
-                      }`}
+                      aria-label={`Ir a imagen ${index + 1}`}
+                      className={`w-3 h-3 rounded-full border-none cursor-pointer transition-colors ${index === current ? 'bg-white' : 'bg-white/40'
+                        }`}
                     />
                   ))}
                 </div>

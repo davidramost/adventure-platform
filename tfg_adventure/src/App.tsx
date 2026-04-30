@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
 import ContentPage from './pages/ContentPage';
@@ -6,7 +6,6 @@ import GalleryPage from './pages/GalleryPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CreatePage from './pages/CreatePage';
-import FavoritesPage from './pages/FavoritesPage';
 import ProfilePage from './pages/ProfilePage';
 import InfoPage from './pages/InfoPage';
 import StorePage from './pages/StorePage';
@@ -24,7 +23,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro" element={<RegisterPage />} />
       <Route path="/crear-ruta" element={<CreatePage />} />
-      <Route path="/favoritos" element={<FavoritesPage />} />
+      <Route path="/favoritos" element={<Navigate to="/perfil" replace />} />
       <Route path="/perfil" element={<ProfilePage />} />
       <Route path="/info" element={<InfoPage />} />
       <Route path="/tienda" element={<StorePage />} />

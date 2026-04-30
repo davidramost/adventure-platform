@@ -176,23 +176,27 @@ export default function CreatePage() {
                   />
                 </div>
                 <div className="flex-1">
-                  <label className="block text-white text-sm font-medium mb-2">Duración estimada</label>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="number" name="duracionHoras" value={form.duracionHoras} onChange={handleChange}
-                      placeholder="Horas" min="0" max="24"
-                      className="w-[40%] p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
-                                 placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
-                    />
-                    <span className="text-white text-sm">h</span>
-                    <input
-                      type="number" name="duracionMinutos" value={form.duracionMinutos} onChange={handleChange}
-                      placeholder="Min" min="0" max="59"
-                      className="w-[40%] p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
-                                 placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
-                    />
-                    <span className="text-white text-sm">min</span>
-                  </div>
+                  <fieldset className="border-none p-0 m-0">
+                    <legend className="block text-white text-sm font-medium mb-2">Duración estimada</legend>
+                    <div className="flex items-center gap-2">
+                      <label htmlFor="duracionHoras" className="sr-only">Horas</label>
+                      <input
+                        id="duracionHoras" type="number" name="duracionHoras" value={form.duracionHoras} onChange={handleChange}
+                        placeholder="Horas" min="0" max="24"
+                        className="w-[40%] p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
+                                   placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
+                      />
+                      <span className="text-white text-sm" aria-hidden="true">h</span>
+                      <label htmlFor="duracionMinutos" className="sr-only">Minutos</label>
+                      <input
+                        id="duracionMinutos" type="number" name="duracionMinutos" value={form.duracionMinutos} onChange={handleChange}
+                        placeholder="Min" min="0" max="59"
+                        className="w-[40%] p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
+                                   placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
+                      />
+                      <span className="text-white text-sm" aria-hidden="true">min</span>
+                    </div>
+                  </fieldset>
                 </div>
               </div>
 

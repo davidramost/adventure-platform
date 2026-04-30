@@ -13,7 +13,7 @@ export default function NotFoundPage() {
                 <div className="text-center text-white px-6">
                     <h1 className="text-8xl font-bold mb-4 opacity-60">404</h1>
                     <h2 className="text-2xl font-semibold mb-4">Página no encontrada</h2>
-                    <p className="text-white/70 mb-8">La ruta que buscas no existe o ha sido eliminada.</p>
+                    <p className="text-white/70 mb-8">La página que buscas no existe.</p>
                     <Link
                         to="/"
                         className="inline-block bg-white text-primary-dark font-semibold px-8 py-3 rounded-full hover:bg-white/90 transition-colors"

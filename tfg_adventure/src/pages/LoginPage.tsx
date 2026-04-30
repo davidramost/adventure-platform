@@ -7,13 +7,13 @@ import { useAuth } from '../context/AuthContext';
 export default function LoginPage() {
   const { login, usuario } = useAuth();
   const navigate = useNavigate();
-
-  if (usuario) return <Navigate to="/" replace />;
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [recordar, setRecordar] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  if (usuario) return <Navigate to="/" replace />;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,6 +62,7 @@ export default function LoginPage() {
                 <input
                   type="email"
                   id="email"
+                  autoComplete="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="Tu correo electrónico"
@@ -80,6 +81,7 @@ export default function LoginPage() {
                 <input
                   type="password"
                   id="contrasena"
+                  autoComplete="current-password"
                   value={contrasena}
                   onChange={e => setContrasena(e.target.value)}
                   placeholder="Tu contraseña"

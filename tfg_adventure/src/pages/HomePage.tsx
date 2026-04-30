@@ -58,17 +58,20 @@ export default function HomePage() {
                 { icon: '/Img/Icons/ciclismo.png', label: 'Ciclismo' },
                 { icon: '/Img/Icons/esqui.png', label: 'Esquí' },
               ].map((item) => (
-                <div
+                <Link
                   key={item.label}
+                  to="/senderos"
+                  aria-label={item.label}
                   className="w-[70px] h-[70px] border-2 border-white rounded-xl flex items-center justify-center 
-                             hover:bg-white/10 transition-colors cursor-pointer group"
+                             hover:bg-white/10 transition-colors group"
                 >
                   <img
                     src={item.icon}
-                    alt={item.label}
+                    alt=""
+                    aria-hidden="true"
                     className="w-10 h-10 group-hover:scale-110 transition-transform"
                   />
-                </div>
+                </Link>
               ))}
             </div>
 
@@ -76,7 +79,7 @@ export default function HomePage() {
             <div className="lg:w-1/2 text-center lg:text-left">
               <p className="text-white text-sm leading-[1.8] mb-6">
                 Amante de la naturaleza y con ganas de conocer las grandes maravillas que te entrega este país,
-                en este lugar encontrarás las mejores rutas, datos y tod...
+                en este lugar encontrarás las mejores rutas, datos y todo lo necesario para tu próxima aventura.
               </p>
               <Link
                 to="/senderos"
@@ -85,7 +88,7 @@ export default function HomePage() {
                            hover:bg-white hover:text-primary-dark transition-colors group"
               >
                 Descubre más
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-transform">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
@@ -130,7 +133,7 @@ export default function HomePage() {
                 muted
                 loop
                 playsInline
-                className="w-full block brightness-[0.7] group-hover:brightness-[0.85] transition-all duration-500"
+                className="w-full block brightness-[0.7] group-hover:brightness-[0.85] transition-[filter] duration-500"
               >
                 <source src="/Img/mountain_video.mp4" type="video/mp4" />
                 Tu navegador no soporta video HTML5.
@@ -167,7 +170,7 @@ export default function HomePage() {
                   src={trail.img}
                   alt={`Senderismo nivel ${trail.level.toLowerCase()}`}
                   className="w-full h-[350px] object-cover block rounded-2xl brightness-[0.7]
-                             group-hover:brightness-90 group-hover:scale-105 transition-all duration-500"
+                             group-hover:brightness-90 group-hover:scale-105 transition-[filter,transform] duration-500"
                 />
                 <span className="absolute top-[5%] left-[5%] bg-black/60 text-white px-5 py-2 rounded-full text-xs font-medium">
                   Nivel {trail.level}
