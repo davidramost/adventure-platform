@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -64,7 +64,17 @@ export default function InfoPage() {
     },
     default: {
       title: 'Información',
-      body: <p>Selecciona una opción del pie de página para ver más información.</p>,
+      body: (
+        <div className="space-y-4">
+          <p>Selecciona una sección para ver más información:</p>
+          <ul className="space-y-2">
+            <li><Link to="/info?type=work" className="text-primary-light hover:underline">Trabaja con nosotros</Link></li>
+            <li><Link to="/info?type=privacy" className="text-primary-light hover:underline">Política de privacidad</Link></li>
+            <li><Link to="/info?type=cookies" className="text-primary-light hover:underline">Política de cookies</Link></li>
+            <li><Link to="/info?type=legal" className="text-primary-light hover:underline">Acuerdo Legal</Link></li>
+          </ul>
+        </div>
+      ),
     },
   };
 

@@ -55,7 +55,7 @@ export default function StorePage() {
             <select
               value={categoriaFiltro}
               onChange={e => setCategoriaFiltro(e.target.value)}
-              className="bg-[#555] border-none text-white px-4 py-2.5 text-sm rounded outline-none cursor-pointer"
+              className="bg-[#555] border-none text-white px-4 py-2.5 text-sm rounded outline-none focus:ring-1 focus:ring-white/50 cursor-pointer"
             >
               <option value="">Todas las categorías</option>
               {categorias.map(cat => (
@@ -68,10 +68,10 @@ export default function StorePage() {
                 placeholder="Buscar producto..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="bg-transparent border-none text-white px-4 py-2.5 text-sm w-[150px] outline-none placeholder:text-[#aaa]"
+                className="bg-transparent border-none text-white px-4 py-2.5 text-sm w-[150px] outline-none focus:ring-1 focus:ring-white/50 placeholder:text-[#aaa]"
               />
-              <button className="bg-transparent border-none text-white px-4 py-2.5 cursor-pointer hover:text-gray-300">
-                <img src="/Img/Icons/search.png" alt="Buscar" className="w-[25px] h-[25px] align-middle invert" />
+              <button aria-label="Buscar productos" className="bg-transparent border-none text-white px-4 py-2.5 cursor-pointer hover:text-gray-300">
+                <img src="/Img/Icons/search.png" alt="" aria-hidden="true" className="w-[25px] h-[25px] align-middle invert" />
               </button>
             </div>
           </div>
@@ -91,6 +91,7 @@ export default function StorePage() {
                     <img
                       src={producto.imagen}
                       alt={producto.nombre}
+                      loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute top-3 left-3 bg-primary-dark text-white text-xs font-bold px-3 py-1 rounded-full">

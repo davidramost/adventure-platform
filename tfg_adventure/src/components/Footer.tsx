@@ -8,13 +8,13 @@ export default function Footer() {
         <div className="md:w-1/4 text-center md:text-left space-y-2">
           <Link
             to="/info?type=work"
-            className="block text-white no-underline text-sm italic leading-relaxed hover:underline"
+            className="block text-white no-underline text-sm leading-relaxed hover:underline"
           >
             Trabaja con nosotros
           </Link>
-          <p className="text-white text-sm italic m-0">adventure@gmail.ko</p>
-          <p className="text-white text-sm italic m-0">Av. del doce de Octubre 23</p>
-          <p className="text-white text-sm italic m-0">C.P 14001</p>
+          <p className="text-white text-sm m-0">adventure@gmail.com</p>
+          <p className="text-white text-sm m-0">Av. del doce de Octubre 23</p>
+          <p className="text-white text-sm m-0">C.P 14001</p>
         </div>
 
         {/* Center - Logo */}
@@ -28,19 +28,19 @@ export default function Footer() {
         <div className="md:w-1/4 text-center md:text-right space-y-2">
           <Link
             to="/info?type=privacy"
-            className="block text-white no-underline text-sm italic leading-relaxed hover:underline"
+            className="block text-white no-underline text-sm leading-relaxed hover:underline"
           >
             Políticas de privacidad
           </Link>
           <Link
             to="/info?type=cookies"
-            className="block text-white no-underline text-sm italic leading-relaxed hover:underline"
+            className="block text-white no-underline text-sm leading-relaxed hover:underline"
           >
             Políticas de cookies
           </Link>
           <Link
             to="/info?type=legal"
-            className="block text-white no-underline text-sm italic leading-relaxed hover:underline"
+            className="block text-white no-underline text-sm leading-relaxed hover:underline"
           >
             Acuerdo Legal
           </Link>

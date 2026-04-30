@@ -112,6 +112,7 @@ export default function ProfilePage() {
                   <button
                     onClick={() => fileInputRef.current?.click()}
                     disabled={isLoading}
+                    aria-label="Cambiar foto de perfil"
                     className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer disabled:opacity-50"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -140,6 +141,7 @@ export default function ProfilePage() {
                         type="text"
                         value={newName}
                         onChange={e => setNewName(e.target.value)}
+                        autoComplete="username"
                         disabled={isLoading}
                         className="flex-1 p-3 bg-gray-700 border border-gray-600 rounded-lg text-white outline-none focus:border-primary-light disabled:opacity-50"
                       />
@@ -166,6 +168,7 @@ export default function ProfilePage() {
                       <span className="text-white">{usuario.nombre_usuario}</span>
                       <button
                         onClick={() => setIsEditingName(true)}
+                        aria-label="Editar nombre de usuario"
                         className="text-primary-light hover:text-primary-dark transition-colors"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -183,12 +186,14 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
-                <button
-                  onClick={handleLogout}
-                  className="w-full px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
-                >
-                  Cerrar sesión
-                </button>
+                <div className="mt-8 pt-6 border-t border-gray-700">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
+                  >
+                    Cerrar sesión
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -209,7 +214,7 @@ export default function ProfilePage() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {userFavorites.map(ruta => (
-                  <div key={ruta.id_ruta} className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl overflow-hidden hover:border-primary-light/50 transition-colors group">
+                  <div key={ruta.id_ruta} onClick={() => navigate(`/ruta/${ruta.id_ruta}`)} className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl overflow-hidden hover:border-primary-light/50 transition-colors group cursor-pointer">
                     <img
                       src={ruta.imagen_url}
                       alt={ruta.nombre_ruta}
@@ -236,13 +241,13 @@ export default function ProfilePage() {
 
                       <div className="flex gap-2">
                         <button
-                          onClick={() => navigate(`/ruta/${ruta.id_ruta}`)}
+                          onClick={(e) => { e.stopPropagation(); navigate(`/ruta/${ruta.id_ruta}`); }}
                           className="flex-1 px-3 py-2 bg-primary-light hover:bg-primary-dark text-primary-dark font-medium rounded-lg text-sm transition-colors"
                         >
                           Ver detalles
                         </button>
                         <button
-                          onClick={() => toggleFavorito(ruta.id_ruta)}
+                          onClick={(e) => { e.stopPropagation(); toggleFavorito(ruta.id_ruta); }}
                           className="px-3 py-2 bg-gray-700 hover:bg-red-600 text-white rounded-lg transition-colors"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

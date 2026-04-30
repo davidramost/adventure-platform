@@ -91,6 +91,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   id="nombre_usuario"
+                  autoComplete="username"
                   value={nombreUsuario}
                   onChange={e => setNombreUsuario(e.target.value)}
                   placeholder="Tu nombre de usuario"
@@ -109,6 +110,7 @@ export default function RegisterPage() {
                 <input
                   type="email"
                   id="email"
+                  autoComplete="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="Tu correo electrónico"
@@ -127,6 +129,7 @@ export default function RegisterPage() {
                 <input
                   type="password"
                   id="password"
+                  autoComplete="new-password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="Tu contraseña"
@@ -145,6 +148,7 @@ export default function RegisterPage() {
                 <input
                   type="password"
                   id="confirmar_password"
+                  autoComplete="new-password"
                   value={confirmarPassword}
                   onChange={e => setConfirmarPassword(e.target.value)}
                   placeholder="Repite tu contraseña"

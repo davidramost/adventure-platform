@@ -57,10 +57,10 @@ export default function CategoryPage() {
               placeholder="Buscar..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="bg-transparent border-none text-white px-4 py-2.5 text-sm w-[150px] outline-none placeholder:text-[#aaa]"
+              className="bg-transparent border-none text-white px-4 py-2.5 text-sm w-[150px] outline-none focus:ring-1 focus:ring-white/50 placeholder:text-[#aaa]"
             />
-            <button className="bg-transparent border-none text-white px-4 py-2.5 cursor-pointer hover:text-gray-300">
-              <img src="/Img/Icons/search.png" alt="Buscar" className="w-[25px] h-[25px] align-middle" />
+            <button aria-label="Buscar rutas" className="bg-transparent border-none text-white px-4 py-2.5 cursor-pointer hover:text-gray-300">
+              <img src="/Img/Icons/search.png" alt="" aria-hidden="true" className="w-[25px] h-[25px] align-middle" />
             </button>
           </div>
         </div>
@@ -81,7 +81,10 @@ export default function CategoryPage() {
                     {ruta.imagen_url ? (
                       <img
                         src={ruta.imagen_url}
-                        alt="Imagen ruta"
+                        alt={ruta.nombre_ruta}
+                        loading="lazy"
+                        width="280"
+                        height="120"
                         className="w-full md:w-[280px] h-[180px] md:h-[120px] object-cover block"
                       />
                     ) : (
@@ -97,7 +100,7 @@ export default function CategoryPage() {
                     <p className="text-[#bbb] text-[13px] m-0 mb-2">{ruta.nombre_ubicacion}</p>
                     <div className="text-[#ddd] text-[13px] flex flex-wrap gap-1 items-center">
                       <span className="flex items-center gap-1">
-                        <img src="/Img/Icons/star.png" alt="Estrella" className="w-4 h-4 align-middle" />
+                        <img src="/Img/Icons/star.png" alt="" aria-hidden="true" className="w-4 h-4 align-middle" />
                         {(ruta.media_puntuacion ?? 0).toFixed(1)}
                       </span>
                       <span>• {ruta.duracion_estimada}</span>
@@ -109,12 +112,14 @@ export default function CategoryPage() {
                 {/* Favorite button */}
                 <button
                   onClick={() => toggleFavorito(ruta.id_ruta)}
+                  aria-label={esFavorito(ruta.id_ruta) ? 'Quitar de favoritos' : 'Añadir a favoritos'}
                   className="absolute top-1/2 right-5 -translate-y-1/2 md:block bg-transparent border-none cursor-pointer p-0
                              md:top-1/2 top-4 right-4 translate-y-0 md:-translate-y-1/2"
                 >
                   <img
                     src={esFavorito(ruta.id_ruta) ? '/Img/Icons/favorito_solid.png' : '/Img/Icons/favourite.png'}
-                    alt="Favorito"
+                    alt=""
+                    aria-hidden="true"
                     className="w-[30px] h-[30px]"
                   />
                 </button>
@@ -129,7 +134,7 @@ export default function CategoryPage() {
                     }}
                     className="absolute top-2.5 left-2.5 z-10 bg-transparent border-none cursor-pointer p-0"
                   >
-                    <img src="/Img/Icons/delete.png" alt="Eliminar" title="Eliminar ruta" className="w-6 h-6" />
+                    <img src="/Img/Icons/delete.png" alt="" aria-hidden="true" title="Eliminar ruta" className="w-6 h-6" />
                   </button>
                 )}
               </article>
