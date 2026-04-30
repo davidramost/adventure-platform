@@ -16,7 +16,7 @@ export const mockProductos: Producto[] = [
     precio: 49.99,
     stock: 25,
     categoria: "Mochilas",
-    imagen: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imagen: "https://picsum.photos/seed/mochila40l/800/600"
   },
   {
     id_producto: 2,
@@ -25,7 +25,7 @@ export const mockProductos: Producto[] = [
     precio: 89.99,
     stock: 15,
     categoria: "Calzado",
-    imagen: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imagen: "https://picsum.photos/seed/zapatillastrek/800/600"
   },
   {
     id_producto: 3,
@@ -34,7 +34,7 @@ export const mockProductos: Producto[] = [
     precio: 15.50,
     stock: 50,
     categoria: "Accesorios",
-    imagen: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imagen: "https://picsum.photos/seed/botellatermica/800/600"
   },
   {
     id_producto: 4,
@@ -43,7 +43,7 @@ export const mockProductos: Producto[] = [
     precio: 55.00,
     stock: 20,
     categoria: "Ropa",
-    imagen: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imagen: "https://picsum.photos/seed/chaquetaviento/800/600"
   },
   {
     id_producto: 5,
@@ -52,7 +52,7 @@ export const mockProductos: Producto[] = [
     precio: 35.00,
     stock: 30,
     categoria: "Equipo",
-    imagen: "https://images.unsplash.com/photo-1517462964-21fdce3f25c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imagen: "https://picsum.photos/seed/bastonessend/800/600"
   },
   {
     id_producto: 6,
@@ -61,6 +61,6 @@ export const mockProductos: Producto[] = [
     precio: 120.00,
     stock: 10,
     categoria: "Equipo",
-    imagen: "https://images.unsplash.com/photo-1504280390224-dd0b468a5d45?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    imagen: "https://picsum.photos/seed/tiendacampana/800/600"
   }
 ];

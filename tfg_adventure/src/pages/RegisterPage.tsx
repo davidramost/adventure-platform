@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 
 export default function RegisterPage() {
-  const { register } = useAuth();
+  const { register, usuario } = useAuth();
   const navigate = useNavigate();
+
+  if (usuario) return <Navigate to="/" replace />;
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
