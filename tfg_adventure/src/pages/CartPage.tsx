@@ -61,13 +61,13 @@ export default function CartPage() {
                     <div className="col-span-2 text-center">Cantidad</div>
                     <div className="col-span-2 text-right">Subtotal</div>
                   </div>
-                  
+
                   <ul className="list-none p-0 m-0">
                     {cart.map((item) => (
                       <li key={item.producto.id_producto} className="p-6 border-b border-white/10 last:border-b-0 flex flex-col sm:grid sm:grid-cols-12 gap-4 items-center">
                         {/* Product Info */}
                         <div className="col-span-6 flex items-center gap-4 w-full">
-                          <button 
+                          <button
                             onClick={() => removeFromCart(item.producto.id_producto)}
                             className="text-gray-500 hover:text-red-500 transition-colors bg-transparent border-none cursor-pointer p-1"
                             title="Eliminar producto"
@@ -91,7 +91,7 @@ export default function CartPage() {
                         {/* Quantity */}
                         <div className="col-span-2 flex justify-center w-full sm:w-auto">
                           <div className="flex items-center bg-[#222] rounded overflow-hidden border border-[#444] inline-flex">
-                            <button 
+                            <button
                               onClick={() => updateQuantity(item.producto.id_producto, item.cantidad - 1)}
                               className="px-2 py-1 text-white bg-transparent border-none hover:bg-[#333] transition-colors cursor-pointer"
                             >
@@ -100,7 +100,7 @@ export default function CartPage() {
                             <span className="text-white px-2 py-1 text-sm min-w-[2ch] text-center border-l border-r border-[#444]">
                               {item.cantidad}
                             </span>
-                            <button 
+                            <button
                               onClick={() => updateQuantity(item.producto.id_producto, Math.min(item.producto.stock, item.cantidad + 1))}
                               className="px-2 py-1 text-white bg-transparent border-none hover:bg-[#333] transition-colors cursor-pointer"
                             >
@@ -124,7 +124,7 @@ export default function CartPage() {
               <div className="lg:w-1/3">
                 <div className="bg-surface rounded-2xl border border-[#333] p-6 shadow-lg sticky top-6">
                   <h2 className="text-white text-xl font-bold mb-6 border-b border-white/10 pb-4">Resumen de compra</h2>
-                  
+
                   <div className="flex justify-between mb-4 text-gray-300">
                     <span>Productos ({totalItems}):</span>
                     <span>{totalPrice.toFixed(2)} €</span>
@@ -133,19 +133,19 @@ export default function CartPage() {
                     <span>Envío:</span>
                     <span className="text-green-500">Gratis</span>
                   </div>
-                  
+
                   <div className="flex justify-between items-center border-t border-white/10 pt-4 mb-8">
                     <span className="text-white font-bold text-lg">Total:</span>
                     <span className="text-white font-bold text-2xl">{totalPrice.toFixed(2)} €</span>
                   </div>
 
-                  <button 
+                  <button
                     onClick={handleCheckout}
                     className="w-full bg-primary-dark hover:bg-primary-light text-white font-bold py-3 rounded-xl transition-colors shadow-lg cursor-pointer border-none mb-4"
                   >
                     Finalizar Compra
                   </button>
-                  <button 
+                  <button
                     onClick={clearCart}
                     className="w-full bg-transparent hover:bg-white/5 text-gray-400 font-medium py-3 rounded-xl transition-colors cursor-pointer border border-gray-600 hover:border-gray-400"
                   >
