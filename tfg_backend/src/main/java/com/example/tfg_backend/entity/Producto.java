@@ -33,4 +33,7 @@ public class Producto {
 
     @Column(name = "categoria", length = 100)
     private String categoria;
+
+    @Column(name = "imagen", length = 500)
+    private String imagen;
 }

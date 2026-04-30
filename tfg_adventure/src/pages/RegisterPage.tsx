@@ -12,6 +12,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [confirmarPassword, setConfirmarPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,9 +55,11 @@ export default function RegisterPage() {
       return;
     }
 
+    setLoading(true);
     const err = await register(nombreUsuario.trim(), email.trim(), password);
     if (err) {
       setError(err);
+      setLoading(false);
     } else {
       navigate('/');
     }
@@ -90,8 +93,9 @@ export default function RegisterPage() {
                   onChange={e => setNombreUsuario(e.target.value)}
                   placeholder="Tu nombre de usuario"
                   required
+                  disabled={loading}
                   className="w-full p-4 pl-12 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
-                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15"
+                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
             </div>
@@ -107,8 +111,9 @@ export default function RegisterPage() {
                   onChange={e => setEmail(e.target.value)}
                   placeholder="Tu correo electrónico"
                   required
+                  disabled={loading}
                   className="w-full p-4 pl-12 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
-                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15"
+                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
             </div>
@@ -124,8 +129,9 @@ export default function RegisterPage() {
                   onChange={e => setPassword(e.target.value)}
                   placeholder="Tu contraseña"
                   required
+                  disabled={loading}
                   className="w-full p-4 pl-12 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
-                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15"
+                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
             </div>
@@ -141,19 +147,33 @@ export default function RegisterPage() {
                   onChange={e => setConfirmarPassword(e.target.value)}
                   placeholder="Repite tu contraseña"
                   required
+                  disabled={loading}
                   className="w-full p-4 pl-12 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
-                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15"
+                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
             </div>
 
             <button
               type="submit"
+              disabled={loading}
               className="w-full p-4 text-base font-medium text-primary-dark bg-white border-none rounded-full cursor-pointer mt-4
-                         hover:bg-gray-200 transition-colors"
+                         hover:bg-gray-200 transition-colors flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Registrarse
-              <img src="/Img/Icons/arrow_right_black.png" alt="Registrar" className="w-[25px] h-[25px] align-middle ml-2" />
+              {loading ? (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="animate-spin">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.25"></circle>
+                    <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="2" fill="none"></path>
+                  </svg>
+                  <span>Creando cuenta...</span>
+                </>
+              ) : (
+                <>
+                  <img src="/Img/Icons/arrow_right_black.png" alt="Registrar" className="w-[25px] h-[25px]" />
+                  <span>Registrarse</span>
+                </>
+              )}
             </button>
           </form>
 

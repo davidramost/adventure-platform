@@ -95,3 +95,33 @@ export interface Mensaje {
     nombre_usuario: string;
     id_ruta: number | null;
 }
+
+export interface Producto {
+    id_producto: number;
+    nombre: string;
+    descripcion: string;
+    precio: number;
+    stock: number;
+    categoria: string;
+    imagen: string;
+}
+
+export interface LineaPedidoResponse {
+    id_producto: number;
+    nombre_producto: string;
+    imagen_producto: string;
+    precio_unitario: number;
+    cantidad: number;
+    subtotal: number;
+}
+
+export interface PedidoResponse {
+    id_pedido: number;
+    fecha: string;
+    total: number;
+    lineas: LineaPedidoResponse[];
+}
+
+export interface CrearPedidoRequest {
+    lineas: { id_producto: number; cantidad: number }[];
+}
