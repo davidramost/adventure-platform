@@ -22,7 +22,7 @@ export default function ProfilePage() {
   }
 
   const userFavorites = rutas.filter(r => esFavorito(r.id_ruta));
-  const avatarUrl = usuario.imagen || cloudinaryService.getPlaceholderAvatar();
+  const avatarUrl = usuario.imagen || cloudinaryService.getPlaceholderAvatar(usuario.nombre_usuario);
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -33,11 +33,22 @@ export default function ProfilePage() {
     setSuccessMessage('');
 
     try {
+      console.log('📸 Iniciando upload de avatar...');
       const cloudinaryUrl = await cloudinaryService.uploadAvatar(file);
-      await usuarioService.uploadAvatar(cloudinaryUrl);
+      console.log('📤 Enviando URL al backend:', cloudinaryUrl);
+
+      const response = await usuarioService.uploadAvatar(cloudinaryUrl);
+      console.log('✅ Respuesta del backend:', response);
+
       setSuccessMessage('Foto de perfil actualizada correctamente');
-      setTimeout(() => window.location.reload(), 1500);
-    } catch (error) {
+      setTimeout(() => {
+        console.log('🔄 Recargando página...');
+        window.location.reload();
+      }, 1500);
+    } catch (error: any) {
+      console.error('❌ Error completo:', error);
+      console.error('Mensaje:', error.message);
+      console.error('Response data:', error.response?.data);
       setUploadError('Error al subir la foto. Intenta de nuevo.');
     } finally {
       setIsLoading(false);
@@ -75,7 +86,7 @@ export default function ProfilePage() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-900">
       <Header />
-      
+
       <main className="flex-1 bg-gradient-to-b from-gray-900 to-gray-800 py-16">
         <div className="max-w-4xl mx-auto px-4">
           {successMessage && (
@@ -184,7 +195,7 @@ export default function ProfilePage() {
 
           <div>
             <h2 className="text-2xl font-bold text-white mb-6">Mis Rutas Favoritas ({userFavorites.length})</h2>
-            
+
             {userFavorites.length === 0 ? (
               <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-2xl p-12 text-center">
                 <p className="text-gray-400 mb-4">Aún no tienes rutas favoritas</p>
@@ -207,7 +218,7 @@ export default function ProfilePage() {
                     <div className="p-4">
                       <h3 className="text-white font-bold mb-2 truncate">{ruta.nombre_ruta}</h3>
                       <p className="text-gray-400 text-sm mb-4 line-clamp-2">{ruta.descripcion}</p>
-                      
+
                       <div className="grid grid-cols-3 gap-2 mb-4 text-xs">
                         <div className="bg-gray-700/50 p-2 rounded">
                           <p className="text-gray-400">Distancia</p>

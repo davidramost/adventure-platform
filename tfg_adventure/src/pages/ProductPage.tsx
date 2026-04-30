@@ -4,7 +4,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { mockProductos, type Producto } from '../data/mockProductos';
+import type { Producto } from '../types';
+import { productoService } from '../services/productoService';
 
 export default function ProductPage() {
   const { id } = useParams<{ id: string }>();
@@ -13,13 +14,33 @@ export default function ProductPage() {
   const { addToCart } = useCart();
   const [producto, setProducto] = useState<Producto | null>(null);
   const [cantidad, setCantidad] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const found = mockProductos.find(p => p.id_producto === Number(id));
-    if (found) {
-      setProducto(found);
-    }
+    if (!id) return;
+    productoService.getById(Number(id))
+      .then(response => {
+        setProducto(response.data);
+      })
+      .catch(() => {
+        setProducto(null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [id]);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-1 bg-surface-dark flex items-center justify-center">
+          <p className="text-white text-center py-20">Cargando producto...</p>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!producto) {
     return (
@@ -62,11 +83,11 @@ export default function ProductPage() {
 
         <div className="bg-surface rounded-2xl overflow-hidden border border-[#333] flex flex-col md:flex-row shadow-2xl">
           {/* Image */}
-          <div className="md:w-2/5 relative bg-[#111] p-6 lg:p-10 flex items-center justify-center">
+          <div className="md:w-2/5 relative overflow-hidden">
             <img
               src={producto.imagen}
               alt={producto.nombre}
-              className="w-full max-h-[350px] object-cover rounded-xl shadow-lg border border-white/10"
+              className="w-full h-full object-cover min-h-[280px]"
             />
             <div className="absolute top-4 left-4 bg-primary-dark text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-lg">
               {producto.categoria}

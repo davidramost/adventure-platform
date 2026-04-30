@@ -3,21 +3,29 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { pedidoService } from '../services/pedidoService';
 
 export default function CartPage() {
   const { usuario } = useAuth();
   const { cart, updateQuantity, removeFromCart, clearCart, totalPrice, totalItems } = useCart();
   const navigate = useNavigate();
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!usuario) {
       alert("Debes iniciar sesión para finalizar la compra.");
       navigate('/login');
       return;
     }
-    alert("¡Compra simulada con éxito! Gracias por tu pedido.");
-    clearCart();
-    navigate('/tienda');
+    try {
+      await pedidoService.crear({
+        lineas: cart.map(item => ({ id_producto: item.producto.id_producto, cantidad: item.cantidad })),
+      });
+      alert("¡Compra realizada con éxito! Gracias por tu pedido.");
+      clearCart();
+      navigate('/tienda');
+    } catch {
+      alert("Ha ocurrido un error al procesar tu pedido. Inténtalo de nuevo.");
+    }
   };
 
   return (
@@ -128,7 +136,7 @@ export default function CartPage() {
                   
                   <div className="flex justify-between items-center border-t border-white/10 pt-4 mb-8">
                     <span className="text-white font-bold text-lg">Total:</span>
-                    <span className="text-primary-light font-bold text-2xl">{totalPrice.toFixed(2)} €</span>
+                    <span className="text-white font-bold text-2xl">{totalPrice.toFixed(2)} €</span>
                   </div>
 
                   <button 

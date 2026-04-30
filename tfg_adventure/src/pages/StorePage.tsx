@@ -1,21 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { type Producto, mockProductos } from '../data/mockProductos';
+import type { Producto } from '../types';
+import { productoService } from '../services/productoService';
 
 export default function StorePage() {
   const { usuario } = useAuth();
   const { addToCart } = useCart();
-  const [productos] = useState<Producto[]>(mockProductos);
+  const [productos, setProductos] = useState<Producto[]>([]);
   const [search, setSearch] = useState('');
+  const [categoriaFiltro, setCategoriaFiltro] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const filteredProductos = productos.filter(producto =>
-    producto.nombre.toLowerCase().includes(search.toLowerCase()) ||
-    producto.categoria.toLowerCase().includes(search.toLowerCase())
-  );
+  useEffect(() => {
+    productoService.getAll()
+      .then(response => {
+        setProductos(response.data);
+      })
+      .catch(() => {
+        setError('No se pudieron cargar los productos. Inténtalo de nuevo más tarde.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  const categorias = Array.from(new Set(productos.map(p => p.categoria)));
+
+  const filteredProductos = productos.filter(producto => {
+    const matchesSearch =
+      producto.nombre.toLowerCase().includes(search.toLowerCase()) ||
+      producto.categoria.toLowerCase().includes(search.toLowerCase());
+    const matchesCategoria = categoriaFiltro === '' || producto.categoria === categoriaFiltro;
+    return matchesSearch && matchesCategoria;
+  });
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -29,27 +51,42 @@ export default function StorePage() {
           <h1 className="text-white text-lg font-bold m-0 leading-9 w-full md:w-auto text-center md:text-left mb-4 md:mb-0">
             Tienda de Aventura
           </h1>
-          <div className="flex items-center bg-[#555] rounded overflow-hidden mx-auto md:mx-0">
-            <input
-              type="text"
-              placeholder="Buscar producto..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="bg-transparent border-none text-white px-4 py-2.5 text-sm w-[150px] outline-none placeholder:text-[#aaa]"
-            />
-            <button className="bg-transparent border-none text-white px-4 py-2.5 cursor-pointer hover:text-gray-300">
-              <img src="/Img/Icons/search.png" alt="Buscar" className="w-[25px] h-[25px] align-middle invert" />
-            </button>
+          <div className="flex items-center gap-3 mx-auto md:mx-0 flex-wrap justify-center">
+            <select
+              value={categoriaFiltro}
+              onChange={e => setCategoriaFiltro(e.target.value)}
+              className="bg-[#555] border-none text-white px-4 py-2.5 text-sm rounded outline-none cursor-pointer"
+            >
+              <option value="">Todas las categorías</option>
+              {categorias.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+            <div className="flex items-center bg-[#555] rounded overflow-hidden">
+              <input
+                type="text"
+                placeholder="Buscar producto..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                className="bg-transparent border-none text-white px-4 py-2.5 text-sm w-[150px] outline-none placeholder:text-[#aaa]"
+              />
+              <button className="bg-transparent border-none text-white px-4 py-2.5 cursor-pointer hover:text-gray-300">
+                <img src="/Img/Icons/search.png" alt="Buscar" className="w-[25px] h-[25px] align-middle invert" />
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Product Grid */}
         <section className="px-[5%] py-8 lg:py-12">
-          {filteredProductos.length > 0 ? (
+          {loading ? (
+            <p className="text-white text-center py-20">Cargando productos...</p>
+          ) : error ? (
+            <p className="text-red-400 text-center py-12 text-lg">{error}</p>
+          ) : filteredProductos.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filteredProductos.map(producto => (
                 <article key={producto.id_producto} className="bg-surface rounded-xl overflow-hidden border border-[#333] hover:border-primary-light transition-colors group flex flex-col">
-                  {/* Image container */}
                   <Link to={`/producto/${producto.id_producto}`} className="w-full h-[200px] overflow-hidden relative block">
                     <img
                       src={producto.imagen}
@@ -61,7 +98,6 @@ export default function StorePage() {
                     </div>
                   </Link>
 
-                  {/* Info */}
                   <div className="p-5 flex flex-col flex-1">
                     <Link to={`/producto/${producto.id_producto}`} className="no-underline">
                       <h2 className="text-white hover:text-primary-light text-lg font-bold m-0 mb-2 leading-tight transition-colors">{producto.nombre}</h2>

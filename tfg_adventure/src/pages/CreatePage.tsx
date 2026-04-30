@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
+import { cloudinaryService } from '../services/cloudinaryService';
 
 export default function CreatePage() {
   const { usuario, addRuta } = useAuth();
@@ -23,6 +24,8 @@ export default function CreatePage() {
     recomendacionesRuta: '',
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [imagenFile, setImagenFile] = useState<File | null>(null);
   const [imagenPreview, setImagenPreview] = useState<string | null>(null);
 
   if (!usuario) {
@@ -41,6 +44,7 @@ export default function CreatePage() {
         setError('La imagen no debe superar los 3MB.');
         return;
       }
+      setImagenFile(file);
       const reader = new FileReader();
       reader.onloadend = () => setImagenPreview(reader.result as string);
       reader.readAsDataURL(file);
@@ -50,6 +54,7 @@ export default function CreatePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     const dificultadMap: Record<string, 'Baja' | 'Media' | 'Alta'> = {
       bajo: 'Baja',
@@ -60,6 +65,7 @@ export default function CreatePage() {
     const dificultad = dificultadMap[form.nivelRuta];
     if (!dificultad) {
       setError('Selecciona un nivel de dificultad.');
+      setLoading(false);
       return;
     }
 
@@ -71,6 +77,11 @@ export default function CreatePage() {
     }
 
     try {
+      let imagen_url = '';
+      if (imagenFile) {
+        imagen_url = await cloudinaryService.uploadRutaImage(imagenFile);
+      }
+
       await addRuta({
         titulo: form.tituloRuta,
         nombre_ruta: form.nombreRuta,
@@ -79,12 +90,13 @@ export default function CreatePage() {
         duracion_estimada: `${horas}h ${minutos}m`,
         dificultad,
         desnivel_metros: parseInt(form.desnivelRuta) || 0,
-        imagen_url: imagenPreview || '',
+        imagen_url,
         nombre_ubicacion: form.ubicacionRuta,
       });
       navigate('/');
     } catch (err: any) {
       setError(err.response?.data?.message || 'Error al crear la ruta.');
+      setLoading(false);
     }
   };
 
@@ -270,11 +282,25 @@ export default function CreatePage() {
                 </Link>
                 <button
                   type="submit"
+                  disabled={loading}
                   className="inline-flex justify-center items-center px-8 py-3 bg-white border-2 border-white rounded-full
-                             text-primary-dark text-base font-medium cursor-pointer hover:bg-gray-200 transition-colors"
+                             text-primary-dark text-base font-medium cursor-pointer hover:bg-gray-200 transition-colors
+                             disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Guardar Ruta
-                  <img src="/Img/Icons/check.png" alt="Guardar" className="w-5 h-5 ml-2" />
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin w-5 h-5 mr-2 text-primary-dark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                      </svg>
+                      Guardando...
+                    </>
+                  ) : (
+                    <>
+                      Guardar Ruta
+                      <img src="/Img/Icons/check.png" alt="Guardar" className="w-5 h-5 ml-2" />
+                    </>
+                  )}
                 </button>
               </div>
             </form>
