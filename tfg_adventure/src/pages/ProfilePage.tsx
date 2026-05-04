@@ -206,7 +206,7 @@ export default function ProfilePage() {
                 <p className="text-gray-400 mb-4">Aún no tienes rutas favoritas</p>
                 <button
                   onClick={() => navigate('/senderos')}
-                  className="inline-block px-6 py-3 bg-primary-light hover:bg-primary-dark text-primary-dark font-medium rounded-lg transition-colors"
+                  className="inline-block px-6 py-3 bg-primary-light hover:bg-primary-dark text-primary-dark hover:text-secondary font-medium rounded-lg transition-colors"
                 >
                   Explorar rutas
                 </button>

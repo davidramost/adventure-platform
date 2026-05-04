@@ -87,20 +87,22 @@ export default function GalleryPage() {
                   ›
                 </button>
 
-                {/* Dots */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-                  {rutasConImagen.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrent(index)}
-                      aria-label={`Ir a imagen ${index + 1}`}
-                      className={`w-3 h-3 rounded-full border-none cursor-pointer transition-colors ${index === current ? 'bg-white' : 'bg-white/40'
-                        }`}
-                    />
-                  ))}
-                </div>
+
               </div>
             )}
+
+            {/* Dots */}
+            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+              {rutasConImagen.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrent(index)}
+                  aria-label={`Ir a imagen ${index + 1}`}
+                  className={`w-3 h-3 rounded-full border-none cursor-pointer transition-colors ${index === current ? 'bg-white' : 'bg-white/40'
+                    }`}
+                />
+              ))}
+            </div>
 
             <nav className="mt-8 text-center">
               <Link
