@@ -36,6 +36,18 @@ public class Usuario implements UserDetails {
     @Column(name = "imagen")
     private String imagen;
 
+    @Column(name = "nombre", length = 100)
+    private String nombre;
+
+    @Column(name = "apellido", length = 100)
+    private String apellido;
+
+    @Column(name = "domicilio", columnDefinition = "TEXT")
+    private String domicilio;
+
+    @Column(name = "fact_domicilio", columnDefinition = "TEXT")
+    private String factDomicilio;
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     @ToString.Exclude

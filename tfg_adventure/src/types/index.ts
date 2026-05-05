@@ -36,6 +36,10 @@ export interface Usuario {
     email: string;
     rol: 'admin' | 'usuario';
     imagen?: string | null;
+    nombre?: string | null;
+    apellido?: string | null;
+    domicilio?: string | null;
+    factDomicilio?: string | null;
 }
 
 export interface AuthResponse {
@@ -52,6 +56,10 @@ export interface RegisterRequest {
     nombre_usuario: string;
     email: string;
     password: string;
+    nombre?: string;
+    apellido?: string;
+    domicilio?: string;
+    factDomicilio?: string;
 }
 
 export interface RutaRequest {
@@ -81,6 +89,10 @@ export interface ErrorResponse {
 
 export interface UpdateUsuarioRequest {
     nombre_usuario?: string;
+    nombre?: string;
+    apellido?: string;
+    domicilio?: string;
+    factDomicilio?: string;
 }
 
 export interface UploadAvatarResponse {

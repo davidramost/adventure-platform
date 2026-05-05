@@ -38,6 +38,22 @@ public class UsuarioService {
             usuario.setNombreUsuario(request.getNombreUsuario());
         }
 
+        if (request.getNombre() != null) {
+            usuario.setNombre(request.getNombre());
+        }
+
+        if (request.getApellido() != null) {
+            usuario.setApellido(request.getApellido());
+        }
+
+        if (request.getDomicilio() != null) {
+            usuario.setDomicilio(request.getDomicilio());
+        }
+
+        if (request.getFactDomicilio() != null) {
+            usuario.setFactDomicilio(request.getFactDomicilio());
+        }
+
         usuario = usuarioRepository.save(usuario);
         return toUsuarioResponse(usuario);
     }
@@ -59,6 +75,10 @@ public class UsuarioService {
                 .email(usuario.getEmail())
                 .imagen(usuario.getImagen())
                 .rol(rol)
+                .nombre(usuario.getNombre())
+                .apellido(usuario.getApellido())
+                .domicilio(usuario.getDomicilio())
+                .factDomicilio(usuario.getFactDomicilio())
                 .build();
     }
 }

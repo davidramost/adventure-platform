@@ -31,6 +31,10 @@ public class AuthService {
                 .nombreUsuario(request.getNombreUsuario())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .nombre(request.getNombre())
+                .apellido(request.getApellido())
+                .domicilio(request.getDomicilio())
+                .factDomicilio(request.getFactDomicilio())
                 .build();
         usuario = usuarioRepository.save(usuario);
         String token = jwtTokenProvider.generateToken(usuario.getEmail());
@@ -61,6 +65,10 @@ public class AuthService {
                 .email(usuario.getEmail())
                 .imagen(usuario.getImagen())
                 .rol(rol)
+                .nombre(usuario.getNombre())
+                .apellido(usuario.getApellido())
+                .domicilio(usuario.getDomicilio())
+                .factDomicilio(usuario.getFactDomicilio())
                 .build();
     }
 }

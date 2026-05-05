@@ -11,6 +11,13 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const [isEditingName, setIsEditingName] = useState(false);
   const [newName, setNewName] = useState(usuario?.nombre_usuario || '');
+  const [isEditingPersonalInfo, setIsEditingPersonalInfo] = useState(false);
+  const [personalInfo, setPersonalInfo] = useState({
+    nombre: usuario?.nombre || '',
+    apellido: usuario?.apellido || '',
+    domicilio: usuario?.domicilio || '',
+    factDomicilio: usuario?.factDomicilio || '',
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -75,6 +82,34 @@ export default function ProfilePage() {
     } finally {
       setIsLoading(false);
       setIsEditingName(false);
+    }
+  };
+
+  const handleUpdatePersonalInfo = async () => {
+    setIsLoading(true);
+    setUploadError('');
+    setSuccessMessage('');
+
+    try {
+      await usuarioService.updateProfile({
+        nombre: personalInfo.nombre || undefined,
+        apellido: personalInfo.apellido || undefined,
+        domicilio: personalInfo.domicilio || undefined,
+        factDomicilio: personalInfo.factDomicilio || undefined,
+      });
+      setSuccessMessage('Datos personales actualizados correctamente');
+      setTimeout(() => window.location.reload(), 1500);
+    } catch (error) {
+      setUploadError('Error al actualizar los datos personales');
+      setPersonalInfo({
+        nombre: usuario?.nombre || '',
+        apellido: usuario?.apellido || '',
+        domicilio: usuario?.domicilio || '',
+        factDomicilio: usuario?.factDomicilio || '',
+      });
+    } finally {
+      setIsLoading(false);
+      setIsEditingPersonalInfo(false);
     }
   };
 
@@ -184,6 +219,96 @@ export default function ProfilePage() {
                   <div className="p-3 bg-gray-700/50 border border-gray-600 rounded-lg text-gray-400">
                     {usuario.email}
                   </div>
+                </div>
+
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <label className="block text-white text-sm font-medium">Datos Personales (para envíos)</label>
+                    {!isEditingPersonalInfo && (
+                      <button
+                        onClick={() => setIsEditingPersonalInfo(true)}
+                        className="text-primary-light hover:text-primary-dark transition-colors text-xs"
+                      >
+                        Editar
+                      </button>
+                    )}
+                  </div>
+
+                  {isEditingPersonalInfo ? (
+                    <div className="space-y-3">
+                      <input
+                        type="text"
+                        placeholder="Nombre"
+                        value={personalInfo.nombre}
+                        onChange={e => setPersonalInfo({ ...personalInfo, nombre: e.target.value })}
+                        disabled={isLoading}
+                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white outline-none focus:border-primary-light disabled:opacity-50"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Apellido"
+                        value={personalInfo.apellido}
+                        onChange={e => setPersonalInfo({ ...personalInfo, apellido: e.target.value })}
+                        disabled={isLoading}
+                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white outline-none focus:border-primary-light disabled:opacity-50"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Domicilio de envío"
+                        value={personalInfo.domicilio}
+                        onChange={e => setPersonalInfo({ ...personalInfo, domicilio: e.target.value })}
+                        disabled={isLoading}
+                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white outline-none focus:border-primary-light disabled:opacity-50"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Domicilio de facturación"
+                        value={personalInfo.factDomicilio}
+                        onChange={e => setPersonalInfo({ ...personalInfo, factDomicilio: e.target.value })}
+                        disabled={isLoading}
+                        className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white outline-none focus:border-primary-light disabled:opacity-50"
+                      />
+                      <div className="flex gap-2 pt-2">
+                        <button
+                          onClick={handleUpdatePersonalInfo}
+                          disabled={isLoading}
+                          className="flex-1 px-4 py-2 bg-primary-light hover:bg-primary-dark text-primary-dark font-medium rounded-lg transition-colors disabled:opacity-50"
+                        >
+                          Guardar
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsEditingPersonalInfo(false);
+                            setPersonalInfo({
+                              nombre: usuario?.nombre || '',
+                              apellido: usuario?.apellido || '',
+                              domicilio: usuario?.domicilio || '',
+                              factDomicilio: usuario?.factDomicilio || '',
+                            });
+                          }}
+                          disabled={isLoading}
+                          className="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50"
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-gray-700/50 border border-gray-600 rounded-lg p-3 space-y-2 text-sm">
+                      <p className="text-gray-300">
+                        <span className="text-gray-400">Nombre:</span> {usuario.nombre || '—'}
+                      </p>
+                      <p className="text-gray-300">
+                        <span className="text-gray-400">Apellido:</span> {usuario.apellido || '—'}
+                      </p>
+                      <p className="text-gray-300">
+                        <span className="text-gray-400">Envío:</span> {usuario.domicilio || '—'}
+                      </p>
+                      <p className="text-gray-300">
+                        <span className="text-gray-400">Facturación:</span> {usuario.factDomicilio || '—'}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-gray-700">

@@ -13,6 +13,10 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmarPassword, setConfirmarPassword] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [apellido, setApellido] = useState('');
+  const [domicilio, setDomicilio] = useState('');
+  const [factDomicilio, setFactDomicilio] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -58,7 +62,15 @@ export default function RegisterPage() {
     }
 
     setLoading(true);
-    const err = await register(nombreUsuario.trim(), email.trim(), password);
+    const err = await register(
+      nombreUsuario.trim(),
+      email.trim(),
+      password,
+      nombre.trim() || undefined,
+      apellido.trim() || undefined,
+      domicilio.trim() || undefined,
+      factDomicilio.trim() || undefined
+    );
     if (err) {
       setError(err);
       setLoading(false);
@@ -155,6 +167,70 @@ export default function RegisterPage() {
                   required
                   disabled={loading}
                   className="w-full p-4 pl-12 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
+                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+              </div>
+            </div>
+
+            <div className="my-8 border-t border-white/20 pt-6">
+              <p className="text-white text-xs text-center mb-4 font-medium">Datos opcionales para envíos (requeridos para comprar)</p>
+
+              <div className="mb-5 text-left">
+                <label htmlFor="nombre" className="block text-white text-sm mb-2 font-medium">Nombre</label>
+                <input
+                  type="text"
+                  id="nombre"
+                  autoComplete="given-name"
+                  value={nombre}
+                  onChange={e => setNombre(e.target.value)}
+                  placeholder="Tu nombre"
+                  disabled={loading}
+                  className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
+                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+              </div>
+
+              <div className="mb-5 text-left">
+                <label htmlFor="apellido" className="block text-white text-sm mb-2 font-medium">Apellido</label>
+                <input
+                  type="text"
+                  id="apellido"
+                  autoComplete="family-name"
+                  value={apellido}
+                  onChange={e => setApellido(e.target.value)}
+                  placeholder="Tu apellido"
+                  disabled={loading}
+                  className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
+                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+              </div>
+
+              <div className="mb-5 text-left">
+                <label htmlFor="domicilio" className="block text-white text-sm mb-2 font-medium">Domicilio</label>
+                <input
+                  type="text"
+                  id="domicilio"
+                  autoComplete="street-address"
+                  value={domicilio}
+                  onChange={e => setDomicilio(e.target.value)}
+                  placeholder="Tu domicilio para envío"
+                  disabled={loading}
+                  className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
+                             placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+              </div>
+
+              <div className="mb-5 text-left">
+                <label htmlFor="fact_domicilio" className="block text-white text-sm mb-2 font-medium">Domicilio de Facturación</label>
+                <input
+                  type="text"
+                  id="fact_domicilio"
+                  autoComplete="billing address-line1"
+                  value={factDomicilio}
+                  onChange={e => setFactDomicilio(e.target.value)}
+                  placeholder="Tu domicilio de facturación"
+                  disabled={loading}
+                  className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                              placeholder:text-[#aaa] focus:border-white focus:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
