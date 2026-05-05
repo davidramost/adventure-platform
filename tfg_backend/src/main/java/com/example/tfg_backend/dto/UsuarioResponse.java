@@ -16,4 +16,8 @@ public class UsuarioResponse {
     private String email;
     private String imagen;
     private String rol;
+    private String nombre;
+    private String apellido;
+    private String domicilio;
+    private String factDomicilio;
 }

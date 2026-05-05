@@ -16,6 +16,13 @@ export default function CartPage() {
       navigate('/login');
       return;
     }
+
+    if (!usuario.nombre?.trim() || !usuario.apellido?.trim() || !usuario.domicilio?.trim() || !usuario.factDomicilio?.trim()) {
+      alert("Para realizar la compra, debes completar tus datos personales (nombre, apellido, domicilio y domicilio de facturación) en tu perfil.");
+      navigate('/perfil');
+      return;
+    }
+
     try {
       await pedidoService.crear({
         lineas: cart.map(item => ({ id_producto: item.producto.id_producto, cantidad: item.cantidad })),

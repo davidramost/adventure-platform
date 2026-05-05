@@ -24,4 +24,14 @@ public class RegisterRequest {
     @NotBlank
     @Size(min = 6)
     private String password;
+
+    @Size(max = 100)
+    private String nombre;
+
+    @Size(max = 100)
+    private String apellido;
+
+    private String domicilio;
+
+    private String factDomicilio;
 }
