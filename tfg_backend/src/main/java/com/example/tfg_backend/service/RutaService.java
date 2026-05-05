@@ -77,6 +77,51 @@ public class RutaService {
         return toRutaResponse(ruta);
     }
 
+    public RutaResponse updateRuta(Integer id, RutaRequest request, Integer idUsuario) {
+        Ruta ruta = rutaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Ruta no encontrada con id: " + id));
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        if (!ruta.getUsuario().getIdUsuario().equals(idUsuario) && !"admin".equals(usuario.getNombreUsuario())) {
+            throw new UnauthorizedException("No tienes permiso para modificar esta ruta");
+        }
+
+        if (request.getTitulo() != null) {
+            ruta.setTitulo(request.getTitulo());
+        }
+        if (request.getNombreRuta() != null) {
+            ruta.setNombreRuta(request.getNombreRuta());
+        }
+        if (request.getDescripcion() != null) {
+            ruta.setDescripcion(request.getDescripcion());
+        }
+        if (request.getDistanciaKm() != null) {
+            ruta.setDistanciaKm(request.getDistanciaKm());
+        }
+        if (request.getDuracionEstimada() != null) {
+            ruta.setDuracionEstimada(request.getDuracionEstimada());
+        }
+        if (request.getDificultad() != null) {
+            ruta.setDificultad(request.getDificultad());
+        }
+        if (request.getDesnivelMetros() != null) {
+            ruta.setDesnivelMetros(request.getDesnivelMetros());
+        }
+        if (request.getImagenUrl() != null) {
+            ruta.setImagenUrl(request.getImagenUrl());
+        }
+
+        if (request.getIdUbicacion() != null && request.getIdUbicacion() > 0) {
+            Ubicacion ubicacion = ubicacionRepository.findById(request.getIdUbicacion())
+                    .orElseThrow(() -> new ResourceNotFoundException("Ubicacion no encontrada"));
+            ruta.setUbicacion(ubicacion);
+        }
+
+        ruta = rutaRepository.save(ruta);
+        return toRutaResponse(ruta);
+    }
+
     public void deleteRuta(Integer id, Integer idUsuario) {
         Ruta ruta = rutaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ruta no encontrada con id: " + id));
