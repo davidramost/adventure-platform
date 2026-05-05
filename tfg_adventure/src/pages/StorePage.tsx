@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import type { Producto } from '../types';
@@ -88,10 +89,11 @@ export default function StorePage() {
               {filteredProductos.map(producto => (
                 <article key={producto.id_producto} className="bg-surface rounded-xl overflow-hidden border border-[#333] hover:border-primary-light transition-colors group flex flex-col">
                   <Link to={`/producto/${producto.id_producto}`} className="w-full h-[200px] overflow-hidden relative block">
-                    <img
+                    <Image
                       src={producto.imagen}
                       alt={producto.nombre}
                       loading="lazy"
+                      containerClassName="w-full h-[200px]"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute top-3 left-3 bg-primary-dark text-white text-xs font-bold px-3 py-1 rounded-full">

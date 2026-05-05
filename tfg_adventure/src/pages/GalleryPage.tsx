@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 
 export default function GalleryPage() {
@@ -55,9 +56,10 @@ export default function GalleryPage() {
                       to={`/ruta/${ruta.id_ruta}`}
                       className="block w-full h-full rounded-2xl overflow-hidden relative"
                     >
-                      <img
+                      <Image
                         src={ruta.imagen_url}
                         alt={ruta.nombre_ruta}
+                        containerClassName="w-full h-full"
                         className="w-full h-full object-cover brightness-[0.8] hover:brightness-100 transition-[filter] duration-300"
                       />
                       <div className="absolute bottom-0 left-0 w-full bg-black/60 text-white py-5 text-center">
@@ -92,7 +94,7 @@ export default function GalleryPage() {
             )}
 
             {/* Dots */}
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-2 z-20">
               {rutasConImagen.map((_, index) => (
                 <button
                   key={index}

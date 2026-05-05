@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import type { Producto } from '../types';
@@ -84,9 +85,10 @@ export default function ProductPage() {
         <div className="bg-surface rounded-2xl overflow-hidden border border-[#333] flex flex-col md:flex-row shadow-2xl">
           {/* Image */}
           <div className="md:w-2/5 relative overflow-hidden">
-            <img
+            <Image
               src={producto.imagen}
               alt={producto.nombre}
+              containerClassName="w-full min-h-[280px]"
               className="w-full h-full object-cover min-h-[280px]"
             />
             <div className="absolute top-4 left-4 bg-primary-dark text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-lg">

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Image from '../components/Image';
 import GeneralChat from '../components/GeneralChat';
 import { useAuth } from '../context/AuthContext';
 
@@ -166,9 +167,10 @@ export default function HomePage() {
                 to={`/senderos?dificultad=${trail.dificultad}`}
                 className="relative inline-block rounded-2xl overflow-hidden no-underline group"
               >
-                <img
+                <Image
                   src={trail.img}
                   alt={`Senderismo nivel ${trail.level.toLowerCase()}`}
+                  containerClassName="w-full h-[350px] rounded-2xl"
                   className="w-full h-[350px] object-cover block rounded-2xl brightness-[0.7]
                              group-hover:brightness-90 group-hover:scale-105 transition-[filter,transform] duration-500"
                 />
