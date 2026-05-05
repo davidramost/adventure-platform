@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { cloudinaryService } from '../services/cloudinaryService';
 import { usuarioService } from '../services/usuarioService';
@@ -340,9 +341,10 @@ export default function ProfilePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {userFavorites.map(ruta => (
                   <div key={ruta.id_ruta} onClick={() => navigate(`/ruta/${ruta.id_ruta}`)} className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl overflow-hidden hover:border-primary-light/50 transition-colors group cursor-pointer">
-                    <img
+                    <Image
                       src={ruta.imagen_url}
                       alt={ruta.nombre_ruta}
+                      containerClassName="w-full h-40"
                       className="w-full h-40 object-cover group-hover:scale-105 transition-transform"
                     />
                     <div className="p-4">

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { getAllRutas } from '../services/rutaService';
 import type { Ruta } from '../types';
@@ -78,20 +79,15 @@ export default function CategoryPage() {
                 >
                   {/* Image */}
                   <div className="w-full md:w-[280px] shrink-0">
-                    {ruta.imagen_url ? (
-                      <img
-                        src={ruta.imagen_url}
-                        alt={ruta.nombre_ruta}
-                        loading="lazy"
-                        width="280"
-                        height="120"
-                        className="w-full md:w-[280px] h-[180px] md:h-[120px] object-cover block"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center w-full h-[120px] bg-primary">
-                        <img src="/Img/Icons/sin-imagen.png" alt="Sin foto" className="w-[50px] h-[50px] opacity-40" />
-                      </div>
-                    )}
+                    <Image
+                      src={ruta.imagen_url || ''}
+                      alt={ruta.nombre_ruta}
+                      loading="lazy"
+                      width={280}
+                      height={120}
+                      containerClassName="w-full md:w-[280px] h-[180px] md:h-[120px]"
+                      className="w-full md:w-[280px] h-[180px] md:h-[120px] object-cover block"
+                    />
                   </div>
 
                   {/* Info */}
