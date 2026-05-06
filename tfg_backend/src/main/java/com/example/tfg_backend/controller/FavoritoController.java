@@ -20,12 +20,18 @@ public class FavoritoController {
 
     @GetMapping
     public ResponseEntity<List<RutaResponse>> getFavoritos(@AuthenticationPrincipal Usuario usuario) {
+        if (usuario == null) {
+            return ResponseEntity.status(401).build();
+        }
         return ResponseEntity.ok(favoritoService.getFavoritosByUsuario(usuario.getIdUsuario()));
     }
 
     @PostMapping("/{idRuta}")
     public ResponseEntity<Map<String, Boolean>> toggleFavorito(@PathVariable Integer idRuta,
             @AuthenticationPrincipal Usuario usuario) {
+        if (usuario == null) {
+            return ResponseEntity.status(401).build();
+        }
         boolean esFavorito = favoritoService.toggleFavorito(idRuta, usuario.getIdUsuario());
         return ResponseEntity.ok(Map.of("favorito", esFavorito));
     }
@@ -33,6 +39,9 @@ public class FavoritoController {
     @GetMapping("/check/{idRuta}")
     public ResponseEntity<Map<String, Boolean>> checkFavorito(@PathVariable Integer idRuta,
             @AuthenticationPrincipal Usuario usuario) {
+        if (usuario == null) {
+            return ResponseEntity.status(401).build();
+        }
         boolean esFavorito = favoritoService.esFavorito(idRuta, usuario.getIdUsuario());
         return ResponseEntity.ok(Map.of("favorito", esFavorito));
     }
