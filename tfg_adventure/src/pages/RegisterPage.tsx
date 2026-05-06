@@ -3,10 +3,12 @@ import { Link, useNavigate, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
+import { useProfileValidation } from '../hooks/useProfileValidation';
 
 export default function RegisterPage() {
   const { register, usuario } = useAuth();
   const navigate = useNavigate();
+  const { validateProfileData, normalizeProfileData } = useProfileValidation();
 
   if (usuario) return <Navigate to="/" replace />;
   const [nombreUsuario, setNombreUsuario] = useState('');
@@ -61,15 +63,36 @@ export default function RegisterPage() {
       return;
     }
 
+    if (nombre || apellido || domicilio || factDomicilio) {
+      const profileValidation = validateProfileData({
+        nombre,
+        apellido,
+        domicilio,
+        factDomicilio,
+      });
+
+      if (!profileValidation.isValid) {
+        setError(profileValidation.errors.join('. '));
+        return;
+      }
+    }
+
     setLoading(true);
+    const normalized = normalizeProfileData({
+      nombre,
+      apellido,
+      domicilio,
+      factDomicilio,
+    });
+
     const err = await register(
       nombreUsuario.trim(),
       email.trim(),
       password,
-      nombre.trim() || undefined,
-      apellido.trim() || undefined,
-      domicilio.trim() || undefined,
-      factDomicilio.trim() || undefined
+      normalized.nombre || undefined,
+      normalized.apellido || undefined,
+      normalized.domicilio || undefined,
+      normalized.factDomicilio || undefined
     );
     if (err) {
       setError(err);

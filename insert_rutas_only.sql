@@ -19,7 +19,7 @@ VALUES -- 1
         'Ruta circular de senderismo que discurre por el Parque Natural de las Sierras Subbéticas, en Zuheros. El sendero recorre el espectacular Cañón del Río Bailón, una profunda garganta caliza de gran belleza.',
         12.4,
         '4,5-5 h',
-        'Moderada',
+        'Media',
         549,
         'https://assets.alltrails.com/uploads/photo/image/113936033/540582f74bd121e3962ba2c35adfd3a8.jpg'
     ),
@@ -31,7 +31,7 @@ VALUES -- 1
         'Paseo urbano por el corazón histórico de Córdoba. La ruta comienza junto al río Guadalquivir y discurre por la Ribera, pasando por el Puente Romano y la Mezquita-Catedral hasta la animada Plaza de la Corredera.',
         7.6,
         '1,5-2 h',
-        'Moderada',
+        'Media',
         80,
         'https://assets.alltrails.com/uploads/photo/image/115019934/e49b4347ebc95dc83616c5c08de917ed.jpg'
     ),
@@ -43,7 +43,7 @@ VALUES -- 1
         'Ruta circular que recorre el entorno del Arroyo Bejarano y llega hasta los Baños de Popea siguiendo el sendero GR®48 de Sierra Morena, con bonitas vistas de la Sierra Cordobesa.',
         7.7,
         '2-2,5 h',
-        'Moderada',
+        'Media',
         320,
         'https://assets.alltrails.com/uploads/photo/image/52728094/d374ddb73f10fd2d0d23d8450c5313fb.jpg'
     ),
@@ -67,7 +67,7 @@ VALUES -- 1
         'Ruta de senderismo y running por los alrededores de Córdoba. La ruta es popular entre los corredores locales y permite disfrutar de los parques y zonas verdes del cinturón periurbano de la ciudad.',
         14.3,
         NULL,
-        'Moderada',
+        'Media',
         450,
         NULL
     ),
@@ -79,7 +79,7 @@ VALUES -- 1
         'Ruta circular por la sierra cordobesa que parte desde El Naranjo, pasa junto a la Ermita de Santo Domingo y regresa por el Sendero del Arroyo Santo Domingo, disfrutando de bonitas vistas de Córdoba.',
         12.4,
         '3,5-4 h',
-        'Moderada',
+        'Media',
         380,
         NULL
     ),
@@ -91,7 +91,7 @@ VALUES -- 1
         'Bonita ruta de senderismo de subida hasta el Reventón, el punto más alto de los alrededores de Córdoba, con magníficas panorámicas sobre la ciudad y la campiña.',
         4.3,
         '1,5-2 h',
-        'Moderada',
+        'Media',
         250,
         NULL
     ),
@@ -103,7 +103,7 @@ VALUES -- 1
         'Ruta de senderismo por el Parque Natural de las Sierras Subbéticas que sigue el curso del Río Bailón, discurriendo entre impresionantes paredes calizas y una exuberante vegetación ribereña.',
         11.9,
         '3-3,5 h',
-        'Moderada',
+        'Media',
         420,
         NULL
     ),
@@ -115,7 +115,7 @@ VALUES -- 1
         'Ruta circular en las inmediaciones de las Ermitas de Córdoba, pasando por el mirador de La Pili y el Arroyo Barrionuevo, con vistas privilegiadas de la ciudad y la Sierra.',
         7.4,
         '2,5-3 h',
-        'Moderada',
+        'Media',
         280,
         NULL
     ),
@@ -127,7 +127,7 @@ VALUES -- 1
         'Ruta de senderismo en el Parque Natural de la Sierra de Hornachuelos. El sendero Los Ángeles atraviesa un magnífico bosque mediterráneo con abundante fauna y flora.',
         10.5,
         '3-3,5 h',
-        'Moderada',
+        'Media',
         350,
         NULL
     ),
@@ -139,7 +139,7 @@ VALUES -- 1
         'Ruta circular que parte del Arroyo Santo Domingo, pasa por el área recreativa de Casa Rota y regresa por el Arroyo Pedroches, recorriendo los bosques de pinos y eucaliptos de la sierra cordobesa.',
         7.1,
         '2-2,5 h',
-        'Moderada',
+        'Media',
         230,
         NULL
     ),
@@ -151,7 +151,7 @@ VALUES -- 1
         'Segunda versión del sendero Los Ángeles en el Parque Natural de Hornachuelos, con un trazado ligeramente diferente que permite explorar distintos rincones del bosque mediterráneo.',
         10.6,
         '3,5-4 h',
-        'Moderada',
+        'Media',
         350,
         NULL
     ),
@@ -175,7 +175,7 @@ VALUES -- 1
         'Corto pero intenso recorrido que asciende desde la Cuesta de los Pobres hasta el mirador del Balcón del Mundo, con extraordinarias vistas panorámicas de Córdoba y su entorno.',
         3.5,
         '1-1,5 h',
-        'Moderada',
+        'Media',
         200,
         NULL
     ),
@@ -187,7 +187,7 @@ VALUES -- 1
         'Agradable paseo por la localidad de Iznájar y sus alrededores, con vistas al embalse de Iznájar, el mayor de Andalucía, y al pintoresco casco urbano coronado por su castillo medieval.',
         4.3,
         '1,5-2 h',
-        'Moderada',
+        'Media',
         150,
         NULL
     ),
@@ -199,7 +199,7 @@ VALUES -- 1
         'Ruta circular por la sierra cordobesa que recorre la Cuesta de la Traición, pasa por Los Morales y regresa por la Vereda del Villar, con bonitas vistas del entorno natural.',
         6.1,
         '2-2,5 h',
-        'Moderada',
+        'Media',
         300,
         NULL
     ),
@@ -211,7 +211,7 @@ VALUES -- 1
         'Ruta de senderismo por el Parque Natural de la Sierra de Hornachuelos que discurre por el sendero de Las Herrerías, atravesando un denso bosque mediterráneo.',
         6.0,
         '1,5-2 h',
-        'Moderada',
+        'Media',
         250,
         NULL
     ),
@@ -223,7 +223,7 @@ VALUES -- 1
         'Larga ruta en bicicleta de montaña o a pie que sigue el trazado de la Vía Verde de la Subbética entre Cabra y Doña Mencía, por el corazón de la campiña cordobesa.',
         26.9,
         '6,5-7 h',
-        'Moderada',
+        'Media',
         380,
         NULL
     ),
@@ -235,7 +235,7 @@ VALUES -- 1
         'Ruta circular por los alrededores de Zuheros que asciende hasta el Pecho del Canalizo, con espectaculares vistas del Cañón del Río Bailón y las Sierras Subbéticas.',
         7.7,
         '2-2,5 h',
-        'Moderada',
+        'Media',
         280,
         NULL
     ),
@@ -247,7 +247,7 @@ VALUES -- 1
         'Ruta lineal por la Vía Verde del Aceite entre Lucena y Cabra, siguiendo el antiguo trazado del ferrocarril olivarero por la campiña cordobesa, con extensos olivares y suaves lomas.',
         16.6,
         '4-4,5 h',
-        'Moderada',
+        'Media',
         200,
         NULL
     ),
@@ -259,7 +259,7 @@ VALUES -- 1
         'Extensa ruta circular por la sierra cordobesa que recorre la Vereda del Villar, el Sendero del Lobo y sube hasta el mirador del Balcón del Mundo.',
         12.9,
         '4-4,5 h',
-        'Moderada',
+        'Media',
         420,
         NULL
     ),

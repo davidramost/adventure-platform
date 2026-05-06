@@ -5,11 +5,13 @@ import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { pedidoService } from '../services/pedidoService';
+import { useProfileValidation } from '../hooks/useProfileValidation';
 
 export default function CartPage() {
   const { usuario } = useAuth();
   const { cart, updateQuantity, removeFromCart, clearCart, totalPrice, totalItems } = useCart();
   const navigate = useNavigate();
+  const { validateProfileData } = useProfileValidation();
 
   const handleCheckout = async () => {
     if (!usuario) {
@@ -18,8 +20,15 @@ export default function CartPage() {
       return;
     }
 
-    if (!usuario.nombre?.trim() || !usuario.apellido?.trim() || !usuario.domicilio?.trim() || !usuario.factDomicilio?.trim()) {
-      alert("Para realizar la compra, debes completar tus datos personales (nombre, apellido, domicilio y domicilio de facturación) en tu perfil.");
+    const profileValidation = validateProfileData({
+      nombre: usuario.nombre || '',
+      apellido: usuario.apellido || '',
+      domicilio: usuario.domicilio || '',
+      factDomicilio: usuario.fact_domicilio || '',
+    });
+
+    if (!profileValidation.isValid) {
+      alert(`Para realizar la compra, debes completar tus datos personales en tu perfil: ${profileValidation.errors.join(', ')}`);
       navigate('/perfil');
       return;
     }

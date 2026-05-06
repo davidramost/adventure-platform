@@ -7,12 +7,14 @@ import GalleryPage from './pages/GalleryPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CreatePage from './pages/CreatePage';
+import EditRutaPage from './pages/EditRutaPage';
 import ProfilePage from './pages/ProfilePage';
 import InfoPage from './pages/InfoPage';
 import StorePage from './pages/StorePage';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import NotFoundPage from './pages/NotFoundPage';
+import AdminPage from './pages/AdminPage';
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/senderos" element={<CategoryPage />} />
+        <Route path="/ruta/:id/editar" element={<EditRutaPage />} />
         <Route path="/ruta/:id" element={<ContentPage />} />
         <Route path="/galeria" element={<GalleryPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -32,6 +35,7 @@ function App() {
         <Route path="/tienda" element={<StorePage />} />
         <Route path="/producto/:id" element={<ProductPage />} />
         <Route path="/carrito" element={<CartPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

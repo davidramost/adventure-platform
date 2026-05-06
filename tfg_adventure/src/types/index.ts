@@ -17,6 +17,8 @@ export interface Ruta {
     desnivel_metros: number;
     imagen_url: string;
     nombre_ubicacion: string;
+    latitud: number | null;
+    longitud: number | null;
     media_puntuacion: number;
 }
 
@@ -39,7 +41,7 @@ export interface Usuario {
     nombre?: string | null;
     apellido?: string | null;
     domicilio?: string | null;
-    factDomicilio?: string | null;
+    fact_domicilio?: string | null;
 }
 
 export interface AuthResponse {
@@ -59,7 +61,7 @@ export interface RegisterRequest {
     nombre?: string;
     apellido?: string;
     domicilio?: string;
-    factDomicilio?: string;
+    fact_domicilio?: string;
 }
 
 export interface RutaRequest {
@@ -92,7 +94,7 @@ export interface UpdateUsuarioRequest {
     nombre?: string;
     apellido?: string;
     domicilio?: string;
-    factDomicilio?: string;
+    fact_domicilio?: string;
 }
 
 export interface UploadAvatarResponse {

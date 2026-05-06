@@ -6,18 +6,18 @@ import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { cloudinaryService } from '../services/cloudinaryService';
 import { usuarioService } from '../services/usuarioService';
+import { useProfileValidation } from '../hooks/useProfileValidation';
 
 export default function ProfilePage() {
-  const { usuario, toggleFavorito, esFavorito, rutas, logout } = useAuth();
+  const { usuario, toggleFavorito, esFavorito, rutas, logout, refreshUsuario } = useAuth();
   const navigate = useNavigate();
-  const [isEditingName, setIsEditingName] = useState(false);
-  const [newName, setNewName] = useState(usuario?.nombre_usuario || '');
+  const { validateProfileData, normalizeProfileData } = useProfileValidation();
   const [isEditingPersonalInfo, setIsEditingPersonalInfo] = useState(false);
   const [personalInfo, setPersonalInfo] = useState({
     nombre: usuario?.nombre || '',
     apellido: usuario?.apellido || '',
     domicilio: usuario?.domicilio || '',
-    factDomicilio: usuario?.factDomicilio || '',
+    factDomicilio: usuario?.fact_domicilio || '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [uploadError, setUploadError] = useState('');
@@ -45,14 +45,9 @@ export default function ProfilePage() {
       const cloudinaryUrl = await cloudinaryService.uploadAvatar(file);
       console.log('📤 Enviando URL al backend:', cloudinaryUrl);
 
-      const response = await usuarioService.uploadAvatar(cloudinaryUrl);
-      console.log('✅ Respuesta del backend:', response);
-
+      await usuarioService.uploadAvatar(cloudinaryUrl);
+      await refreshUsuario();
       setSuccessMessage('Foto de perfil actualizada correctamente');
-      setTimeout(() => {
-        console.log('🔄 Recargando página...');
-        window.location.reload();
-      }, 1500);
     } catch (error: any) {
       console.error('❌ Error completo:', error);
       console.error('Mensaje:', error.message);
@@ -63,9 +58,11 @@ export default function ProfilePage() {
     }
   };
 
-  const handleUpdateName = async () => {
-    if (!newName.trim() || newName === usuario.nombre_usuario) {
-      setIsEditingName(false);
+  const handleUpdatePersonalInfo = async () => {
+    const validation = validateProfileData(personalInfo);
+
+    if (!validation.isValid) {
+      setUploadError(validation.errors.join('. '));
       return;
     }
 
@@ -74,39 +71,22 @@ export default function ProfilePage() {
     setSuccessMessage('');
 
     try {
-      await usuarioService.updateProfile({ nombre_usuario: newName.trim() });
-      setSuccessMessage('Nombre de usuario actualizado');
-      setTimeout(() => window.location.reload(), 1500);
-    } catch (error) {
-      setUploadError('Error al actualizar el nombre');
-      setNewName(usuario.nombre_usuario);
-    } finally {
-      setIsLoading(false);
-      setIsEditingName(false);
-    }
-  };
-
-  const handleUpdatePersonalInfo = async () => {
-    setIsLoading(true);
-    setUploadError('');
-    setSuccessMessage('');
-
-    try {
+      const normalized = normalizeProfileData(personalInfo);
       await usuarioService.updateProfile({
-        nombre: personalInfo.nombre || undefined,
-        apellido: personalInfo.apellido || undefined,
-        domicilio: personalInfo.domicilio || undefined,
-        factDomicilio: personalInfo.factDomicilio || undefined,
+        nombre: normalized.nombre || undefined,
+        apellido: normalized.apellido || undefined,
+        domicilio: normalized.domicilio || undefined,
+        fact_domicilio: normalized.factDomicilio || undefined,
       });
+      await refreshUsuario();
       setSuccessMessage('Datos personales actualizados correctamente');
-      setTimeout(() => window.location.reload(), 1500);
     } catch (error) {
       setUploadError('Error al actualizar los datos personales');
       setPersonalInfo({
         nombre: usuario?.nombre || '',
         apellido: usuario?.apellido || '',
         domicilio: usuario?.domicilio || '',
-        factDomicilio: usuario?.factDomicilio || '',
+        factDomicilio: usuario?.fact_domicilio || '',
       });
     } finally {
       setIsLoading(false);
@@ -171,48 +151,9 @@ export default function ProfilePage() {
               <div className="flex-1 w-full">
                 <div className="mb-6">
                   <label className="block text-white text-sm font-medium mb-2">Nombre de usuario</label>
-                  {isEditingName ? (
-                    <div className="flex gap-2">
-                      <input
-                        type="text"
-                        value={newName}
-                        onChange={e => setNewName(e.target.value)}
-                        autoComplete="username"
-                        disabled={isLoading}
-                        className="flex-1 p-3 bg-gray-700 border border-gray-600 rounded-lg text-white outline-none focus:border-primary-light disabled:opacity-50"
-                      />
-                      <button
-                        onClick={handleUpdateName}
-                        disabled={isLoading}
-                        className="px-4 py-3 bg-primary-light hover:bg-primary-dark text-primary-dark font-medium rounded-lg transition-colors disabled:opacity-50"
-                      >
-                        Guardar
-                      </button>
-                      <button
-                        onClick={() => {
-                          setIsEditingName(false);
-                          setNewName(usuario.nombre_usuario);
-                        }}
-                        disabled={isLoading}
-                        className="px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50"
-                      >
-                        Cancelar
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-between p-3 bg-gray-700/50 border border-gray-600 rounded-lg">
-                      <span className="text-white">{usuario.nombre_usuario}</span>
-                      <button
-                        onClick={() => setIsEditingName(true)}
-                        aria-label="Editar nombre de usuario"
-                        className="text-primary-light hover:text-primary-dark transition-colors"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                        </svg>
-                      </button>
-                    </div>
-                  )}
+                  <div className="p-3 bg-gray-700/50 border border-gray-600 rounded-lg text-gray-400">
+                    {usuario.nombre_usuario}
+                  </div>
                 </div>
 
                 <div className="mb-6">
@@ -228,7 +169,7 @@ export default function ProfilePage() {
                     {!isEditingPersonalInfo && (
                       <button
                         onClick={() => setIsEditingPersonalInfo(true)}
-                        className="text-primary-light hover:text-primary-dark transition-colors text-xs"
+                        className="text-gray-300 hover:text-primary-light transition-colors text-xs"
                       >
                         Editar
                       </button>
@@ -273,7 +214,7 @@ export default function ProfilePage() {
                         <button
                           onClick={handleUpdatePersonalInfo}
                           disabled={isLoading}
-                          className="flex-1 px-4 py-2 bg-primary-light hover:bg-primary-dark text-primary-dark font-medium rounded-lg transition-colors disabled:opacity-50"
+                          className="flex-1 px-4 py-2 bg-primary-light text-white hover:bg-primary-dark text-primary-dark hover:text-white font-medium rounded-lg transition-colors disabled:opacity-50"
                         >
                           Guardar
                         </button>
@@ -284,7 +225,7 @@ export default function ProfilePage() {
                               nombre: usuario?.nombre || '',
                               apellido: usuario?.apellido || '',
                               domicilio: usuario?.domicilio || '',
-                              factDomicilio: usuario?.factDomicilio || '',
+                              factDomicilio: usuario?.fact_domicilio || '',
                             });
                           }}
                           disabled={isLoading}
@@ -306,7 +247,7 @@ export default function ProfilePage() {
                         <span className="text-gray-400">Envío:</span> {usuario.domicilio || '—'}
                       </p>
                       <p className="text-gray-300">
-                        <span className="text-gray-400">Facturación:</span> {usuario.factDomicilio || '—'}
+                        <span className="text-gray-400">Facturación:</span> {usuario.fact_domicilio || '—'}
                       </p>
                     </div>
                   )}
@@ -332,7 +273,7 @@ export default function ProfilePage() {
                 <p className="text-gray-400 mb-4">Aún no tienes rutas favoritas</p>
                 <button
                   onClick={() => navigate('/senderos')}
-                  className="inline-block px-6 py-3 bg-primary-light hover:bg-primary-dark text-primary-dark hover:text-secondary font-medium rounded-lg transition-colors"
+                  className="inline-block px-6 py-3 bg-primary-light hover:bg-primary-dark text-white hover:text-white font-medium rounded-lg transition-colors"
                 >
                   Explorar rutas
                 </button>
@@ -369,17 +310,21 @@ export default function ProfilePage() {
                       <div className="flex gap-2">
                         <button
                           onClick={(e) => { e.stopPropagation(); navigate(`/ruta/${ruta.id_ruta}`); }}
-                          className="flex-1 px-3 py-2 bg-primary-light hover:bg-primary-dark text-primary-dark font-medium rounded-lg text-sm transition-colors"
+                          className="flex-1 px-3 py-2 bg-primary-light text-white hover:bg-primary-dark hover:text-white font-medium rounded-lg text-sm transition-colors"
                         >
                           Ver detalles
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); toggleFavorito(ruta.id_ruta); }}
-                          className="px-3 py-2 bg-gray-700 hover:bg-red-600 text-white rounded-lg transition-colors"
+                          aria-label={esFavorito(ruta.id_ruta) ? 'Quitar de favoritos' : 'Añadir a favoritos'}
+                          className="px-3 py-2 bg-gray-700 hover:bg-red-600 rounded-lg transition-colors"
                         >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                          </svg>
+                          <img
+                            src={esFavorito(ruta.id_ruta) ? '/Img/Icons/favorito_solid.png' : '/Img/Icons/favourite.png'}
+                            alt=""
+                            aria-hidden="true"
+                            className="w-[18px] h-[18px]"
+                          />
                         </button>
                       </div>
                     </div>
