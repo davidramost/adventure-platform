@@ -41,6 +41,16 @@
   }
 }
 
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(200%);
+  }
+}
+
 @layer utilities {
   .animate-fade-in-down {
     animation: fade-in-down 0.3s ease-out both;

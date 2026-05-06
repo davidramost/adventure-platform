@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -11,6 +11,7 @@ export default function Header({ transparent = false }: { transparent?: boolean 
   const [menuOpen, setMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [logoutMsg, setLogoutMsg] = useState(false);
+  const closeMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const bgClass = transparent ? '' : 'bg-gradient-to-br from-primary-light to-primary-dark';
 
@@ -91,7 +92,19 @@ export default function Header({ transparent = false }: { transparent?: boolean 
         <div className="relative z-10 flex items-center gap-4 md:gap-6">
           {/* Login / User menu */}
           {usuario ? (
-            <div className="relative">
+            <div
+              className="relative"
+              onMouseEnter={() => {
+                if (closeMenuTimerRef.current) clearTimeout(closeMenuTimerRef.current);
+                setUserMenuOpen(true);
+                setMenuOpen(false);
+              }}
+              onMouseLeave={() => {
+                closeMenuTimerRef.current = setTimeout(() => {
+                  setUserMenuOpen(false);
+                }, 2000);
+              }}
+            >
               <button
                 onClick={() => {
                   setUserMenuOpen(!userMenuOpen);
