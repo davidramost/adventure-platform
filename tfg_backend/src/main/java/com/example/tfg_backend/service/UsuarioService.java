@@ -10,6 +10,8 @@ import com.example.tfg_backend.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
@@ -65,6 +67,48 @@ public class UsuarioService {
         usuario.setImagen(request.getImagen());
         usuario = usuarioRepository.save(usuario);
         return toUsuarioResponse(usuario);
+    }
+
+    public List<UsuarioResponse> getAllUsuarios() {
+        return usuarioRepository.findAll().stream().map(this::toUsuarioResponse).toList();
+    }
+
+    public UsuarioResponse updateUsuarioByAdmin(Integer idUsuario, UpdateUsuarioRequest request) {
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        if (request.getNombreUsuario() != null && !request.getNombreUsuario().isBlank()) {
+            if (!request.getNombreUsuario().equals(usuario.getNombreUsuario()) &&
+                    usuarioRepository.existsByNombreUsuario(request.getNombreUsuario())) {
+                throw new BadRequestException("El nombre de usuario ya está en uso");
+            }
+            usuario.setNombreUsuario(request.getNombreUsuario());
+        }
+
+        if (request.getNombre() != null) {
+            usuario.setNombre(request.getNombre());
+        }
+
+        if (request.getApellido() != null) {
+            usuario.setApellido(request.getApellido());
+        }
+
+        if (request.getDomicilio() != null) {
+            usuario.setDomicilio(request.getDomicilio());
+        }
+
+        if (request.getFactDomicilio() != null) {
+            usuario.setFactDomicilio(request.getFactDomicilio());
+        }
+
+        usuario = usuarioRepository.save(usuario);
+        return toUsuarioResponse(usuario);
+    }
+
+    public void deleteUsuario(Integer idUsuario) {
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        usuarioRepository.delete(usuario);
     }
 
     private UsuarioResponse toUsuarioResponse(Usuario usuario) {
