@@ -159,6 +159,8 @@ public class RutaService {
                 .desnivelMetros(ruta.getDesnivelMetros())
                 .imagenUrl(ruta.getImagenUrl())
                 .nombreUbicacion(ruta.getUbicacion() != null ? ruta.getUbicacion().getNombre() : null)
+                .latitud(ruta.getUbicacion() != null ? ruta.getUbicacion().getLatitud() : null)
+                .longitud(ruta.getUbicacion() != null ? ruta.getUbicacion().getLongitud() : null)
                 .idUsuario(ruta.getUsuario() != null ? ruta.getUsuario().getIdUsuario() : null)
                 .mediaPuntuacion(mediaPuntuacion)
                 .build();

@@ -25,20 +25,8 @@ public class UsuarioService {
     }
 
     public UsuarioResponse updateMe(Integer idUsuario, UpdateUsuarioRequest request) {
-        if (request.getNombreUsuario() != null && request.getNombreUsuario().isBlank()) {
-            throw new BadRequestException("Nombre de usuario no puede estar vacío");
-        }
-
         Usuario usuario = usuarioRepository.findById(idUsuario)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
-
-        if (request.getNombreUsuario() != null && !request.getNombreUsuario().isEmpty()) {
-            if (!request.getNombreUsuario().equals(usuario.getNombreUsuario()) &&
-                    usuarioRepository.existsByNombreUsuario(request.getNombreUsuario())) {
-                throw new BadRequestException("El nombre de usuario ya está en uso");
-            }
-            usuario.setNombreUsuario(request.getNombreUsuario());
-        }
 
         if (request.getNombre() != null) {
             usuario.setNombre(request.getNombre());
@@ -76,14 +64,6 @@ public class UsuarioService {
     public UsuarioResponse updateUsuarioByAdmin(Integer idUsuario, UpdateUsuarioRequest request) {
         Usuario usuario = usuarioRepository.findById(idUsuario)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
-
-        if (request.getNombreUsuario() != null && !request.getNombreUsuario().isBlank()) {
-            if (!request.getNombreUsuario().equals(usuario.getNombreUsuario()) &&
-                    usuarioRepository.existsByNombreUsuario(request.getNombreUsuario())) {
-                throw new BadRequestException("El nombre de usuario ya está en uso");
-            }
-            usuario.setNombreUsuario(request.getNombreUsuario());
-        }
 
         if (request.getNombre() != null) {
             usuario.setNombre(request.getNombre());
