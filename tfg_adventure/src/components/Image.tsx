@@ -13,6 +13,7 @@ export default function Image({
     ...props
 }: ImageProps) {
     const [hasError, setHasError] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const hasValidSrc = Boolean(props.src && props.src.trim() !== '');
 
@@ -32,13 +33,24 @@ export default function Image({
     }
 
     return (
-        <img
-            {...props}
-            src={props.src}
-            onError={(e) => {
-                setHasError(true);
-                props.onError?.(e);
-            }}
-        />
+        <div className={`relative overflow-hidden ${containerClassName}`}>
+            {isLoading && (
+                <div className="absolute inset-0 z-10 bg-[#2a2a2a] overflow-hidden">
+                    <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                </div>
+            )}
+            <img
+                {...props}
+                className={`${props.className ?? ''} ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-300'}`}
+                onLoad={(e) => {
+                    setIsLoading(false);
+                    props.onLoad?.(e);
+                }}
+                onError={(e) => {
+                    setHasError(true);
+                    props.onError?.(e);
+                }}
+            />
+        </div>
     );
 }
