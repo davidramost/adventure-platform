@@ -21,6 +21,8 @@ public class RutaResponse {
     private Integer desnivelMetros;
     private String imagenUrl;
     private String nombreUbicacion;
+    private java.math.BigDecimal latitud;
+    private java.math.BigDecimal longitud;
     private Integer idUsuario;
     private Double mediaPuntuacion;
 }
