@@ -4,6 +4,7 @@ import type { Usuario, Ruta, RutaRequest } from '../types';
 import * as authService from '../services/authService';
 import * as rutaService from '../services/rutaService';
 import * as favoritoService from '../services/favoritoService';
+import { usuarioService } from '../services/usuarioService';
 
 interface AuthContextType {
   usuario: Usuario | null;
@@ -16,8 +17,10 @@ interface AuthContextType {
   toggleFavorito: (idRuta: number) => Promise<void>;
   esFavorito: (idRuta: number) => boolean;
   addRuta: (data: RutaRequest) => Promise<void>;
+  updateRuta: (idRuta: number, data: RutaRequest) => Promise<void>;
   deleteRuta: (idRuta: number) => Promise<void>;
   refreshRutas: () => Promise<void>;
+  refreshUsuario: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -45,7 +48,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const favRutas = await favoritoService.getFavoritos();
       setFavoritos(favRutas.map(r => r.id_ruta));
-    } catch {
+    } catch (error: any) {
+      console.error('❌ Error cargando favoritos:', error.response?.status, error.message);
       setFavoritos([]);
     }
   }, []);
@@ -90,7 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         nombre,
         apellido,
         domicilio,
-        factDomicilio,
+        fact_domicilio: factDomicilio,
       });
       localStorage.setItem('token', res.token);
       localStorage.setItem('usuario', JSON.stringify(res.usuario));
@@ -109,7 +113,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setFavoritos(prev =>
         prev.includes(idRuta) ? prev.filter(id => id !== idRuta) : [...prev, idRuta]
       );
-    } catch { /* silencioso */ }
+    } catch (error: any) {
+      console.error('❌ Error al toggle favorito:', error.response?.status, error.message);
+    }
   };
 
   const esFavorito = (idRuta: number): boolean => favoritos.includes(idRuta);
@@ -119,9 +125,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await loadRutas();
   };
 
+  const updateRuta = async (idRuta: number, data: RutaRequest) => {
+    await rutaService.updateRuta(idRuta, data);
+    await loadRutas();
+  };
+
   const deleteRuta = async (idRuta: number) => {
     await rutaService.deleteRuta(idRuta);
     setRutas(prev => prev.filter(r => r.id_ruta !== idRuta));
+  };
+
+  const refreshUsuario = async () => {
+    try {
+      const updatedUsuario = await usuarioService.getMe();
+      localStorage.setItem('usuario', JSON.stringify(updatedUsuario));
+      setUsuario(updatedUsuario);
+    } catch {
+      // silently fail
+    }
   };
 
   return (
@@ -129,8 +150,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       usuario, favoritos, rutas, loading,
       login, logout, register,
       toggleFavorito, esFavorito,
-      addRuta, deleteRuta,
+      addRuta, updateRuta, deleteRuta,
       refreshRutas: loadRutas,
+      refreshUsuario,
     }}>
       {children}
     </AuthContext.Provider>

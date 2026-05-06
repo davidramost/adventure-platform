@@ -16,6 +16,11 @@ export async function createRuta(data: RutaRequest): Promise<Ruta> {
     return res.data;
 }
 
+export async function updateRuta(id: number, data: RutaRequest): Promise<Ruta> {
+    const res = await api.put<Ruta>(`/rutas/${id}`, data);
+    return res.data;
+}
+
 export async function deleteRuta(id: number): Promise<void> {
     await api.delete(`/rutas/${id}`);
 }

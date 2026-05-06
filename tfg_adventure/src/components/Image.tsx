@@ -14,15 +14,17 @@ export default function Image({
 }: ImageProps) {
     const [hasError, setHasError] = useState(false);
 
-    if (hasError) {
+    const hasValidSrc = Boolean(props.src && props.src.trim() !== '');
+
+    if (hasError || !hasValidSrc) {
         return (
             <div
-                className={`flex items-center justify-center bg-primary ${containerClassName}`}
+                className={`flex items-center justify-center bg-[#2a2a2a] ${containerClassName}`}
             >
                 <img
                     src={fallback}
                     alt="Sin imagen disponible"
-                    className={`w-[${fallbackSize}px] h-[${fallbackSize}px] opacity-40`}
+                    className="opacity-40"
                     style={{ width: `${fallbackSize}px`, height: `${fallbackSize}px` }}
                 />
             </div>
@@ -32,6 +34,7 @@ export default function Image({
     return (
         <img
             {...props}
+            src={props.src}
             onError={(e) => {
                 setHasError(true);
                 props.onError?.(e);
