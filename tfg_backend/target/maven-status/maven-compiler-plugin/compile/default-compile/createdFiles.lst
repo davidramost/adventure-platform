@@ -15,6 +15,7 @@ com/example/tfg_backend/service/UbicacionService.class
 com/example/tfg_backend/entity/Favorito.class
 com/example/tfg_backend/entity/Producto.class
 com/example/tfg_backend/dto/PedidoResponse.class
+com/example/tfg_backend/entity/PasswordResetToken.class
 com/example/tfg_backend/dto/RutaResponse.class
 com/example/tfg_backend/entity/Ubicacion.class
 com/example/tfg_backend/controller/AuthController.class
@@ -53,6 +54,7 @@ com/example/tfg_backend/dto/UbicacionResponse.class
 com/example/tfg_backend/dto/UpdateUsuarioRequest$UpdateUsuarioRequestBuilder.class
 com/example/tfg_backend/entity/Ruta.class
 com/example/tfg_backend/dto/RegisterRequest.class
+com/example/tfg_backend/repository/PasswordResetTokenRepository.class
 com/example/tfg_backend/controller/ProductoController.class
 com/example/tfg_backend/entity/Usuario$UsuarioBuilder.class
 com/example/tfg_backend/TfgBackendApplication.class
@@ -60,6 +62,7 @@ com/example/tfg_backend/exception/GlobalExceptionHandler.class
 com/example/tfg_backend/exception/UnauthorizedException.class
 com/example/tfg_backend/dto/RutaRequest$RutaRequestBuilder.class
 com/example/tfg_backend/dto/AuthResponse$AuthResponseBuilder.class
+com/example/tfg_backend/controller/AdminController.class
 com/example/tfg_backend/dto/UsuarioResponse.class
 com/example/tfg_backend/dto/LineaPedidoRequest.class
 com/example/tfg_backend/config/DotenvEnvironmentPostProcessor.class
@@ -73,6 +76,7 @@ com/example/tfg_backend/repository/FavoritoRepository.class
 com/example/tfg_backend/config/SecurityConfig.class
 com/example/tfg_backend/dto/UpdateUsuarioRequest.class
 com/example/tfg_backend/entity/MeGusta.class
+com/example/tfg_backend/dto/ResetPasswordRequest.class
 com/example/tfg_backend/dto/CrearPedidoRequest.class
 com/example/tfg_backend/dto/AuthResponse.class
 com/example/tfg_backend/dto/ResenaResponse$ResenaResponseBuilder.class
@@ -88,6 +92,7 @@ com/example/tfg_backend/controller/RutaController.class
 com/example/tfg_backend/dto/MensajeResponse.class
 com/example/tfg_backend/dto/RutaRequest.class
 com/example/tfg_backend/entity/LineaPedido.class
+com/example/tfg_backend/entity/PasswordResetToken$PasswordResetTokenBuilder.class
 com/example/tfg_backend/entity/LineaPedido$LineaPedidoBuilder.class
 com/example/tfg_backend/entity/Ubicacion$UbicacionBuilder.class
 com/example/tfg_backend/exception/ResourceNotFoundException.class
@@ -95,6 +100,7 @@ com/example/tfg_backend/repository/RutaRepository.class
 com/example/tfg_backend/dto/MensajeResponse$MensajeResponseBuilder.class
 com/example/tfg_backend/dto/LineaPedidoResponse.class
 com/example/tfg_backend/entity/Resena.class
+com/example/tfg_backend/dto/ForgotPasswordRequest.class
 com/example/tfg_backend/entity/Usuario.class
 com/example/tfg_backend/dto/RegisterRequest$RegisterRequestBuilder.class
 com/example/tfg_backend/dto/MensajeRequest.class

@@ -2,6 +2,7 @@
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/config/DotenvEnvironmentPostProcessor.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/config/JacksonConfig.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/config/SecurityConfig.java
+/Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/controller/AdminController.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/controller/AuthController.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/controller/FavoritoController.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/controller/MensajeController.java
@@ -14,6 +15,7 @@
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/AuthResponse.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/AvatarUpdateRequest.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/CrearPedidoRequest.java
+/Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/ForgotPasswordRequest.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/LineaPedidoRequest.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/LineaPedidoResponse.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/LoginRequest.java
@@ -24,6 +26,7 @@
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/RegisterRequest.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/ResenaRequest.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/ResenaResponse.java
+/Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/ResetPasswordRequest.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/RutaRequest.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/RutaResponse.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/UbicacionResponse.java
@@ -36,6 +39,7 @@
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/MeGusta.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/MeGustaId.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Mensaje.java
+/Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/PasswordResetToken.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Pedido.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Producto.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Resena.java
@@ -51,6 +55,7 @@
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/repository/LineaPedidoRepository.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/repository/MeGustaRepository.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/repository/MensajeRepository.java
+/Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/repository/PasswordResetTokenRepository.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/repository/PedidoRepository.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/repository/ProductoRepository.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/repository/ResenaRepository.java
