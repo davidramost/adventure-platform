@@ -1,16 +1,27 @@
 package com.example.tfg_backend.service;
 
 import com.example.tfg_backend.dto.AuthResponse;
+import com.example.tfg_backend.dto.ForgotPasswordRequest;
 import com.example.tfg_backend.dto.LoginRequest;
 import com.example.tfg_backend.dto.RegisterRequest;
+import com.example.tfg_backend.dto.ResetPasswordRequest;
 import com.example.tfg_backend.dto.UsuarioResponse;
+import com.example.tfg_backend.entity.PasswordResetToken;
 import com.example.tfg_backend.entity.Usuario;
 import com.example.tfg_backend.exception.BadRequestException;
+import com.example.tfg_backend.repository.PasswordResetTokenRepository;
 import com.example.tfg_backend.repository.UsuarioRepository;
 import com.example.tfg_backend.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +30,14 @@ public class AuthService {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
+    private final JavaMailSender mailSender;
+
+    @Value("${app.mail.from}")
+    private String mailFrom;
+
+    @Value("${app.frontend.url}")
+    private String frontendUrl;
 
     public AuthResponse register(RegisterRequest request) {
         if (usuarioRepository.existsByEmail(request.getEmail())) {
@@ -70,5 +89,56 @@ public class AuthService {
                 .domicilio(usuario.getDomicilio())
                 .factDomicilio(usuario.getFactDomicilio())
                 .build();
+    }
+
+    @Transactional
+    public void forgotPassword(ForgotPasswordRequest request) {
+        usuarioRepository.findByEmail(request.getEmail()).ifPresent(usuario -> {
+            passwordResetTokenRepository.deleteByUsuario(usuario);
+
+            String token = UUID.randomUUID().toString();
+            PasswordResetToken resetToken = PasswordResetToken.builder()
+                    .token(token)
+                    .usuario(usuario)
+                    .expiry(LocalDateTime.now().plusMinutes(15))
+                    .used(false)
+                    .build();
+            passwordResetTokenRepository.save(resetToken);
+
+            String resetLink = frontendUrl + "/reset-password?token=" + token;
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(mailFrom);
+            message.setTo(usuario.getEmail());
+            message.setSubject("Recuperación de contraseña - TFG Adventure");
+            message.setText(
+                    "Hola " + usuario.getNombreUsuario() + ",\n\n" +
+                            "Has solicitado recuperar tu contraseña.\n\n" +
+                            "Haz clic en el siguiente enlace para crear una nueva contraseña (válido 15 minutos):\n\n" +
+                            resetLink + "\n\n" +
+                            "Si no has solicitado esto, ignora este correo.\n\n" +
+                            "TFG Adventure");
+            mailSender.send(message);
+        });
+    }
+
+    @Transactional
+    public void resetPassword(ResetPasswordRequest request) {
+        PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(request.getToken())
+                .orElseThrow(() -> new BadRequestException("El enlace de recuperación no es válido"));
+
+        if (resetToken.isUsed()) {
+            throw new BadRequestException("El enlace de recuperación ya ha sido utilizado");
+        }
+        if (resetToken.isExpired()) {
+            throw new BadRequestException("El enlace de recuperación ha expirado. Solicita uno nuevo");
+        }
+
+        Usuario usuario = resetToken.getUsuario();
+        usuario.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        usuarioRepository.save(usuario);
+
+        resetToken.setUsed(true);
+        passwordResetTokenRepository.save(resetToken);
     }
 }

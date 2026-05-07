@@ -5,14 +5,12 @@ import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { getRutaById } from '../services/rutaService';
 import { cloudinaryService } from '../services/cloudinaryService';
-import type { Ruta } from '../types';
 
 export default function EditRutaPage() {
     const { usuario, updateRuta } = useAuth();
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
 
-    const [ruta, setRuta] = useState<Ruta | null>(null);
     const [form, setForm] = useState({
         tituloRuta: '',
         nombreRuta: '',
@@ -38,7 +36,6 @@ export default function EditRutaPage() {
             try {
                 if (!id) throw new Error('ID no válido');
                 const data = await getRutaById(parseInt(id));
-                setRuta(data);
 
                 const dificultadMap: Record<string, string> = {
                     'Baja': 'bajo',

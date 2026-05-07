@@ -1,5 +1,5 @@
 import api from '../api/client';
-import { Usuario, Ruta } from '../types';
+import type { Usuario, Ruta } from '../types';
 
 export interface AdminUpdateUsuarioRequest {
     nombre_usuario?: string;
