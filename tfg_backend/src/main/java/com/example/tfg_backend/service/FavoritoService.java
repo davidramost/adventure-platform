@@ -20,6 +20,7 @@ public class FavoritoService {
     private final RutaRepository rutaRepository;
     private final RutaService rutaService;
 
+    @Transactional(readOnly = true)
     public List<RutaResponse> getFavoritosByUsuario(Integer idUsuario) {
         List<Favorito> favoritos = favoritoRepository.findByIdUsuario(idUsuario);
         return favoritos.stream()
