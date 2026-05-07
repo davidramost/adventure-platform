@@ -11,6 +11,7 @@ import com.example.tfg_backend.repository.RutaRepository;
 import com.example.tfg_backend.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,11 +24,13 @@ public class MensajeService {
     private final RutaRepository rutaRepository;
     private final UsuarioRepository usuarioRepository;
 
+    @Transactional(readOnly = true)
     public List<MensajeResponse> getMensajesByRuta(Integer idRuta) {
         List<Mensaje> mensajes = mensajeRepository.findByRutaIdRutaOrderByFechaHoraDesc(idRuta);
         return mensajes.stream().map(this::toMensajeResponse).toList();
     }
 
+    @Transactional
     public MensajeResponse createMensaje(Integer idRuta, MensajeRequest request, Integer idUsuario) {
         Ruta ruta = rutaRepository.findById(idRuta)
                 .orElseThrow(() -> new ResourceNotFoundException("Ruta no encontrada con id: " + idRuta));
@@ -43,6 +46,7 @@ public class MensajeService {
         return toMensajeResponse(mensaje);
     }
 
+    @Transactional(readOnly = true)
     public List<MensajeResponse> getGeneralMessages() {
         return mensajeRepository.findByRutaIsNullOrderByFechaHoraAsc()
                 .stream().map(this::toMensajeResponse).toList();
