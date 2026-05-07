@@ -80,6 +80,7 @@ public class RutaService {
         return toRutaResponse(ruta);
     }
 
+    @Transactional
     public RutaResponse updateRuta(Integer id, RutaRequest request, Integer idUsuario) {
         Ruta ruta = rutaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ruta no encontrada con id: " + id));
