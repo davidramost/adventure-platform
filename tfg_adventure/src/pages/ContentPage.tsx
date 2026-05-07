@@ -140,7 +140,7 @@ export default function ContentPage() {
           <div className="flex flex-col lg:flex-row gap-8">
 
             {/* ── LEFT: description + GPX map + comments ─────────── */}
-            <div className="flex-1 min-w-0 space-y-8">
+            <div className="flex-1 min-w-0 space-y-8 order-2 lg:order-1">
 
               {/* Description */}
               <section className="bg-white/5 border border-white/10 rounded-2xl p-6">
@@ -269,7 +269,7 @@ export default function ContentPage() {
             </div>
 
             {/* ── RIGHT: sidebar ─────────────────────────────────── */}
-            <aside className="lg:w-80 xl:w-96 flex-shrink-0 space-y-5">
+            <aside className="lg:w-80 xl:w-96 flex-shrink-0 space-y-5 order-1 lg:order-2">
 
               {/* Stats card */}
               <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
