@@ -13,6 +13,7 @@ import com.example.tfg_backend.repository.UbicacionRepository;
 import com.example.tfg_backend.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class RutaService {
     private final UbicacionRepository ubicacionRepository;
     private final ResenaRepository resenaRepository;
 
+    @Transactional(readOnly = true)
     public List<RutaResponse> getAllRutas(String dificultad, String search) {
         List<Ruta> rutas;
         if (search != null && !search.isBlank()) {
@@ -37,6 +39,7 @@ public class RutaService {
         return rutas.stream().map(this::toRutaResponse).toList();
     }
 
+    @Transactional(readOnly = true)
     public RutaResponse getRutaById(Integer id) {
         Ruta ruta = rutaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Ruta no encontrada con id: " + id));
