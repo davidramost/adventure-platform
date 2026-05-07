@@ -103,7 +103,7 @@ export default function StorePage() {
 
                   <div className="p-5 flex flex-col flex-1">
                     <Link to={`/producto/${producto.id_producto}`} className="no-underline">
-                      <h2 className="text-white hover:text-primary-light text-lg font-bold m-0 mb-2 leading-tight transition-colors">{producto.nombre}</h2>
+                      <h2 className="text-white hover: text-lg font-bold m-0 mb-2 leading-tight transition-colors">{producto.nombre}</h2>
                     </Link>
                     <p className="text-[#bbb] text-sm mb-4 line-clamp-2 flex-1">{producto.descripcion}</p>
 
