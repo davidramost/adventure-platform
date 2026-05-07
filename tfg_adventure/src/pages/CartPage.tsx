@@ -164,7 +164,7 @@ export default function CartPage() {
                   </button>
                   <button
                     onClick={clearCart}
-                    className="w-full bg-transparent hover:bg-white/5 text-gray-400 font-medium py-3 rounded-xl transition-colors cursor-pointer border border-gray-600 hover:border-gray-400"
+                    className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 rounded-xl transition-colors cursor-pointer border border-gray-600 hover:border-gray-600"
                   >
                     Vaciar carrito
                   </button>
