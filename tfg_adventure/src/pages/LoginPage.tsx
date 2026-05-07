@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
@@ -7,6 +7,8 @@ import { useAuth } from '../context/AuthContext';
 export default function LoginPage() {
   const { login, usuario } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const mensajeExito = (location.state as { mensaje?: string } | null)?.mensaje;
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [recordar, setRecordar] = useState(false);
@@ -44,6 +46,12 @@ export default function LoginPage() {
       <main className="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-light to-primary-dark py-12">
         <div className="text-center px-6 w-full max-w-md">
           <h1 className="text-white text-4xl font-bold mb-10 tracking-wider">Iniciar Sesión</h1>
+
+          {mensajeExito && (
+            <div className="bg-green-500/30 border border-green-400 text-white p-4 rounded-xl mb-6 text-center text-sm">
+              {mensajeExito}
+            </div>
+          )}
 
           {error && (
             <div className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-center text-sm">
@@ -132,6 +140,12 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-8">
+            <Link to="/forgot-password" className="text-white no-underline text-sm hover:underline">
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
+
+          <div className="mt-4">
             <Link to="/registro" className="text-white no-underline text-sm hover:underline">
               ¿No tienes cuenta? Regístrate
             </Link>
