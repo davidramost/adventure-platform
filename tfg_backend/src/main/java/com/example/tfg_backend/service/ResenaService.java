@@ -12,6 +12,7 @@ import com.example.tfg_backend.repository.RutaRepository;
 import com.example.tfg_backend.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,11 +25,13 @@ public class ResenaService {
     private final RutaRepository rutaRepository;
     private final UsuarioRepository usuarioRepository;
 
+    @Transactional(readOnly = true)
     public List<ResenaResponse> getResenasByRuta(Integer idRuta) {
         List<Resena> resenas = resenaRepository.findByRutaIdRuta(idRuta);
         return resenas.stream().map(this::toResenaResponse).toList();
     }
 
+    @Transactional
     public ResenaResponse createResena(Integer idRuta, ResenaRequest request, Integer idUsuario) {
         Ruta ruta = rutaRepository.findById(idRuta)
                 .orElseThrow(() -> new ResourceNotFoundException("Ruta no encontrada con id: " + idRuta));
@@ -45,6 +48,7 @@ public class ResenaService {
         return toResenaResponse(resena);
     }
 
+    @Transactional
     public void deleteResena(Integer idResena, Integer idUsuario) {
         Resena resena = resenaRepository.findById(idResena)
                 .orElseThrow(() -> new ResourceNotFoundException("Resena no encontrada con id: " + idResena));
