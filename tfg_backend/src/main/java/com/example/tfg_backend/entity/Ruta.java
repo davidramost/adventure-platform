@@ -44,6 +44,9 @@ public class Ruta {
     @Column(name = "imagen_url", length = 500)
     private String imagenUrl;
 
+    @Column(name = "gpx_url", length = 500)
+    private String gpxUrl;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", nullable = false)
     @ToString.Exclude

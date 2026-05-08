@@ -20,6 +20,7 @@ public class RutaResponse {
     private String dificultad;
     private Integer desnivelMetros;
     private String imagenUrl;
+    private String gpxUrl;
     private String nombreUbicacion;
     private java.math.BigDecimal latitud;
     private java.math.BigDecimal longitud;

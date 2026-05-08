@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { MapContainer, TileLayer, Polyline, useMap } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import * as resenaService from '../services/resenaService';
 import { useWeather } from '../hooks/useWeather';
 import type { Resena } from '../types';
+
+function FitBoundsToTrack({ points }: { points: [number, number][] }) {
+  const map = useMap();
+  useEffect(() => {
+    if (points.length > 1) map.fitBounds(points);
+  }, [map, points]);
+  return null;
+}
 
 export default function ContentPage() {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +24,7 @@ export default function ContentPage() {
   const [comentario, setComentario] = useState('');
   const [puntuacion, setPuntuacion] = useState(0);
   const [mensaje, setMensaje] = useState('');
+  const [gpxPoints, setGpxPoints] = useState<[number, number][]>([]);
 
   const idRuta = parseInt(id || '0');
   const ruta = rutas.find(r => r.id_ruta === idRuta);
@@ -27,6 +38,23 @@ export default function ContentPage() {
       resenaService.getResenasByRuta(idRuta).then(setResenas).catch(() => setResenas([]));
     }
   }, [idRuta]);
+
+  useEffect(() => {
+    if (!ruta?.gpx_url) return;
+    fetch(ruta.gpx_url)
+      .then(res => res.text())
+      .then(text => {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, 'application/xml');
+        const trkpts = xml.querySelectorAll('trkpt');
+        const points: [number, number][] = Array.from(trkpts).map(pt => [
+          parseFloat(pt.getAttribute('lat') || '0'),
+          parseFloat(pt.getAttribute('lon') || '0'),
+        ]);
+        setGpxPoints(points);
+      })
+      .catch(() => setGpxPoints([]));
+  }, [ruta?.gpx_url]);
 
   if (loading) {
     return (
@@ -152,16 +180,33 @@ export default function ContentPage() {
                 </div>
               </section>
 
-              {/* GPX Map placeholder */}
-              <section className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                <h2 className="text-white font-semibold text-lg mb-4">Mapa del recorrido</h2>
-                <div className="w-full h-[300px] md:h-[400px] rounded-xl bg-white/5 border-2 border-dashed border-white/20 flex flex-col items-center justify-center gap-3">
-                  <img src="/Img/Icons/sin-imagen.png" alt="" className="w-10 h-10 opacity-20" />
-                  <p className="text-gray-400 text-sm text-center px-4">
-                    Próximamente podrás subir tu archivo <strong className="text-gray-300">.gpx</strong> y el mapa del recorrido aparecerá aquí.
-                  </p>
-                </div>
-              </section>
+              {/* GPX Map */}
+              {ruta.gpx_url && (
+                <section className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                  <h2 className="text-white font-semibold text-lg mb-4">Mapa del recorrido</h2>
+                  <div className="w-full h-[300px] md:h-[400px] rounded-xl overflow-hidden">
+                    {gpxPoints.length > 0 ? (
+                      <MapContainer
+                        center={gpxPoints[0]}
+                        zoom={13}
+                        style={{ width: '100%', height: '100%' }}
+                        scrollWheelZoom={false}
+                      >
+                        <TileLayer
+                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                        />
+                        <Polyline positions={gpxPoints} pathOptions={{ color: '#f97316', weight: 3 }} />
+                        <FitBoundsToTrack points={gpxPoints} />
+                      </MapContainer>
+                    ) : (
+                      <div className="w-full h-full bg-white/5 border-2 border-dashed border-white/20 flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-8 w-8 border-4 border-white/40 border-t-transparent" />
+                      </div>
+                    )}
+                  </div>
+                </section>
+              )}
 
               {/* Comments */}
               <section className="bg-white/5 border border-white/10 rounded-2xl p-6">

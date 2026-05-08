@@ -16,6 +16,7 @@ export interface Ruta {
     dificultad: 'Baja' | 'Media' | 'Alta';
     desnivel_metros: number;
     imagen_url: string;
+    gpx_url?: string;
     nombre_ubicacion: string;
     latitud: number | null;
     longitud: number | null;
@@ -73,6 +74,7 @@ export interface RutaRequest {
     dificultad: string;
     desnivel_metros: number;
     imagen_url: string;
+    gpx_url?: string;
     id_ubicacion?: number;
     nombre_ubicacion?: string;
     latitud?: number;

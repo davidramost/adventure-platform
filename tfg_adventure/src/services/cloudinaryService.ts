@@ -32,6 +32,26 @@ async function uploadToCloudinary(file: File, folder: string): Promise<string> {
   }
 }
 
+async function uploadRawToCloudinary(file: File, folder: string): Promise<string> {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', UPLOAD_PRESET);
+  formData.append('folder', folder);
+
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/raw/upload`,
+    { method: 'POST', body: formData }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`Cloudinary error: ${errorData.error?.message || response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data.secure_url as string;
+}
+
 export const cloudinaryService = {
   uploadAvatar(file: File): Promise<string> {
     return uploadToCloudinary(file, 'tfg_adventure/avatars');
@@ -43,6 +63,16 @@ export const cloudinaryService = {
 
   uploadProductImage(file: File): Promise<string> {
     return uploadToCloudinary(file, 'tfg_adventure/productos');
+  },
+
+  uploadGpxFile(file: File): Promise<string> {
+    if (!file.name.toLowerCase().endsWith('.gpx')) {
+      return Promise.reject(new Error('Solo se permiten archivos .gpx'));
+    }
+    if (file.size > 3 * 1024 * 1024) {
+      return Promise.reject(new Error('El archivo .gpx no debe superar los 3MB'));
+    }
+    return uploadRawToCloudinary(file, 'tfg_adventure/gpx');
   },
 
   getPlaceholderAvatar(seed: string = 'default'): string {
