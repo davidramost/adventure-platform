@@ -448,7 +448,7 @@ export default function CheckoutPage() {
                                 <ul className="flex flex-col gap-4 mb-5 max-h-72 overflow-y-auto pr-1">
                                     {cart.map(item => (
                                         <li key={item.producto.id_producto} className="flex items-center gap-3">
-                                            <Image src={item.producto.imagen} alt={item.producto.nombre} containerClassName="w-14 h-14 shrink-0" className="w-14 h-14 object-cover rounded-lg" />
+                                            <Image src={item.producto.imagen} alt={item.producto.nombre} containerClassName="w-14 h-14 shrink-0 rounded-xl" className="w-14 h-14 object-cover" />
                                             <div className="flex-1 min-w-0">
                                                 <p className="text-white text-sm font-medium truncate">{item.producto.nombre}</p>
                                                 <p className="text-gray-400 text-xs">Cant. {item.cantidad}</p>
