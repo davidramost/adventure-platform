@@ -13,6 +13,7 @@ import com.example.tfg_backend.repository.PasswordResetTokenRepository;
 import com.example.tfg_backend.repository.UsuarioRepository;
 import com.example.tfg_backend.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -92,10 +94,9 @@ public class AuthService {
     }
 
     @Transactional
-    public void forgotPassword(ForgotPasswordRequest request) {
-        usuarioRepository.findByEmail(request.getEmail()).ifPresent(usuario -> {
+    public String preparePasswordReset(String email) {
+        return usuarioRepository.findByEmail(email).map(usuario -> {
             passwordResetTokenRepository.deleteByUsuario(usuario);
-
             String token = UUID.randomUUID().toString();
             PasswordResetToken resetToken = PasswordResetToken.builder()
                     .token(token)
@@ -104,22 +105,38 @@ public class AuthService {
                     .used(false)
                     .build();
             passwordResetTokenRepository.save(resetToken);
+            return frontendUrl + "/reset-password?token=" + token + "|" + usuario.getNombreUsuario() + "|"
+                    + usuario.getEmail();
+        }).orElse(null);
+    }
 
-            String resetLink = frontendUrl + "/reset-password?token=" + token;
+    public void forgotPassword(ForgotPasswordRequest request) {
+        String result = preparePasswordReset(request.getEmail());
+        if (result == null)
+            return;
 
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(mailFrom);
-            message.setTo(usuario.getEmail());
-            message.setSubject("Recuperación de contraseña - TFG Adventure");
-            message.setText(
-                    "Hola " + usuario.getNombreUsuario() + ",\n\n" +
-                            "Has solicitado recuperar tu contraseña.\n\n" +
-                            "Haz clic en el siguiente enlace para crear una nueva contraseña (válido 15 minutos):\n\n" +
-                            resetLink + "\n\n" +
-                            "Si no has solicitado esto, ignora este correo.\n\n" +
-                            "TFG Adventure");
+        String[] parts = result.split("\\|");
+        String resetLink = parts[0];
+        String nombreUsuario = parts[1];
+        String toEmail = parts[2];
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(mailFrom);
+        message.setTo(toEmail);
+        message.setSubject("Recuperación de contraseña - TFG Adventure");
+        message.setText(
+                "Hola " + nombreUsuario + ",\n\n" +
+                        "Has solicitado recuperar tu contraseña.\n\n" +
+                        "Haz clic en el siguiente enlace para crear una nueva contraseña (válido 15 minutos):\n\n" +
+                        resetLink + "\n\n" +
+                        "Si no has solicitado esto, ignora este correo.\n\n" +
+                        "TFG Adventure");
+        try {
             mailSender.send(message);
-        });
+            log.info("Email de recuperación enviado a: {}", toEmail);
+        } catch (Exception e) {
+            log.error("Error enviando email de recuperación a {}: {}", toEmail, e.getMessage());
+        }
     }
 
     @Transactional
