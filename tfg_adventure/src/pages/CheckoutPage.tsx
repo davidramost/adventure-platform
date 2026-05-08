@@ -60,6 +60,35 @@ export default function CheckoutPage() {
         return otraDireccion.trim();
     };
 
+    const isMetodoPagoValid = () => {
+        if (metodoPago === 'TARJETA') {
+            const digits = cardNumero.replace(/\s/g, '');
+            const expiryMatch = cardExpiry.match(/^(\d{2})\/(\d{2})$/);
+            let expiryValid = false;
+            if (expiryMatch) {
+                const mes = parseInt(expiryMatch[1], 10);
+                const anio = parseInt(expiryMatch[2], 10) + 2000;
+                const now = new Date();
+                expiryValid = mes >= 1 && mes <= 12 && (anio > now.getFullYear() || (anio === now.getFullYear() && mes >= now.getMonth() + 1));
+            }
+            return digits.length === 16 && cardTitular.trim() && expiryValid && cardCvv.length === 3;
+        }
+        if (metodoPago === 'BIZUM') {
+            const tel = bizumTelefono.replace(/\s/g, '');
+            return /^(\+34)?[67]\d{8}$/.test(tel);
+        }
+        if (metodoPago === 'PAYPAL') {
+            return paypalConectado;
+        }
+        return false;
+    };
+
+    const isFormIncomplete = () => {
+        const direccion = getDireccionEnvio();
+        const direccionValid = !!direccion;
+        return !direccionValid || !isMetodoPagoValid();
+    };
+
     const validate = () => {
         const e: Record<string, string> = {};
 
@@ -455,7 +484,7 @@ export default function CheckoutPage() {
 
                                 <button
                                     onClick={handleConfirmar}
-                                    disabled={loading}
+                                    disabled={loading || isFormIncomplete()}
                                     className="w-full bg-primary-dark hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-xl transition-colors shadow-lg cursor-pointer border-none text-base"
                                 >
                                     {loading ? 'Procesando...' : 'Confirmar pedido'}
