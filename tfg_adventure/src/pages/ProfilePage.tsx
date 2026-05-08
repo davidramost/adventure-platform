@@ -27,6 +27,7 @@ export default function ProfilePage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [pedidos, setPedidos] = useState<PedidoResponse[]>([]);
   const [pedidosLoading, setPedidosLoading] = useState(true);
+  const [pedidosOpen, setPedidosOpen] = useState(false);
 
   useEffect(() => {
     pedidoService.getMisPedidos()
@@ -277,64 +278,88 @@ export default function ProfilePage() {
           </div>
 
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-white mb-6">Mis Pedidos ({pedidos.length})</h2>
+            <button
+              onClick={() => setPedidosOpen(prev => !prev)}
+              className="w-full flex items-center justify-between bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-2xl px-6 py-4 mb-4 hover:border-primary-light/50 transition-colors group"
+              aria-expanded={pedidosOpen}
+            >
+              <h2 className="text-2xl font-bold text-white">Mis Pedidos ({pedidosLoading ? '...' : pedidos.length})</h2>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`text-gray-400 group-hover:text-primary-light transition-all duration-300 ${pedidosOpen ? 'rotate-180' : 'rotate-0'}`}
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
 
-            {pedidosLoading ? (
-              <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-2xl p-8 text-center">
-                <p className="text-gray-400">Cargando pedidos...</p>
-              </div>
-            ) : pedidos.length === 0 ? (
-              <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-2xl p-12 text-center">
-                <p className="text-gray-400 mb-4">Aún no has realizado ningún pedido</p>
-                <button
-                  onClick={() => navigate('/tienda')}
-                  className="inline-block px-6 py-3 bg-primary-light hover:bg-primary-dark text-white font-medium rounded-lg transition-colors"
-                >
-                  Ir a la tienda
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {pedidos.map(pedido => (
-                  <div key={pedido.id_pedido} className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl p-6">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                      <div>
-                        <p className="text-white font-bold">Pedido #{pedido.id_pedido}</p>
-                        <p className="text-gray-400 text-sm">{new Date(pedido.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <span className="px-3 py-1 bg-gray-700 rounded-full text-xs text-gray-300">{pedido.tipo_envio}</span>
-                        <span className="px-3 py-1 bg-gray-700 rounded-full text-xs text-gray-300">{pedido.metodo_pago}</span>
-                        <p className="text-primary-light font-bold text-lg">{pedido.total.toFixed(2)} €</p>
-                      </div>
-                    </div>
-
-                    <div className="border-t border-gray-700 pt-4 space-y-3">
-                      {pedido.lineas.map(linea => (
-                        <div key={linea.id_producto} className="flex items-center gap-4">
-                          <img
-                            src={linea.imagen_producto}
-                            alt={linea.nombre_producto}
-                            className="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-gray-700"
-                          />
-                          <div className="flex-1 min-w-0">
-                            <p className="text-white text-sm font-medium truncate">{linea.nombre_producto}</p>
-                            <p className="text-gray-400 text-xs">x{linea.cantidad} · {linea.precio_unitario.toFixed(2)} € / ud</p>
-                          </div>
-                          <p className="text-gray-300 text-sm font-medium flex-shrink-0">{linea.subtotal.toFixed(2)} €</p>
+            {pedidosOpen && (
+              pedidosLoading ? (
+                <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-2xl p-8 text-center">
+                  <p className="text-gray-400">Cargando pedidos...</p>
+                </div>
+              ) : pedidos.length === 0 ? (
+                <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-2xl p-12 text-center">
+                  <p className="text-gray-400 mb-4">Aún no has realizado ningún pedido</p>
+                  <button
+                    onClick={() => navigate('/tienda')}
+                    className="inline-block px-6 py-3 bg-primary-light hover:bg-primary-dark text-white font-medium rounded-lg transition-colors"
+                  >
+                    Ir a la tienda
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {pedidos.map(pedido => (
+                    <div key={pedido.id_pedido} className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-xl p-6">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <div>
+                          <p className="text-white font-bold">Pedido #{pedido.id_pedido}</p>
+                          <p className="text-gray-400 text-sm">{new Date(pedido.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
                         </div>
-                      ))}
-                    </div>
-
-                    {pedido.gasto_envio > 0 && (
-                      <div className="border-t border-gray-700 mt-4 pt-3 flex justify-between text-sm">
-                        <span className="text-gray-400">Gastos de envío</span>
-                        <span className="text-gray-300">{pedido.gasto_envio.toFixed(2)} €</span>
+                        <div className="flex items-center gap-4">
+                          <span className="px-3 py-1 bg-gray-700 rounded-full text-xs text-gray-300">{pedido.tipo_envio}</span>
+                          <span className="px-3 py-1 bg-gray-700 rounded-full text-xs text-gray-300">{pedido.metodo_pago}</span>
+                          <p className="text-gray-400 font-bold text-lg">{pedido.total.toFixed(2)} €</p>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+
+                      <div className="border-t border-gray-700 pt-4 space-y-3">
+                        {pedido.lineas.map(linea => (
+                          <div key={linea.id_producto} className="flex items-center gap-4">
+                            <Image
+                              src={linea.imagen_producto}
+                              alt={linea.nombre_producto}
+                              containerClassName="w-12 h-12 rounded-lg flex-shrink-0"
+                              className="w-12 h-12 rounded-lg object-cover"
+                              fallbackSize={28}
+                            />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-white text-sm font-medium truncate">{linea.nombre_producto}</p>
+                              <p className="text-gray-400 text-xs">x{linea.cantidad} · {linea.precio_unitario.toFixed(2)} € / ud</p>
+                            </div>
+                            <p className="text-gray-300 text-sm font-medium flex-shrink-0">{linea.subtotal.toFixed(2)} €</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {pedido.gasto_envio > 0 && (
+                        <div className="border-t border-gray-700 mt-4 pt-3 flex justify-between text-sm">
+                          <span className="text-gray-400">Gastos de envío</span>
+                          <span className="text-gray-300">{pedido.gasto_envio.toFixed(2)} €</span>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )
             )}
           </div>
 
