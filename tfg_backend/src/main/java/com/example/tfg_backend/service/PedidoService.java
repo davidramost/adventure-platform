@@ -87,14 +87,15 @@ public class PedidoService {
             productoRepository.save(producto);
         }
 
-        List<LineaPedido> lineasGuardadas = lineaPedidoRepository.findByPedidoIdPedido(idPedido);
+        List<LineaPedido> lineasGuardadas = lineaPedidoRepository.findByIdPedido(idPedido);
         return toPedidoResponse(pedido, lineasGuardadas);
     }
 
+    @Transactional(readOnly = true)
     public List<PedidoResponse> getMisPedidos(Integer idUsuario) {
         List<Pedido> pedidos = pedidoRepository.findByUsuarioIdUsuarioOrderByFechaDesc(idUsuario);
         return pedidos.stream().map(pedido -> {
-            List<LineaPedido> lineas = lineaPedidoRepository.findByPedidoIdPedido(pedido.getIdPedido());
+            List<LineaPedido> lineas = lineaPedidoRepository.findByIdPedido(pedido.getIdPedido());
             return toPedidoResponse(pedido, lineas);
         }).toList();
     }
