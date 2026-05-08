@@ -19,6 +19,7 @@ public class RutaRequest {
     private String dificultad;
     private Integer desnivelMetros;
     private String imagenUrl;
+    private String gpxUrl;
     private Integer idUbicacion;
     private String nombreUbicacion;
     private java.math.BigDecimal latitud;

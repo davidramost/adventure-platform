@@ -73,6 +73,7 @@ public class RutaService {
                 .dificultad(request.getDificultad())
                 .desnivelMetros(request.getDesnivelMetros())
                 .imagenUrl(request.getImagenUrl())
+                .gpxUrl(request.getGpxUrl())
                 .usuario(usuario)
                 .ubicacion(ubicacion)
                 .build();
@@ -114,6 +115,9 @@ public class RutaService {
         }
         if (request.getImagenUrl() != null) {
             ruta.setImagenUrl(request.getImagenUrl());
+        }
+        if (request.getGpxUrl() != null) {
+            ruta.setGpxUrl(request.getGpxUrl());
         }
 
         if (request.getIdUbicacion() != null && request.getIdUbicacion() > 0) {
@@ -162,6 +166,7 @@ public class RutaService {
                 .dificultad(ruta.getDificultad())
                 .desnivelMetros(ruta.getDesnivelMetros())
                 .imagenUrl(ruta.getImagenUrl())
+                .gpxUrl(ruta.getGpxUrl())
                 .nombreUbicacion(ruta.getUbicacion() != null ? ruta.getUbicacion().getNombre() : null)
                 .latitud(ruta.getUbicacion() != null ? ruta.getUbicacion().getLatitud() : null)
                 .longitud(ruta.getUbicacion() != null ? ruta.getUbicacion().getLongitud() : null)
