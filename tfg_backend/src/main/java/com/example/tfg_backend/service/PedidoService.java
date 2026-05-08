@@ -4,8 +4,10 @@ import com.example.tfg_backend.dto.CrearPedidoRequest;
 import com.example.tfg_backend.dto.LineaPedidoResponse;
 import com.example.tfg_backend.dto.PedidoResponse;
 import com.example.tfg_backend.entity.LineaPedido;
+import com.example.tfg_backend.entity.MetodoPago;
 import com.example.tfg_backend.entity.Pedido;
 import com.example.tfg_backend.entity.Producto;
+import com.example.tfg_backend.entity.TipoEnvio;
 import com.example.tfg_backend.entity.Usuario;
 import com.example.tfg_backend.exception.ResourceNotFoundException;
 import com.example.tfg_backend.repository.LineaPedidoRepository;
@@ -52,9 +54,18 @@ public class PedidoService {
             total = total.add(producto.getPrecio().multiply(BigDecimal.valueOf(cantidad)));
         }
 
+        BigDecimal gastoEnvio = TipoEnvio.EXPRESS.equals(request.getTipoEnvio())
+                ? new BigDecimal("4.99")
+                : BigDecimal.ZERO;
+        total = total.add(gastoEnvio);
+
         Pedido pedido = Pedido.builder()
                 .fecha(LocalDateTime.now())
                 .total(total)
+                .gastoEnvio(gastoEnvio)
+                .direccionEnvio(request.getDireccionEnvio())
+                .tipoEnvio(request.getTipoEnvio())
+                .metodoPago(request.getMetodoPago())
                 .usuario(usuario)
                 .build();
         pedido = pedidoRepository.save(pedido);
@@ -96,6 +107,10 @@ public class PedidoService {
                 .idPedido(pedido.getIdPedido())
                 .fecha(pedido.getFecha())
                 .total(pedido.getTotal())
+                .gastoEnvio(pedido.getGastoEnvio())
+                .direccionEnvio(pedido.getDireccionEnvio())
+                .tipoEnvio(pedido.getTipoEnvio())
+                .metodoPago(pedido.getMetodoPago())
                 .lineas(lineasResponse)
                 .build();
     }

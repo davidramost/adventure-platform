@@ -4,45 +4,18 @@ import Footer from '../components/Footer';
 import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { pedidoService } from '../services/pedidoService';
-import { useProfileValidation } from '../hooks/useProfileValidation';
 
 export default function CartPage() {
   const { usuario } = useAuth();
   const { cart, updateQuantity, removeFromCart, clearCart, totalPrice, totalItems } = useCart();
   const navigate = useNavigate();
-  const { validateProfileData } = useProfileValidation();
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (!usuario) {
-      alert("Debes iniciar sesión para finalizar la compra.");
       navigate('/login');
       return;
     }
-
-    const profileValidation = validateProfileData({
-      nombre: usuario.nombre || '',
-      apellido: usuario.apellido || '',
-      domicilio: usuario.domicilio || '',
-      factDomicilio: usuario.fact_domicilio || '',
-    });
-
-    if (!profileValidation.isValid) {
-      alert(`Para realizar la compra, debes completar tus datos personales en tu perfil: ${profileValidation.errors.join(', ')}`);
-      navigate('/perfil');
-      return;
-    }
-
-    try {
-      await pedidoService.crear({
-        lineas: cart.map(item => ({ id_producto: item.producto.id_producto, cantidad: item.cantidad })),
-      });
-      alert("¡Compra realizada con éxito! Gracias por tu pedido.");
-      clearCart();
-      navigate('/tienda');
-    } catch {
-      alert("Ha ocurrido un error al procesar tu pedido. Inténtalo de nuevo.");
-    }
+    navigate('/checkout');
   };
 
   return (
@@ -89,7 +62,7 @@ export default function CartPage() {
                             className="text-gray-500 hover:text-red-500 transition-colors bg-transparent border-none cursor-pointer p-1"
                             title="Eliminar producto"
                           >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                           </button>
                           <Link to={`/producto/${item.producto.id_producto}`} className="shrink-0">
                             <Image src={item.producto.imagen} alt={item.producto.nombre} containerClassName="w-20 h-20" className="w-20 h-20 object-cover rounded-lg" />
@@ -160,7 +133,7 @@ export default function CartPage() {
                     onClick={handleCheckout}
                     className="w-full bg-primary-dark hover:bg-primary-light text-white font-bold py-3 rounded-xl transition-colors shadow-lg cursor-pointer border-none mb-4"
                   >
-                    Finalizar Compra
+                    Proceder al pago
                   </button>
                   <button
                     onClick={clearCart}

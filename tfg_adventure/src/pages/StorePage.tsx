@@ -5,12 +5,14 @@ import Footer from '../components/Footer';
 import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { useToast } from '../hooks/useToast';
 import type { Producto } from '../types';
 import { productoService } from '../services/productoService';
 
 export default function StorePage() {
   const { usuario } = useAuth();
   const { addToCart } = useCart();
+  const { addToast } = useToast();
   const [productos, setProductos] = useState<Producto[]>([]);
   const [search, setSearch] = useState('');
   const [categoriaFiltro, setCategoriaFiltro] = useState('');
@@ -116,6 +118,7 @@ export default function StorePage() {
                             alert("Por favor, inicia sesión para añadir al carrito");
                           } else {
                             addToCart(producto, 1);
+                            addToast(`${producto.nombre} añadido al carrito`, 'success');
                           }
                         }}
                       >
