@@ -156,10 +156,10 @@ export default function CheckoutPage() {
                         <h2 className="text-white text-2xl font-bold mb-3">¡Pedido confirmado!</h2>
                         <p className="text-gray-400 mb-8">Gracias por tu compra. Recibirás la confirmación en breve.</p>
                         <div className="flex flex-col gap-3">
-                            <Link to="/tienda" className="w-full inline-block bg-primary-dark hover:bg-primary-light text-white font-bold py-3 rounded-xl transition-colors no-underline text-center">
+                            <Link to="/tienda" className="w-full inline-block bg-primary-light hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition-colors no-underline text-center">
                                 Seguir comprando
                             </Link>
-                            <Link to="/perfil" className="w-full inline-block bg-transparent border border-[#444] hover:border-[#666] text-gray-300 font-medium py-3 rounded-xl transition-colors no-underline text-center">
+                            <Link to="/perfil" className="w-full inline-block bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-xl transition-colors no-underline text-center">
                                 Ver mis pedidos
                             </Link>
                         </div>

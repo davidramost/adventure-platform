@@ -27,6 +27,37 @@ Ani
 - Tipado estricto con TypeScript: interfaces para props, tipos para estado.
 - Prefiere composición sobre herencia.
 
+### 🎨 Sistema de diseño TFG Adventure (OBLIGATORIO en tfg_adventure/)
+
+**Tokens de color — SIEMPRE usar estos, NUNCA clases genéricas de Tailwind (bg-gray-*, bg-blue-*)**
+
+| Token          | Hex       | Uso                                    |
+|----------------|-----------|----------------------------------------|
+| `primary-dark` | `#263238` | Botón primario, fondo oscuro principal |
+| `primary`      | `#37474F` | Hover de secundario, estados activos   |
+| `primary-light`| `#455A64` | Botón secundario                       |
+| `surface`      | `#4a4a4a` | Tarjetas, paneles                      |
+| `surface-dark` | `#2d2d2d` | Fondo de página                        |
+| `success`      | `#4CAF50` | Estados de éxito                       |
+| `error`        | `#ff6464` | Errores, acciones destructivas         |
+
+**Botón primario (acción principal):**
+```tsx
+className="w-full bg-primary-light hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition-colors shadow-lg cursor-pointer border-none"
+```
+
+**Botón secundario (acción alternativa):**
+```tsx
+className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-xl transition-colors cursor-pointer border-none"
+```
+
+**Reglas de combos de botones:**
+- Botón superior del combo: **primario** (`bg-primary-light hover:bg-primary-dark`)
+- Botón inferior del combo: **secundario** (`bg-primary hover:bg-primary-dark`)
+- Ambos hovers convergen en `primary-dark` para feedback consistente
+- El contraste entre `primary-light` (#455A64) y `primary` (#37474F) es suficiente para distinguirlos
+- Nunca duplicar clases de color en el mismo elemento
+
 ### Frontend Mobile (Flutter)
 - Arquitectura limpia: `presentation/`, `domain/`, `data/`.
 - Widgets reutilizables y bien tipados con Dart.
