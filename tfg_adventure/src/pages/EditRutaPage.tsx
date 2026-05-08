@@ -31,6 +31,7 @@ export default function EditRutaPage() {
     const [imagenFile, setImagenFile] = useState<File | null>(null);
     const [imagenFileName, setImagenFileName] = useState('');
     const [imagenPreview, setImagenPreview] = useState<string | null>(null);
+    const [imagenDeleted, setImagenDeleted] = useState(false);
     const [gpxFile, setGpxFile] = useState<File | null>(null);
     const [gpxFileName, setGpxFileName] = useState('');
     const [gpxUrl, setGpxUrl] = useState<string | null>(null);
@@ -73,6 +74,8 @@ export default function EditRutaPage() {
                 if (data.imagen_url) {
                     setImagenPreview(data.imagen_url);
                 }
+
+                setImagenDeleted(false);
 
                 if (data.gpx_url) {
                     setGpxUrl(data.gpx_url);
@@ -125,10 +128,18 @@ export default function EditRutaPage() {
             }
             setImagenFile(file);
             setImagenFileName(file.name);
+            setImagenDeleted(false);
             const reader = new FileReader();
             reader.onloadend = () => setImagenPreview(reader.result as string);
             reader.readAsDataURL(file);
         }
+    };
+
+    const handleDeleteImage = () => {
+        setImagenPreview(null);
+        setImagenFile(null);
+        setImagenFileName('');
+        setImagenDeleted(true);
     };
 
     const handleGpxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,9 +183,13 @@ export default function EditRutaPage() {
         }
 
         try {
-            let imagen_url = imagenPreview || '';
-            if (imagenFile) {
+            let imagen_url = '';
+            if (imagenDeleted) {
+                imagen_url = '';
+            } else if (imagenFile) {
                 imagen_url = await cloudinaryService.uploadRutaImage(imagenFile);
+            } else if (imagenPreview) {
+                imagen_url = imagenPreview;
             }
 
             let gpx_url = gpxUrl || '';
@@ -344,6 +359,13 @@ export default function EditRutaPage() {
                                     {imagenPreview && (
                                         <div className="mt-4">
                                             <img src={imagenPreview} alt="Preview" className="max-h-[200px] rounded-lg" />
+                                            <button
+                                                type="button"
+                                                onClick={handleDeleteImage}
+                                                className="mt-3 px-4 py-2 bg-error text-white text-sm rounded-lg hover:bg-error/80 transition-colors"
+                                            >
+                                                Borrar imagen
+                                            </button>
                                         </div>
                                     )}
                                 </div>
