@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface LineaPedidoRepository extends JpaRepository<LineaPedido, LineaPedidoId> {
 
-    List<LineaPedido> findByPedidoIdPedido(Integer idPedido);
+    List<LineaPedido> findByIdPedido(Integer idPedido);
 }
