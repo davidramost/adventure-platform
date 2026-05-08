@@ -135,9 +135,19 @@ export interface PedidoResponse {
     id_pedido: number;
     fecha: string;
     total: number;
+    gasto_envio: number;
+    direccion_envio: string;
+    tipo_envio: TipoEnvio;
+    metodo_pago: MetodoPago;
     lineas: LineaPedidoResponse[];
 }
 
+export type TipoEnvio = 'ESTANDAR' | 'EXPRESS' | 'RECOGIDA_PUNTO';
+export type MetodoPago = 'TARJETA' | 'BIZUM' | 'PAYPAL';
+
 export interface CrearPedidoRequest {
     lineas: { id_producto: number; cantidad: number }[];
+    direccion_envio: string;
+    tipo_envio: TipoEnvio;
+    metodo_pago: MetodoPago;
 }

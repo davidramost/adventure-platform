@@ -1,5 +1,7 @@
 package com.example.tfg_backend.dto;
 
+import com.example.tfg_backend.entity.MetodoPago;
+import com.example.tfg_backend.entity.TipoEnvio;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +20,9 @@ public class PedidoResponse {
     private Integer idPedido;
     private LocalDateTime fecha;
     private BigDecimal total;
+    private BigDecimal gastoEnvio;
+    private String direccionEnvio;
+    private TipoEnvio tipoEnvio;
+    private MetodoPago metodoPago;
     private List<LineaPedidoResponse> lineas;
 }
