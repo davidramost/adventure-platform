@@ -351,19 +351,63 @@ export default function ContentPage() {
                   {weatherLoading ? (
                     <p className="text-gray-300 text-sm">Cargando tiempo...</p>
                   ) : weather ? (
-                    <div className="flex items-center gap-4">
-                      <img
-                        src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
-                        alt={weather.description}
-                        className="w-14 h-14 flex-shrink-0"
-                      />
-                      <div>
-                        <p className="text-white font-bold text-3xl leading-none">{weather.temp}°C</p>
-                        <p className="text-gray-300 text-sm capitalize mt-1">{weather.description}</p>
-                        <div className="text-gray-400 text-xs mt-2 space-y-0.5">
-                          <p>Sensación {weather.feels_like}°C</p>
-                          <p>Humedad {weather.humidity}%</p>
-                          <p>Viento {weather.wind_speed} m/s</p>
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
+                          alt={weather.description}
+                          className="w-16 h-16 flex-shrink-0"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-white font-bold text-4xl leading-none">{weather.temp}°C</p>
+                          <p className="text-gray-300 text-xs capitalize mt-1">{weather.description}</p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                          <p className="text-gray-400 text-xs">Sensación</p>
+                          <p className="text-white font-semibold text-lg leading-none mt-1">{weather.feels_like}°C</p>
+                        </div>
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                          <p className="text-gray-400 text-xs">Humedad</p>
+                          <p className="text-white font-semibold text-lg leading-none mt-1">{weather.humidity}%</p>
+                        </div>
+
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                          <p className="text-gray-400 text-xs">Viento</p>
+                          <div className="flex items-baseline gap-1 mt-1">
+                            <span className="text-white font-semibold text-lg">{weather.wind_speed}</span>
+                            <span className="text-gray-300 text-xs">m/s</span>
+                          </div>
+                          <p className="text-gray-400 text-xs mt-1">{weather.wind_deg}°</p>
+                        </div>
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                          <p className="text-gray-400 text-xs">Ráfagas</p>
+                          <div className="flex items-baseline gap-1 mt-1">
+                            <span className="text-white font-semibold text-lg">{weather.wind_gust}</span>
+                            <span className="text-gray-300 text-xs">m/s</span>
+                          </div>
+                        </div>
+
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                          <p className="text-gray-400 text-xs">Visibilidad</p>
+                          <div className="flex items-baseline gap-1 mt-1">
+                            <span className="text-white font-semibold text-lg">{weather.visibility}</span>
+                            <span className="text-gray-300 text-xs">km</span>
+                          </div>
+                        </div>
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10">
+                          <p className="text-gray-400 text-xs">Nubes</p>
+                          <p className="text-white font-semibold text-lg leading-none mt-1">{weather.cloudiness}%</p>
+                        </div>
+
+                        <div className="bg-white/5 rounded-lg p-3 border border-white/10 col-span-2">
+                          <p className="text-gray-400 text-xs">Presión</p>
+                          <div className="flex items-baseline gap-1 mt-1">
+                            <span className="text-white font-semibold text-lg">{weather.pressure}</span>
+                            <span className="text-gray-300 text-xs">hPa</span>
+                          </div>
                         </div>
                       </div>
                     </div>
