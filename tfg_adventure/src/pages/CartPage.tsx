@@ -131,13 +131,13 @@ export default function CartPage() {
 
                   <button
                     onClick={handleCheckout}
-                    className="w-full bg-primary-dark hover:bg-primary-light text-white font-bold py-3 rounded-xl transition-colors shadow-lg cursor-pointer border-none mb-4"
+                    className="w-full bg-primary-light hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition-colors shadow-lg cursor-pointer border-none mb-4"
                   >
                     Proceder al pago
                   </button>
                   <button
                     onClick={clearCart}
-                    className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 rounded-xl transition-colors cursor-pointer border border-gray-600 hover:border-gray-600"
+                    className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-xl transition-colors cursor-pointer border-none"
                   >
                     Vaciar carrito
                   </button>
