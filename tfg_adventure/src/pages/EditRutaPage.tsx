@@ -29,7 +29,11 @@ export default function EditRutaPage() {
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [imagenFile, setImagenFile] = useState<File | null>(null);
+    const [imagenFileName, setImagenFileName] = useState('');
     const [imagenPreview, setImagenPreview] = useState<string | null>(null);
+    const [gpxFile, setGpxFile] = useState<File | null>(null);
+    const [gpxFileName, setGpxFileName] = useState('');
+    const [gpxUrl, setGpxUrl] = useState<string | null>(null);
 
     useEffect(() => {
         const loadRuta = async () => {
@@ -68,6 +72,10 @@ export default function EditRutaPage() {
 
                 if (data.imagen_url) {
                     setImagenPreview(data.imagen_url);
+                }
+
+                if (data.gpx_url) {
+                    setGpxUrl(data.gpx_url);
                 }
 
                 if (!usuario || (usuario.id_usuario !== data.id_usuario && usuario.rol !== 'admin')) {
@@ -116,10 +124,26 @@ export default function EditRutaPage() {
                 return;
             }
             setImagenFile(file);
+            setImagenFileName(file.name);
             const reader = new FileReader();
             reader.onloadend = () => setImagenPreview(reader.result as string);
             reader.readAsDataURL(file);
         }
+    };
+
+    const handleGpxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        if (!file.name.toLowerCase().endsWith('.gpx')) {
+            setError('Solo se permiten archivos .gpx');
+            return;
+        }
+        if (file.size > 3 * 1024 * 1024) {
+            setError('El archivo .gpx no debe superar los 3MB');
+            return;
+        }
+        setGpxFile(file);
+        setGpxFileName(file.name);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -153,6 +177,11 @@ export default function EditRutaPage() {
                 imagen_url = await cloudinaryService.uploadRutaImage(imagenFile);
             }
 
+            let gpx_url = gpxUrl || '';
+            if (gpxFile) {
+                gpx_url = await cloudinaryService.uploadGpxFile(gpxFile);
+            }
+
             await updateRuta(parseInt(id!), {
                 titulo: form.tituloRuta,
                 nombre_ruta: form.nombreRuta,
@@ -162,6 +191,7 @@ export default function EditRutaPage() {
                 dificultad,
                 desnivel_metros: parseInt(form.desnivelRuta) || 0,
                 imagen_url,
+                gpx_url,
                 nombre_ubicacion: form.ubicacionRuta,
             });
             navigate(`/ruta/${id}`);
@@ -308,10 +338,33 @@ export default function EditRutaPage() {
                                file:rounded-lg file:cursor-pointer file:text-sm file:mr-4 file:hover:bg-primary-light"
                                     />
                                     <p className="text-white/50 text-xs mt-3">Formatos: JPG, PNG, GIF, WEBP — Máx. 1 imagen de 3MB</p>
+                                    {imagenFileName && (
+                                        <p className="text-white/70 text-xs mt-2">Archivo seleccionado: {imagenFileName}</p>
+                                    )}
                                     {imagenPreview && (
                                         <div className="mt-4">
                                             <img src={imagenPreview} alt="Preview" className="max-h-[200px] rounded-lg" />
                                         </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="mb-6">
+                                <label className="block text-white text-sm font-medium mb-2">Archivo GPX de la ruta (Opcional, máx. 3MB)</label>
+                                <div className="bg-white/5 border-2 border-dashed border-white/30 rounded-xl p-6">
+                                    <input
+                                        type="file"
+                                        accept=".gpx"
+                                        onChange={handleGpxChange}
+                                        className="text-white text-sm cursor-pointer file:bg-accent file:text-white file:border-none file:px-5 file:py-2
+                               file:rounded-lg file:cursor-pointer file:text-sm file:mr-4 file:hover:bg-primary-light"
+                                    />
+                                    <p className="text-white/50 text-xs mt-3">Formato: GPX — Máx. 3MB</p>
+                                    {gpxFileName && (
+                                        <p className="text-white/70 text-xs mt-2">Archivo seleccionado: {gpxFileName}</p>
+                                    )}
+                                    {gpxUrl && !gpxFileName && (
+                                        <p className="text-white/70 text-xs mt-2">GPX actual: archivo subido</p>
                                     )}
                                 </div>
                             </div>
