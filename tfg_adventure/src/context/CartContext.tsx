@@ -1,5 +1,6 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, type ReactNode } from 'react';
 import type { Producto } from '../types';
+import { useAuth } from './AuthContext';
 
 export interface CartItem {
   producto: Producto;
@@ -18,9 +19,10 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-function loadCartFromStorage(): CartItem[] {
+function loadUserCart(userId: number | undefined): CartItem[] {
   try {
-    const stored = localStorage.getItem('cart');
+    if (!userId) return [];
+    const stored = localStorage.getItem(`cart_${userId}`);
     return stored ? (JSON.parse(stored) as CartItem[]) : [];
   } catch {
     return [];
@@ -28,11 +30,31 @@ function loadCartFromStorage(): CartItem[] {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cart, setCart] = useState<CartItem[]>(loadCartFromStorage);
+  const { usuario } = useAuth();
+
+  const [cart, setCart] = useState<CartItem[]>(() => loadUserCart(usuario?.id_usuario));
+
+  const prevUserIdRef = useRef<number | undefined>(usuario?.id_usuario);
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+    const prevUserId = prevUserIdRef.current;
+    const newUserId = usuario?.id_usuario;
+
+    if (prevUserId !== newUserId) {
+      prevUserIdRef.current = newUserId;
+      if (newUserId != null) {
+        setCart(loadUserCart(newUserId));
+      } else {
+        setCart([]);
+      }
+    }
+  }, [usuario?.id_usuario]);
+
+  useEffect(() => {
+    if (usuario?.id_usuario) {
+      localStorage.setItem(`cart_${usuario.id_usuario}`, JSON.stringify(cart));
+    }
+  }, [cart, usuario?.id_usuario]);
 
   const addToCart = (producto: Producto, cantidad: number) => {
     setCart(prevCart => {
@@ -68,7 +90,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clearCart = () => {
     setCart([]);
-    localStorage.removeItem('cart');
+    if (usuario?.id_usuario) {
+      localStorage.removeItem(`cart_${usuario.id_usuario}`);
+    }
   };
 
   const totalItems = cart.reduce((total, item) => total + item.cantidad, 0);
