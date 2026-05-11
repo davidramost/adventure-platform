@@ -56,6 +56,7 @@ public class AuthService {
                 .apellido(request.getApellido())
                 .domicilio(request.getDomicilio())
                 .factDomicilio(request.getFactDomicilio())
+                .imagen(request.getImagen())
                 .build();
         usuario = usuarioRepository.save(usuario);
         String token = jwtTokenProvider.generateToken(usuario.getEmail());

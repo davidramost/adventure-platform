@@ -48,7 +48,7 @@ export default function Footer() {
           >
             Acuerdo Legal
           </Link>
-          <p className="text-white text-[12px]">&copy; David Ramos</p>
+          <p className="text-white text-[12px]">© Adventure {new Date().getFullYear()}</p>
         </div>
       </div>
     </footer>

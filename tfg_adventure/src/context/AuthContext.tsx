@@ -13,7 +13,7 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, password: string) => Promise<string | null>;
   logout: () => void;
-  register: (nombreUsuario: string, email: string, password: string, nombre?: string, apellido?: string, domicilio?: string, factDomicilio?: string) => Promise<string | null>;
+  register: (nombreUsuario: string, email: string, password: string, nombre?: string, apellido?: string, domicilio?: string, factDomicilio?: string, imagen?: string) => Promise<string | null>;
   toggleFavorito: (idRuta: number) => Promise<void>;
   esFavorito: (idRuta: number) => boolean;
   addRuta: (data: RutaRequest) => Promise<void>;
@@ -85,7 +85,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setFavoritos([]);
   };
 
-  const register = async (nombreUsuario: string, email: string, password: string, nombre?: string, apellido?: string, domicilio?: string, factDomicilio?: string): Promise<string | null> => {
+  const register = async (nombreUsuario: string, email: string, password: string, nombre?: string, apellido?: string, domicilio?: string, factDomicilio?: string, imagen?: string): Promise<string | null> => {
     try {
       const res = await authService.register({
         nombre_usuario: nombreUsuario,
@@ -95,6 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         apellido,
         domicilio,
         fact_domicilio: factDomicilio,
+        imagen,
       });
       localStorage.setItem('token', res.token);
       localStorage.setItem('usuario', JSON.stringify(res.usuario));

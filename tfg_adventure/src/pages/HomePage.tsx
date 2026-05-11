@@ -42,17 +42,11 @@ export default function HomePage() {
       <header className="relative overflow-hidden bg-gradient-to-br from-primary-light to-primary-dark">
         <Header transparent />
 
-        <div className="relative px-6 pt-8 pb-16 lg:px-12">
-          <h1
-            className="text-center text-white text-4xl md:text-[64px] my-4 font-bold tracking-[8px] uppercase"
-            style={{ fontFamily: 'var(--font-display)', fontStretch: 'condensed' }}
-          >
-            AVENTURA
-          </h1>
+        <div className="relative px-6 py-12 lg:py-16 lg:px-12">
 
-          <div className="flex flex-col lg:flex-row items-center justify-between mt-8 lg:mt-12 px-0 lg:px-8 overflow-hidden">
+          <div className="flex flex-col lg:flex-row items-center justify-between px-0 lg:px-8 overflow-hidden">
             {/* Activity icons */}
-            <div className="flex flex-wrap justify-center gap-4 mt-8 lg:mt-12 mb-8 lg:mb-0">
+            <div className="flex flex-wrap justify-center gap-4 mb-8 lg:mb-0">
               {[
                 { icon: '/Img/Icons/person.png', label: 'Senderismo' },
                 { icon: '/Img/Icons/camping.png', label: 'Camping' },
