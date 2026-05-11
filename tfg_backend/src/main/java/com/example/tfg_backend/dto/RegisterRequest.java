@@ -34,4 +34,6 @@ public class RegisterRequest {
     private String domicilio;
 
     private String factDomicilio;
+
+    private String imagen;
 }

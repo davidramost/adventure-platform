@@ -63,6 +63,7 @@ export interface RegisterRequest {
     apellido?: string;
     domicilio?: string;
     fact_domicilio?: string;
+    imagen?: string;
 }
 
 export interface RutaRequest {

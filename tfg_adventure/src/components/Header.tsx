@@ -26,8 +26,9 @@ export default function Header({ transparent = false }: { transparent?: boolean 
       )}
       <nav className={`relative flex items-center justify-between px-6 md:px-8 py-5 ${bgClass}`}>
         {/* Logo */}
-        <Link to="/" className="shrink-0 mr-5">
-          <img src="/Img/the_logo.png" className="w-[80px]" alt="Inicio" />
+        <Link to="/" className="shrink-0 mr-5 flex items-center gap-3 no-underline">
+          <img src="/Img/the_logo.png" className="w-[45px] h-[45px]" alt="Inicio" />
+          <span className="text-white text-base font-bold tracking-widest" style={{ fontFamily: 'var(--font-heading)' }}>ADVENTURE</span>
         </Link>
 
         {/* Mobile menu button */}
