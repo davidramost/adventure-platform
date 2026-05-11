@@ -5,6 +5,7 @@ import type { Mensaje } from '../types';
 
 function formatTime(fechaHora: string): string {
     const date = new Date(fechaHora);
+    date.setHours(date.getHours() + 2);
     const now = new Date();
     const isToday =
         date.getDate() === now.getDate() &&
