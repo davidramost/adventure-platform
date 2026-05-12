@@ -5,7 +5,6 @@ import ToastContainer from './components/ToastContainer';
 import HomePage from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
 import ContentPage from './pages/ContentPage';
-import GalleryPage from './pages/GalleryPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CreatePage from './pages/CreatePage';
@@ -32,7 +31,6 @@ function App() {
         <Route path="/senderos" element={<CategoryPage />} />
         <Route path="/ruta/:id/editar" element={<EditRutaPage />} />
         <Route path="/ruta/:id" element={<ContentPage />} />
-        <Route path="/galeria" element={<GalleryPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registro" element={<RegisterPage />} />
         <Route path="/crear-ruta" element={<CreatePage />} />
