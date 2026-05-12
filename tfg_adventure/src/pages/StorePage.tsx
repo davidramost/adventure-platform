@@ -101,6 +101,12 @@ export default function StorePage() {
                     <div className="absolute top-3 left-3 bg-primary-dark text-white text-xs font-bold px-3 py-1 rounded-full">
                       {producto.categoria}
                     </div>
+                    {/* Etiqueta de stock */}
+                    {producto.stock === 0 && (
+                      <div className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                        Sin stock
+                      </div>
+                    )}
                   </Link>
 
                   <div className="p-5 flex flex-col flex-1">
@@ -112,17 +118,23 @@ export default function StorePage() {
                     <div className="flex items-center justify-between mt-auto">
                       <span className="text-white font-bold text-xl">{producto.precio.toFixed(2)} €</span>
                       <button
-                        className="bg-primary-dark hover:bg-primary-light text-white border-none px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer"
+                        disabled={producto.stock === 0}
+                        className={`bg-primary-dark hover:bg-primary-light text-white border-none px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${producto.stock === 0 ? 'opacity-50 cursor-not-allowed bg-gray-600' : ''
+                          }`}
                         onClick={() => {
-                          if (!usuario) {
-                            alert("Por favor, inicia sesión para añadir al carrito");
+                          if (producto.stock === 0) {
+                            addToast('Este producto no tiene stock disponible. ¡Próximamente estará disponible!', 'info');
                           } else {
-                            addToCart(producto, 1);
-                            addToast(`${producto.nombre} añadido al carrito`, 'success');
+                            if (!usuario) {
+                              addToast("Por favor, inicia sesión para añadir al carrito", 'info');
+                            } else {
+                              addToCart(producto, 1);
+                              addToast(`${producto.nombre} añadido al carrito`, 'success');
+                            }
                           }
                         }}
                       >
-                        Añadir
+                        {producto.stock === 0 ? 'Próximamente' : 'Añadir'}
                       </button>
                     </div>
                   </div>
