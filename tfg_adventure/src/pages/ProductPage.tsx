@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { useToast } from '../hooks/useToast';
 import type { Producto } from '../types';
 import { productoService } from '../services/productoService';
 
@@ -13,6 +14,7 @@ export default function ProductPage() {
   const navigate = useNavigate();
   const { usuario } = useAuth();
   const { addToCart } = useCart();
+  const { addToast } = useToast();
   const [producto, setProducto] = useState<Producto | null>(null);
   const [cantidad, setCantidad] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -59,13 +61,17 @@ export default function ProductPage() {
   }
 
   const handleAddToCart = () => {
+    if (producto.stock === 0) {
+      addToast('Este producto no tiene stock disponible. ¡Próximamente estará disponible!', 'info');
+      return;
+    }
     if (!usuario) {
-      alert("Por favor, inicia sesión para añadir al carrito");
+      addToast("Por favor, inicia sesión para añadir al carrito", 'info');
       navigate('/login');
       return;
     }
     addToCart(producto, cantidad);
-    alert(`Añadido al carrito: ${producto.nombre} x${cantidad}`);
+    addToast(`${producto.nombre} añadido al carrito`, 'success');
   };
 
   return (
@@ -118,7 +124,8 @@ export default function ProductPage() {
                 <div className="flex items-center bg-[#222] rounded-lg overflow-hidden border border-[#444]">
                   <button
                     onClick={() => setCantidad(Math.max(1, cantidad - 1))}
-                    className="px-4 py-2 text-white bg-transparent border-none hover:bg-[#333] transition-colors cursor-pointer"
+                    disabled={producto.stock === 0}
+                    className={`px-4 py-2 text-white bg-transparent border-none transition-colors cursor-pointer ${producto.stock === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#333]'}`}
                   >
                     -
                   </button>
@@ -127,7 +134,8 @@ export default function ProductPage() {
                   </span>
                   <button
                     onClick={() => setCantidad(Math.min(producto.stock, cantidad + 1))}
-                    className="px-4 py-2 text-white bg-transparent border-none hover:bg-[#333] transition-colors cursor-pointer"
+                    disabled={producto.stock === 0 || cantidad >= producto.stock}
+                    className={`px-4 py-2 text-white bg-transparent border-none transition-colors cursor-pointer ${producto.stock === 0 || cantidad >= producto.stock ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#333]'}`}
                   >
                     +
                   </button>
@@ -137,13 +145,14 @@ export default function ProductPage() {
 
               <button
                 onClick={handleAddToCart}
-                className="w-full bg-primary-dark hover:bg-primary-light text-white font-bold py-4 rounded-xl transition-colors text-lg shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none"
+                disabled={producto.stock === 0}
+                className={`w-full font-bold py-4 rounded-xl transition-colors text-lg shadow-lg text-white flex items-center justify-center gap-2 cursor-pointer border-none ${producto.stock === 0 ? 'bg-gray-600 opacity-50 cursor-not-allowed' : 'bg-primary-dark hover:bg-primary-light text-white'}`}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
                   <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                 </svg>
-                Añadir al carrito
+                {producto.stock === 0 ? 'Próximamente' : 'Añadir al carrito'}
               </button>
             </div>
           </div>
