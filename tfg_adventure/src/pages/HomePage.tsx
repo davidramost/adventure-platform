@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Image from '../components/Image';
+import GallerySlider from '../components/GallerySlider';
 import GeneralChat from '../components/GeneralChat';
 import { useAuth } from '../context/AuthContext';
 
@@ -106,11 +107,11 @@ export default function HomePage() {
               vivimos, los animales, las plantas, todo aquello que hace posible la vida en este planeta.
             </p>
             <Link
-              to="/senderos"
+              to="/info"
               className="inline-flex items-center text-primary-dark no-underline text-lg font-medium
                          hover:text-primary-light transition-colors group"
             >
-              Ver catálogo
+              Sobre el proyecto
               <span className="ml-3 w-8 h-8 rounded-full bg-primary-dark flex items-center justify-center
                               group-hover:bg-primary-light group-hover:translate-x-1 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -147,6 +148,9 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Gallery slider section */}
+        <GallerySlider rutas={rutas} />
 
         {/* Trail cards section */}
         <section className="py-8 lg:py-16 text-center">

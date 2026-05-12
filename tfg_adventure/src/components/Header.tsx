@@ -62,15 +62,6 @@ export default function Header({ transparent = false }: { transparent?: boolean 
           </li>
           <li>
             <Link
-              to="/galeria"
-              className="text-white no-underline text-sm font-medium tracking-wider hover:text-gray-300 transition-colors"
-              onClick={() => setMenuOpen(false)}
-            >
-              GALERÍA
-            </Link>
-          </li>
-          <li>
-            <Link
               to="/senderos"
               className="text-white no-underline text-sm font-medium tracking-wider hover:text-gray-300 transition-colors"
               onClick={() => setMenuOpen(false)}
