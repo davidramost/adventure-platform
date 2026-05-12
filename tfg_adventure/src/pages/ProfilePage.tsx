@@ -11,7 +11,7 @@ import { useProfileValidation } from '../hooks/useProfileValidation';
 import type { PedidoResponse } from '../types';
 
 export default function ProfilePage() {
-  const { usuario, toggleFavorito, esFavorito, rutas, logout, refreshUsuario } = useAuth();
+  const { usuario, toggleFavorito, esFavorito, rutas, loading: authLoading, logout, refreshUsuario } = useAuth();
   const navigate = useNavigate();
   const { validateProfileData, normalizeProfileData } = useProfileValidation();
   const [isEditingPersonalInfo, setIsEditingPersonalInfo] = useState(false);
@@ -31,9 +31,14 @@ export default function ProfilePage() {
 
   useEffect(() => {
     pedidoService.getMisPedidos()
-      .then(res => setPedidos(res.data))
-      .catch(() => setPedidos([]))
-      .finally(() => setPedidosLoading(false));
+      .then(res => {
+        setPedidos(res.data);
+        setPedidosLoading(false);
+      })
+      .catch(() => {
+        setPedidos([]);
+        setPedidosLoading(false);
+      });
   }, []);
 
   if (!usuario) {
@@ -364,9 +369,13 @@ export default function ProfilePage() {
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold text-white mb-6">Mis Rutas Favoritas ({userFavorites.length})</h2>
+            <h2 className="text-2xl font-bold text-white mb-6">Mis Rutas Favoritas ({authLoading ? '...' : userFavorites.length})</h2>
 
-            {userFavorites.length === 0 ? (
+            {authLoading ? (
+              <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-2xl p-8 text-center">
+                <p className="text-gray-400">Cargando rutas favoritas...</p>
+              </div>
+            ) : userFavorites.length === 0 ? (
               <div className="bg-gray-800/50 backdrop-blur border border-gray-700/50 rounded-2xl p-12 text-center">
                 <p className="text-gray-400 mb-4">Aún no tienes rutas favoritas</p>
                 <button
