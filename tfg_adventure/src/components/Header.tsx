@@ -39,7 +39,7 @@ export default function Header({ transparent = false }: { transparent?: boolean 
             setUserMenuOpen(false);
           }}
         >
-          <img src="/Img/Icons/lineas.png" className="w-[35px]" alt="Menú" />
+          <img src="/Img/Icons/lineas.png" className="w-[50px]" alt="Menú" />
         </button>
 
         {/* Nav links */}
