@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Polyline, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import Header from '../components/Header';
@@ -18,6 +18,7 @@ function FitBoundsToTrack({ points }: { points: [number, number][] }) {
 }
 
 export default function ContentPage() {
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { rutas, usuario, loading, esFavorito, toggleFavorito } = useAuth();
   const [resenas, setResenas] = useState<Resena[]>([]);
@@ -128,21 +129,22 @@ export default function ContentPage() {
 
         {/* ── HERO ───────────────────────────────────────────────── */}
         <div className="relative w-full h-[340px] md:h-[440px] overflow-hidden">
-          <Link
-            to="/senderos"
-            className="absolute top-4 left-4 z-10 flex items-center gap-1.5 bg-black/50 hover:bg-black/70 text-white text-sm px-3 py-2 rounded-full backdrop-blur-sm transition-colors no-underline"
-            aria-label="Volver al listado de senderos"
+          <button
+            onClick={() => navigate(-1)}
+            className="absolute top-4 left-4 z-10 flex items-center gap-1.5 bg-black/50 hover:bg-black/70 text-white text-sm px-3 py-2 rounded-full backdrop-blur-sm transition-colors border-none cursor-pointer no-underline"
+            aria-label="Volver a la pantalla anterior"
+            title="Volver"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
             </svg>
             Volver
-          </Link>
+          </button>
           {usuario && (
             <button
               onClick={() => toggleFavorito(ruta.id_ruta)}
               aria-label={esFavorito(ruta.id_ruta) ? 'Quitar de favoritos' : 'Añadir a favoritos'}
-              className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 p-2.5 rounded-full backdrop-blur-sm transition-colors"
+              className="absolute top-4 right-4 z-5 bg-black/50 hover:bg-black/70 p-2.5 rounded-full backdrop-blur-sm transition-colors"
               title={esFavorito(ruta.id_ruta) ? 'Quitar de favoritos' : 'Añadir a favoritos'}
             >
               <img
