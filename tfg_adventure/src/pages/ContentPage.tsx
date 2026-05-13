@@ -181,6 +181,7 @@ export default function ContentPage() {
               {usuario && (usuario.id_usuario === ruta.id_usuario || usuario.rol === 'admin') && (
                 <Link
                   to={`/ruta/${ruta.id_ruta}/editar`}
+                  state={{ from: 'content' }}
                   className="px-4 py-2 bg-accent hover:bg-accent/80 text-white rounded-lg text-sm font-medium transition-colors shrink-0 no-underline"
                 >
                   Editar ruta

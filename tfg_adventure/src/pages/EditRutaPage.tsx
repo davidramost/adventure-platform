@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
@@ -9,7 +9,9 @@ import { cloudinaryService } from '../services/cloudinaryService';
 export default function EditRutaPage() {
     const { usuario, updateRuta } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const { id } = useParams<{ id: string }>();
+    const from = (location.state as { from?: string } | null)?.from;
 
     const [form, setForm] = useState({
         tituloRuta: '',
@@ -209,7 +211,7 @@ export default function EditRutaPage() {
                 gpx_url,
                 nombre_ubicacion: form.ubicacionRuta,
             });
-            navigate(`/ruta/${id}`);
+            navigate(from === 'admin' ? '/admin' : `/ruta/${id}`);
         } catch (err: any) {
             setError(err.response?.data?.message || 'Error al actualizar la ruta.');
             setSubmitting(false);
@@ -393,7 +395,7 @@ export default function EditRutaPage() {
 
                             <div className="mt-8 flex flex-col md:flex-row justify-end gap-4">
                                 <Link
-                                    to={`/ruta/${id}`}
+                                    to={from === 'admin' ? '/admin' : `/ruta/${id}`}
                                     className="inline-flex justify-center items-center px-8 py-3 bg-transparent border-2 border-white/50 rounded-full 
                              text-white no-underline text-base hover:border-white hover:bg-white/10 transition-colors"
                                 >

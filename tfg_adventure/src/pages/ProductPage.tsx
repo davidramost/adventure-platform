@@ -109,6 +109,7 @@ export default function ProductPage() {
               {usuario?.rol === 'admin' && (
                 <Link
                   to={`/producto/${producto.id_producto}/editar`}
+                  state={{ from: 'product' }}
                   className="px-4 py-2 bg-accent hover:bg-accent/80 text-white rounded-lg text-sm font-medium transition-colors flex-shrink-0 no-underline"
                 >
                   Editar producto

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
@@ -23,7 +23,9 @@ const CATEGORIAS = [
 export default function EditProductoPage() {
     const { usuario } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const { id } = useParams<{ id: string }>();
+    const from = (location.state as { from?: string } | null)?.from;
 
     const [form, setForm] = useState({
         nombre: '',
@@ -143,7 +145,7 @@ export default function EditProductoPage() {
                 imagen,
             });
 
-            navigate('/admin');
+            navigate(from === 'product' ? `/producto/${id}` : '/admin');
         } catch (err: any) {
             setError(err.response?.data?.message || 'Error al actualizar el producto.');
             setSubmitting(false);
@@ -252,7 +254,7 @@ export default function EditProductoPage() {
 
                             <div className="mt-8 flex flex-col md:flex-row justify-end gap-4">
                                 <Link
-                                    to="/admin"
+                                    to={from === 'product' ? `/producto/${id}` : '/admin'}
                                     className="inline-flex justify-center items-center px-8 py-3 bg-transparent border-2 border-white/50 rounded-full
                                      text-white no-underline text-base hover:border-white hover:bg-white/10 transition-colors"
                                 >
