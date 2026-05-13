@@ -129,28 +129,30 @@ export default function ProductPage() {
             </div>
 
             <div className="border-t border-white/10 pt-6 mt-auto">
-              <div className="flex items-center gap-4 mb-6">
-                <span className="text-gray-300">Cantidad:</span>
-                <div className="flex items-center bg-[#222] rounded-lg overflow-hidden border border-[#444]">
-                  <button
-                    onClick={() => setCantidad(Math.max(1, cantidad - 1))}
-                    disabled={producto.stock === 0}
-                    className={`px-4 py-2 text-white bg-transparent border-none transition-colors cursor-pointer ${producto.stock === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#333]'}`}
-                  >
-                    -
-                  </button>
-                  <span className="text-white px-4 py-2 font-medium min-w-[3ch] text-center border-l border-r border-[#444]">
-                    {cantidad}
-                  </span>
-                  <button
-                    onClick={() => setCantidad(Math.min(producto.stock, cantidad + 1))}
-                    disabled={producto.stock === 0 || cantidad >= producto.stock}
-                    className={`px-4 py-2 text-white bg-transparent border-none transition-colors cursor-pointer ${producto.stock === 0 || cantidad >= producto.stock ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#333]'}`}
-                  >
-                    +
-                  </button>
+              <div className="mb-6">
+                <label className="block text-gray-300 text-sm font-medium mb-3">Cantidad:</label>
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <div className="flex items-center bg-[#222] rounded-lg border border-[#444]">
+                    <button
+                      onClick={() => setCantidad(Math.max(1, cantidad - 1))}
+                      disabled={producto.stock === 0}
+                      className={`px-3 py-2 text-white bg-[#222] border-none cursor-pointer text-sm rounded-l-lg ${producto.stock === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                      -
+                    </button>
+                    <span className="text-white px-2 py-2 font-medium w-12 text-center border-l border-r border-[#444] bg-[#1a1a1a]">
+                      {cantidad}
+                    </span>
+                    <button
+                      onClick={() => setCantidad(Math.min(producto.stock, cantidad + 1))}
+                      disabled={producto.stock === 0 || cantidad >= producto.stock}
+                      className={`px-3 py-2 text-white bg-[#222] border-none cursor-pointer text-sm rounded-r-lg ${producto.stock === 0 || cantidad >= producto.stock ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <span className="text-xs sm:text-sm text-gray-400 whitespace-nowrap">({producto.stock} disponibles)</span>
                 </div>
-                <span className="text-sm text-gray-400">({producto.stock} disponibles)</span>
               </div>
 
               <button
