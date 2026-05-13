@@ -104,7 +104,17 @@ export default function ProductPage() {
 
           {/* Details */}
           <div className="md:w-3/5 p-8 md:p-12 flex flex-col">
-            <h1 className="text-white text-3xl md:text-4xl font-bold mb-6">{producto.nombre}</h1>
+            <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+              <h1 className="text-white text-3xl md:text-4xl font-bold">{producto.nombre}</h1>
+              {usuario?.rol === 'admin' && (
+                <Link
+                  to={`/producto/${producto.id_producto}/editar`}
+                  className="px-4 py-2 bg-accent hover:bg-accent/80 text-white rounded-lg text-sm font-medium transition-colors flex-shrink-0 no-underline"
+                >
+                  Editar producto
+                </Link>
+              )}
+            </div>
             <div className="mb-8">
               <span className="text-gray-400 text-sm font-medium block mb-2">PRECIO</span>
               <p className="text-white text-5xl md:text-6xl font-bold tracking-tight">

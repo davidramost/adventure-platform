@@ -3,13 +3,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Image from '../components/Image';
-import { useAuth } from '../context/AuthContext';
 import { getAllRutas } from '../services/rutaService';
 import type { Ruta } from '../types';
 
 export default function CategoryPage() {
   const navigate = useNavigate();
-  const { usuario, esFavorito, toggleFavorito, deleteRuta } = useAuth();
   const [rutas, setRutas] = useState<Ruta[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
@@ -137,35 +135,9 @@ export default function CategoryPage() {
                       {ruta.dificultad.toUpperCase()}
                     </span>
 
-                    {/* Favorite button */}
-                    <button
-                      onClick={(e) => { e.stopPropagation(); toggleFavorito(ruta.id_ruta); }}
-                      aria-label={esFavorito(ruta.id_ruta) ? 'Quitar de favoritos' : 'Añadir a favoritos'}
-                      className="absolute top-2 right-2 bg-black/40 hover:bg-black/60 rounded-full p-2 border-none cursor-pointer transition-colors"
-                    >
-                      <img
-                        src={esFavorito(ruta.id_ruta) ? '/Img/Icons/favorito_solid.png' : '/Img/Icons/favourite.png'}
-                        alt=""
-                        aria-hidden="true"
-                        className="w-6 h-6"
-                      />
-                    </button>
 
-                    {/* Admin delete */}
-                    {usuario?.rol === 'admin' && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          if (confirm('¿Estás seguro de que quieres eliminar esta ruta?')) {
-                            deleteRuta(ruta.id_ruta);
-                            setRutas(rutas.filter(r => r.id_ruta !== ruta.id_ruta));
-                          }
-                        }}
-                        className="absolute top-2 left-2 bg-black/40 hover:bg-red-600/80 rounded-full p-2 border-none cursor-pointer transition-colors"
-                      >
-                        <img src="/Img/Icons/delete.png" alt="" aria-hidden="true" title="Eliminar ruta" className="w-5 h-5" />
-                      </button>
-                    )}
+
+
                   </div>
 
                   {/* Card body */}
