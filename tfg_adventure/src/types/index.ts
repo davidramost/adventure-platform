@@ -123,6 +123,15 @@ export interface Producto {
     imagen: string;
 }
 
+export interface ProductoRequest {
+    nombre: string;
+    descripcion: string;
+    precio: number;
+    stock: number;
+    categoria: string;
+    imagen: string;
+}
+
 export interface LineaPedidoResponse {
     id_producto: number;
     nombre_producto: string;

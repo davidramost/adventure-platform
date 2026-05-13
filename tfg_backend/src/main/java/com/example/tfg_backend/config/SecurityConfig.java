@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/rutas/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/ubicaciones/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/resenas/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,          "/api/resenas/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex

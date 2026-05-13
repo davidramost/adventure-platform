@@ -1,5 +1,5 @@
 import api from '../api/client';
-import type { Usuario, Ruta } from '../types';
+import type { Usuario, Ruta, Producto, ProductoRequest } from '../types';
 
 export interface AdminUpdateUsuarioRequest {
     nombre_usuario?: string;
@@ -17,4 +17,9 @@ export const adminService = {
 
     getRutas: () => api.get<Ruta[]>('/admin/rutas'),
     deleteRuta: (id: number) => api.delete(`/admin/rutas/${id}`),
+
+    getProductos: () => api.get<Producto[]>('/admin/productos'),
+    createProducto: (data: ProductoRequest) => api.post<Producto>('/admin/productos', data),
+    updateProducto: (id: number, data: ProductoRequest) => api.put<Producto>(`/admin/productos/${id}`, data),
+    deleteProducto: (id: number) => api.delete(`/admin/productos/${id}`),
 };
