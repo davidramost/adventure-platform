@@ -286,6 +286,7 @@ export default function AdminPage() {
                                                     <td className="px-4 py-3 text-right flex justify-end gap-2">
                                                         <Link
                                                             to={`/producto/${p.id_producto}/editar`}
+                                                            state={{ from: 'admin' }}
                                                             className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-medium transition-colors text-white no-underline"
                                                         >
                                                             Editar
@@ -326,6 +327,7 @@ export default function AdminPage() {
                                                 <div className="flex gap-2 pt-2">
                                                     <Link
                                                         to={`/producto/${p.id_producto}/editar`}
+                                                        state={{ from: 'admin' }}
                                                         className="flex-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-medium transition-colors text-white text-center no-underline"
                                                     >
                                                         Editar
@@ -373,6 +375,7 @@ export default function AdminPage() {
                                                     <td className="px-4 py-3 text-right flex justify-end gap-2">
                                                         <Link
                                                             to={`/ruta/${r.id_ruta}/editar`}
+                                                            state={{ from: 'admin' }}
                                                             className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-medium transition-colors text-white no-underline"
                                                         >
                                                             Editar
@@ -415,6 +418,7 @@ export default function AdminPage() {
                                                 <div className="flex gap-2 pt-2">
                                                     <Link
                                                         to={`/ruta/${r.id_ruta}/editar`}
+                                                        state={{ from: 'admin' }}
                                                         className="flex-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-medium transition-colors text-white text-center no-underline"
                                                     >
                                                         Editar
