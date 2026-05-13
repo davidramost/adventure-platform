@@ -1,9 +1,12 @@
 package com.example.tfg_backend.controller;
 
+import com.example.tfg_backend.dto.ProductoRequest;
+import com.example.tfg_backend.dto.ProductoResponse;
 import com.example.tfg_backend.dto.RutaResponse;
 import com.example.tfg_backend.dto.UpdateUsuarioRequest;
 import com.example.tfg_backend.dto.UsuarioResponse;
 import com.example.tfg_backend.entity.Usuario;
+import com.example.tfg_backend.service.ProductoService;
 import com.example.tfg_backend.service.RutaService;
 import com.example.tfg_backend.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -23,6 +26,7 @@ public class AdminController {
 
     private final UsuarioService usuarioService;
     private final RutaService rutaService;
+    private final ProductoService productoService;
 
     @GetMapping("/usuarios")
     public ResponseEntity<List<UsuarioResponse>> getAllUsuarios() {
@@ -57,6 +61,29 @@ public class AdminController {
             @PathVariable Integer id,
             @AuthenticationPrincipal Usuario adminUsuario) {
         rutaService.deleteRuta(id, adminUsuario.getIdUsuario());
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/productos")
+    public ResponseEntity<List<ProductoResponse>> getAllProductos() {
+        return ResponseEntity.ok(productoService.getAllProductos(null, null));
+    }
+
+    @PostMapping("/productos")
+    public ResponseEntity<ProductoResponse> createProducto(@Valid @RequestBody ProductoRequest request) {
+        return ResponseEntity.ok(productoService.createProducto(request));
+    }
+
+    @PutMapping("/productos/{id}")
+    public ResponseEntity<ProductoResponse> updateProducto(
+            @PathVariable Integer id,
+            @Valid @RequestBody ProductoRequest request) {
+        return ResponseEntity.ok(productoService.updateProducto(id, request));
+    }
+
+    @DeleteMapping("/productos/{id}")
+    public ResponseEntity<Void> deleteProducto(@PathVariable Integer id) {
+        productoService.deleteProducto(id);
         return ResponseEntity.noContent().build();
     }
 }

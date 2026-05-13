@@ -22,6 +22,7 @@
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/MensajeRequest.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/MensajeResponse.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/PedidoResponse.java
+/Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/ProductoRequest.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/ProductoResponse.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/RegisterRequest.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/dto/ResenaRequest.java
@@ -39,11 +40,13 @@
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/MeGusta.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/MeGustaId.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Mensaje.java
+/Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/MetodoPago.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/PasswordResetToken.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Pedido.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Producto.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Resena.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Ruta.java
+/Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/TipoEnvio.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Ubicacion.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/entity/Usuario.java
 /Users/david/workspace/TFG_DAW/tfg_backend/src/main/java/com/example/tfg_backend/exception/BadRequestException.java

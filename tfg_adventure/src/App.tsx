@@ -17,6 +17,8 @@ import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AdminPage from './pages/AdminPage';
+import CreateProductoPage from './pages/CreateProductoPage';
+import EditProductoPage from './pages/EditProductoPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 
@@ -38,6 +40,8 @@ function App() {
         <Route path="/perfil" element={<ProfilePage />} />
         <Route path="/info" element={<InfoPage />} />
         <Route path="/tienda" element={<StorePage />} />
+        <Route path="/producto/crear" element={<CreateProductoPage />} />
+        <Route path="/producto/:id/editar" element={<EditProductoPage />} />
         <Route path="/producto/:id" element={<ProductPage />} />
         <Route path="/carrito" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />

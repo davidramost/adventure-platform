@@ -4,9 +4,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { adminService, type AdminUpdateUsuarioRequest } from '../services/adminService';
-import type { Usuario, Ruta } from '../types';
+import type { Usuario, Ruta, Producto } from '../types';
 
-type Tab = 'usuarios' | 'rutas';
+type Tab = 'usuarios' | 'rutas' | 'productos';
 
 export default function AdminPage() {
     const { usuario } = useAuth();
@@ -14,6 +14,7 @@ export default function AdminPage() {
     const [tab, setTab] = useState<Tab>('usuarios');
     const [usuarios, setUsuarios] = useState<Usuario[]>([]);
     const [rutas, setRutas] = useState<Ruta[]>([]);
+    const [productos, setProductos] = useState<Producto[]>([]);
     const [loading, setLoading] = useState(true);
     const [editingUsuario, setEditingUsuario] = useState<Usuario | null>(null);
     const [editForm, setEditForm] = useState<AdminUpdateUsuarioRequest>({});
@@ -30,12 +31,14 @@ export default function AdminPage() {
     const fetchData = useCallback(async () => {
         setLoading(true);
         try {
-            const [usuariosRes, rutasRes] = await Promise.all([
+            const [usuariosRes, rutasRes, productosRes] = await Promise.all([
                 adminService.getUsuarios(),
                 adminService.getRutas(),
+                adminService.getProductos(),
             ]);
             setUsuarios(usuariosRes.data);
             setRutas(rutasRes.data);
+            setProductos(productosRes.data);
         } catch {
             setError('Error al cargar los datos');
         } finally {
@@ -71,6 +74,17 @@ export default function AdminPage() {
             showSuccess('Ruta eliminada correctamente');
         } catch {
             setError('Error al eliminar la ruta');
+        }
+    };
+
+    const handleDeleteProducto = async (id: number) => {
+        if (!confirm('¿Seguro que quieres eliminar este producto?')) return;
+        try {
+            await adminService.deleteProducto(id);
+            setProductos(prev => prev.filter(p => p.id_producto !== id));
+            showSuccess('Producto eliminado correctamente');
+        } catch {
+            setError('Error al eliminar el producto');
         }
     };
 
@@ -133,6 +147,12 @@ export default function AdminPage() {
                         className={`px-6 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer border-none ${tab === 'rutas' ? 'bg-accent text-white' : 'bg-white/10 text-white hover:bg-white/20'}`}
                     >
                         Rutas ({rutas.length})
+                    </button>
+                    <button
+                        onClick={() => setTab('productos')}
+                        className={`px-6 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer border-none ${tab === 'productos' ? 'bg-accent text-white' : 'bg-white/10 text-white hover:bg-white/20'}`}
+                    >
+                        Productos ({productos.length})
                     </button>
                 </div>
 
@@ -225,6 +245,97 @@ export default function AdminPage() {
                                                             Eliminar
                                                         </button>
                                                     )}
+                                                </div>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </>
+                        )}
+
+                        {tab === 'productos' && (
+                            <>
+                                <div className="flex justify-end mb-4">
+                                    <button
+                                        onClick={() => navigate('/producto/crear')}
+                                        className="px-5 py-2 bg-accent hover:bg-accent/80 text-white text-sm font-semibold rounded-xl transition-colors border-none cursor-pointer"
+                                    >
+                                        + Crear producto
+                                    </button>
+                                </div>
+                                <div className="hidden md:block bg-black/30 rounded-2xl overflow-hidden">
+                                    <table className="w-full text-sm text-white">
+                                        <thead>
+                                            <tr className="border-b border-white/10 text-left text-gray-400 text-xs uppercase tracking-wider">
+                                                <th className="px-4 py-3">ID</th>
+                                                <th className="px-4 py-3">Nombre</th>
+                                                <th className="px-4 py-3">Precio</th>
+                                                <th className="px-4 py-3">Stock</th>
+                                                <th className="px-4 py-3">Categoría</th>
+                                                <th className="px-4 py-3 text-right">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {productos.map(p => (
+                                                <tr key={p.id_producto} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                                    <td className="px-4 py-3 text-gray-400">{p.id_producto}</td>
+                                                    <td className="px-4 py-3 font-medium">{p.nombre}</td>
+                                                    <td className="px-4 py-3 text-gray-300">{p.precio.toFixed(2)} €</td>
+                                                    <td className="px-4 py-3 text-gray-300">{p.stock}</td>
+                                                    <td className="px-4 py-3 text-gray-300">{p.categoria}</td>
+                                                    <td className="px-4 py-3 text-right flex justify-end gap-2">
+                                                        <Link
+                                                            to={`/producto/${p.id_producto}/editar`}
+                                                            className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-medium transition-colors text-white no-underline"
+                                                        >
+                                                            Editar
+                                                        </Link>
+                                                        <button
+                                                            onClick={() => handleDeleteProducto(p.id_producto)}
+                                                            className="px-3 py-1.5 bg-red-600 hover:bg-red-500 rounded-lg text-xs font-medium transition-colors border-none cursor-pointer text-white"
+                                                        >
+                                                            Eliminar
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                    {productos.length === 0 && (
+                                        <p className="text-center text-gray-400 py-8">No hay productos</p>
+                                    )}
+                                </div>
+
+                                <div className="md:hidden space-y-3">
+                                    {productos.length === 0 ? (
+                                        <p className="text-center text-gray-400 py-8">No hay productos</p>
+                                    ) : (
+                                        productos.map(p => (
+                                            <div key={p.id_producto} className="bg-black/30 rounded-xl p-4 space-y-2 border border-white/10">
+                                                <div className="flex justify-between items-start">
+                                                    <div>
+                                                        <p className="text-gray-400 text-xs">ID: {p.id_producto}</p>
+                                                        <p className="text-white font-semibold text-sm">{p.nombre}</p>
+                                                    </div>
+                                                    <span className="px-2 py-0.5 rounded text-xs font-semibold bg-gray-600">{p.categoria}</span>
+                                                </div>
+                                                <div className="text-xs text-gray-300 space-y-1">
+                                                    <p><span className="text-gray-400">Precio:</span> {p.precio.toFixed(2)} €</p>
+                                                    <p><span className="text-gray-400">Stock:</span> {p.stock}</p>
+                                                </div>
+                                                <div className="flex gap-2 pt-2">
+                                                    <Link
+                                                        to={`/producto/${p.id_producto}/editar`}
+                                                        className="flex-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-medium transition-colors text-white text-center no-underline"
+                                                    >
+                                                        Editar
+                                                    </Link>
+                                                    <button
+                                                        onClick={() => handleDeleteProducto(p.id_producto)}
+                                                        className="flex-1 px-3 py-1.5 bg-red-600 hover:bg-red-500 rounded-lg text-xs font-medium transition-colors border-none cursor-pointer text-white"
+                                                    >
+                                                        Eliminar
+                                                    </button>
                                                 </div>
                                             </div>
                                         ))
