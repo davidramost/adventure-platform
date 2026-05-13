@@ -20,13 +20,12 @@ export default function Image({
     if (hasError || !hasValidSrc) {
         return (
             <div
-                className={`flex items-center justify-center bg-[#2a2a2a] ${containerClassName}`}
+                className={`flex items-center justify-center bg-gradient-to-br from-[#3a3a3a] to-[#1a1a1a] w-full h-full ${containerClassName}`}
             >
                 <img
                     src={fallback}
                     alt="Sin imagen disponible"
-                    className="opacity-40"
-                    style={{ width: `${fallbackSize}px`, height: `${fallbackSize}px` }}
+                    className="opacity-30 max-w-[25%] max-h-[25%]"
                 />
             </div>
         );

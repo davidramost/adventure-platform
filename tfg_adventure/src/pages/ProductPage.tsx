@@ -90,12 +90,12 @@ export default function ProductPage() {
 
         <div className="bg-surface rounded-2xl overflow-hidden border border-[#333] flex flex-col md:flex-row shadow-2xl">
           {/* Image */}
-          <div className="md:w-2/5 relative overflow-hidden">
+          <div className="md:w-2/5 relative overflow-hidden h-[280px] md:h-auto">
             <Image
               src={producto.imagen}
               alt={producto.nombre}
-              containerClassName="w-full min-h-[280px]"
-              className="w-full h-full object-cover min-h-[280px]"
+              containerClassName="w-full h-full"
+              className="w-full h-full object-cover"
             />
             <div className="absolute top-4 left-4 bg-primary-dark text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-lg">
               {producto.categoria}
@@ -104,8 +104,8 @@ export default function ProductPage() {
 
           {/* Details */}
           <div className="md:w-3/5 p-8 md:p-12 flex flex-col">
-            <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-              <h1 className="text-white text-3xl md:text-4xl font-bold">{producto.nombre}</h1>
+            <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+              <h1 className="text-white text-2xl md:text-3xl font-bold">{producto.nombre}</h1>
               {usuario?.rol === 'admin' && (
                 <Link
                   to={`/producto/${producto.id_producto}/editar`}
@@ -115,20 +115,20 @@ export default function ProductPage() {
                 </Link>
               )}
             </div>
-            <div className="mb-8">
+            <div className="mb-6">
               <span className="text-gray-400 text-sm font-medium block mb-2">PRECIO</span>
-              <p className="text-white text-5xl md:text-6xl font-bold tracking-tight">
+              <p className="text-white text-4xl md:text-5xl font-bold tracking-tight">
                 {producto.precio.toFixed(2)}
-                <span className="text-3xl md:text-4xl ml-2">€</span>
+                <span className="text-2xl md:text-3xl ml-2">€</span>
               </p>
             </div>
 
-            <div className="mb-8">
-              <h3 className="text-white text-lg mb-2 font-medium">Descripción</h3>
-              <p className="text-[#bbb] leading-relaxed text-base">{producto.descripcion}</p>
+            <div className="mb-6">
+              <h3 className="text-white text-base mb-2 font-medium">Descripción</h3>
+              <p className="text-[#bbb] leading-relaxed text-sm">{producto.descripcion}</p>
             </div>
 
-            <div className="border-t border-white/10 pt-8">
+            <div className="border-t border-white/10 pt-6 mt-auto">
               <div className="flex items-center gap-4 mb-6">
                 <span className="text-gray-300">Cantidad:</span>
                 <div className="flex items-center bg-[#222] rounded-lg overflow-hidden border border-[#444]">
