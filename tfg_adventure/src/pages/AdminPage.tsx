@@ -348,6 +348,14 @@ export default function AdminPage() {
 
                         {tab === 'rutas' && (
                             <>
+                                <div className="flex justify-end mb-4">
+                                    <button
+                                        onClick={() => navigate('/crear-ruta')}
+                                        className="px-5 py-2 bg-accent hover:bg-accent/80 text-white text-sm font-semibold rounded-xl transition-colors border-none cursor-pointer"
+                                    >
+                                        + Crear ruta
+                                    </button>
+                                </div>
                                 <div className="hidden md:block bg-black/30 rounded-2xl overflow-hidden">
                                     <table className="w-full text-sm text-white">
                                         <thead>

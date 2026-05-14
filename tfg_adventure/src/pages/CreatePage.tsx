@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -28,6 +28,7 @@ export default function CreatePage() {
   const [imagenFile, setImagenFile] = useState<File | null>(null);
   const [imagenFileName, setImagenFileName] = useState('');
   const [imagenPreview, setImagenPreview] = useState<string | null>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
   const [gpxFile, setGpxFile] = useState<File | null>(null);
   const [gpxFileName, setGpxFileName] = useState('');
 
@@ -40,11 +41,22 @@ export default function CreatePage() {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleClearImage = () => {
+    setImagenFile(null);
+    setImagenFileName('');
+    setImagenPreview(null);
+    if (imageInputRef.current) imageInputRef.current.value = '';
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 3 * 1024 * 1024) {
         setError('La imagen no debe superar los 3MB.');
+        setImagenFile(null);
+        setImagenFileName('');
+        setImagenPreview(null);
+        if (imageInputRef.current) imageInputRef.current.value = '';
         return;
       }
       setImagenFile(file);
@@ -73,6 +85,12 @@ export default function CreatePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (imagenFile && imagenFile.size > 3 * 1024 * 1024) {
+      setError('La imagen no debe superar los 3MB.');
+      return;
+    }
+
     setLoading(true);
 
     const dificultadMap: Record<string, 'Baja' | 'Media' | 'Alta'> = {
@@ -284,13 +302,25 @@ export default function CreatePage() {
               <div className="mb-6">
                 <label className="block text-white text-sm font-medium mb-2">Imagen de la ruta (Máx. 1 imagen, 3MB)</label>
                 <div className="bg-white/5 border-2 border-dashed border-white/30 rounded-xl p-6">
-                  <input
-                    type="file"
-                    accept="image/jpeg,image/png,image/gif,image/webp"
-                    onChange={handleImageChange}
-                    className="text-white text-sm cursor-pointer file:bg-accent file:text-white file:border-none file:px-5 file:py-2
-                               file:rounded-lg file:cursor-pointer file:text-sm file:mr-4 file:hover:bg-primary-light"
-                  />
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <input
+                      ref={imageInputRef}
+                      type="file"
+                      accept="image/jpeg,image/png,image/gif,image/webp"
+                      onChange={handleImageChange}
+                      className="text-white text-sm cursor-pointer file:bg-accent file:text-white file:border-none file:px-5 file:py-2
+                                 file:rounded-lg file:cursor-pointer file:text-sm file:mr-4 file:hover:bg-primary-light"
+                    />
+                    {imagenFileName && (
+                      <button
+                        type="button"
+                        onClick={handleClearImage}
+                        className="px-4 py-2 bg-error/80 text-white text-sm rounded-lg hover:bg-error transition-colors border-none cursor-pointer"
+                      >
+                        Quitar imagen
+                      </button>
+                    )}
+                  </div>
                   <p className="text-white/50 text-xs mt-3">Formatos: JPG, PNG, GIF, WEBP — Máx. 1 imagen de 3MB</p>
                   {imagenFileName && (
                     <p className="text-white/70 text-xs mt-2">Archivo seleccionado: {imagenFileName}</p>
@@ -333,24 +363,10 @@ export default function CreatePage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="inline-flex justify-center items-center px-8 py-3 bg-white border-2 border-white rounded-full
-                             text-primary-dark text-base font-medium cursor-pointer hover:bg-gray-200 transition-colors
-                             disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="inline-flex justify-center items-center px-8 py-3 bg-accent rounded-full text-white text-base
+                             font-semibold hover:bg-primary-light transition-colors border-none cursor-pointer disabled:opacity-50"
                 >
-                  {loading ? (
-                    <>
-                      <svg className="animate-spin w-5 h-5 mr-2 text-primary-dark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-                      </svg>
-                      Guardando...
-                    </>
-                  ) : (
-                    <>
-                      Guardar Ruta
-                      <img src="/Img/Icons/check.png" alt="Guardar" className="w-5 h-5 ml-2" />
-                    </>
-                  )}
+                  {loading ? 'Guardando...' : 'Guardar Ruta'}
                 </button>
               </div>
             </form>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -33,6 +33,7 @@ export default function CreateProductoPage() {
     const [imagenFile, setImagenFile] = useState<File | null>(null);
     const [imagenFileName, setImagenFileName] = useState('');
     const [imagenPreview, setImagenPreview] = useState<string | null>(null);
+    const imageInputRef = useRef<HTMLInputElement>(null);
     const [error, setError] = useState('');
     const [submitting, setSubmitting] = useState(false);
 
@@ -45,11 +46,22 @@ export default function CreateProductoPage() {
         setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
+    const handleClearImage = () => {
+        setImagenFile(null);
+        setImagenFileName('');
+        setImagenPreview(null);
+        if (imageInputRef.current) imageInputRef.current.value = '';
+    };
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             if (file.size > 3 * 1024 * 1024) {
                 setError('La imagen no debe superar los 3MB.');
+                setImagenFile(null);
+                setImagenFileName('');
+                setImagenPreview(null);
+                if (imageInputRef.current) imageInputRef.current.value = '';
                 return;
             }
             setImagenFile(file);
@@ -63,6 +75,11 @@ export default function CreateProductoPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
+
+        if (imagenFile && imagenFile.size > 3 * 1024 * 1024) {
+            setError('La imagen no debe superar los 3MB.');
+            return;
+        }
 
         if (!form.categoria) {
             setError('Selecciona una categoría.');
@@ -167,13 +184,25 @@ export default function CreateProductoPage() {
                             <div className="mb-6">
                                 <label className="block text-white text-sm font-medium mb-2">Imagen del producto (Máx. 1 imagen, 3MB)</label>
                                 <div className="bg-white/5 border-2 border-dashed border-white/30 rounded-xl p-6">
-                                    <input
-                                        type="file"
-                                        accept="image/jpeg,image/png,image/gif,image/webp"
-                                        onChange={handleImageChange}
-                                        className="text-white text-sm cursor-pointer file:bg-accent file:text-white file:border-none file:px-5 file:py-2
-                                         file:rounded-lg file:cursor-pointer file:text-sm file:mr-4 file:hover:bg-primary-light"
-                                    />
+                                    <div className="flex items-center gap-3 flex-wrap">
+                                        <input
+                                            ref={imageInputRef}
+                                            type="file"
+                                            accept="image/jpeg,image/png,image/gif,image/webp"
+                                            onChange={handleImageChange}
+                                            className="text-white text-sm cursor-pointer file:bg-accent file:text-white file:border-none file:px-5 file:py-2
+                                             file:rounded-lg file:cursor-pointer file:text-sm file:mr-4 file:hover:bg-primary-light"
+                                        />
+                                        {imagenFileName && (
+                                            <button
+                                                type="button"
+                                                onClick={handleClearImage}
+                                                className="px-4 py-2 bg-error/80 text-white text-sm rounded-lg hover:bg-error transition-colors border-none cursor-pointer"
+                                            >
+                                                Quitar imagen
+                                            </button>
+                                        )}
+                                    </div>
                                     <p className="text-white/50 text-xs mt-3">Formatos: JPG, PNG, GIF, WEBP — Máx. 1 imagen de 3MB</p>
                                     {imagenFileName && (
                                         <p className="text-white/70 text-xs mt-2">Archivo seleccionado: {imagenFileName}</p>
