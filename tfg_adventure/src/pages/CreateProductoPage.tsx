@@ -60,6 +60,12 @@ export default function CreateProductoPage() {
         }
     };
 
+    const handleRemoveImage = () => {
+        setImagenFile(null);
+        setImagenFileName('');
+        setImagenPreview(null);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
@@ -176,7 +182,16 @@ export default function CreateProductoPage() {
                                     />
                                     <p className="text-white/50 text-xs mt-3">Formatos: JPG, PNG, GIF, WEBP — Máx. 1 imagen de 3MB</p>
                                     {imagenFileName && (
-                                        <p className="text-white/70 text-xs mt-2">Archivo seleccionado: {imagenFileName}</p>
+                                        <div className="mt-2 flex items-center justify-between">
+                                            <p className="text-white/70 text-xs">Archivo seleccionado: {imagenFileName}</p>
+                                            <button
+                                                type="button"
+                                                onClick={handleRemoveImage}
+                                                className="text-white/70 hover:text-white text-xs px-3 py-1 bg-red-500/50 hover:bg-red-500 rounded-lg transition-colors"
+                                            >
+                                                Quitar
+                                            </button>
+                                        </div>
                                     )}
                                     {imagenPreview && (
                                         <div className="mt-4">
