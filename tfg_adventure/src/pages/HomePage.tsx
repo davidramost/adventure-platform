@@ -54,20 +54,18 @@ export default function HomePage() {
                 { icon: '/Img/Icons/ciclismo.png', label: 'Ciclismo' },
                 { icon: '/Img/Icons/esqui.png', label: 'Esquí' },
               ].map((item) => (
-                <Link
+                <div
                   key={item.label}
-                  to="/senderos"
                   aria-label={item.label}
-                  className="w-[70px] h-[70px] border-2 border-white rounded-xl flex items-center justify-center 
-                             hover:bg-white/10 transition-colors group"
+                  className="w-[70px] h-[70px] border-2 border-white rounded-xl flex items-center justify-center"
                 >
                   <img
                     src={item.icon}
                     alt=""
                     aria-hidden="true"
-                    className="w-10 h-10 group-hover:scale-110 transition-transform"
+                    className="w-10 h-10"
                   />
-                </Link>
+                </div>
               ))}
             </div>
 
