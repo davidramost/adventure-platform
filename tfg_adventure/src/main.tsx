@@ -9,15 +9,15 @@ import './index.css';
 import App from './App';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <MemoryRouter initialEntries={[getSavedRoute()]} initialIndex={0}>
-      <AuthProvider>
-        <CartProvider>
-          <ToastProvider>
-            <App />
-          </ToastProvider>
-        </CartProvider>
-      </AuthProvider>
-    </MemoryRouter>
-  </StrictMode>,
+    <StrictMode>
+        <MemoryRouter initialEntries={[getSavedRoute()]} initialIndex={0}>
+            <AuthProvider>
+                <CartProvider>
+                    <ToastProvider>
+                        <App />
+                    </ToastProvider>
+                </CartProvider>
+            </AuthProvider>
+        </MemoryRouter>
+    </StrictMode>,
 );

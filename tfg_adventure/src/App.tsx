@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { useRoutePersist } from './hooks/useUrlMask';
 import ScrollToTop from './components/ScrollToTop';
 import ToastContainer from './components/ToastContainer';
@@ -23,35 +23,35 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function App() {
-  useRoutePersist();
-  return (
-    <>
-      <ScrollToTop />
-      <ToastContainer />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/senderos" element={<CategoryPage />} />
-        <Route path="/ruta/:id/editar" element={<EditRutaPage />} />
-        <Route path="/ruta/:id" element={<ContentPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/registro" element={<RegisterPage />} />
-        <Route path="/crear-ruta" element={<CreatePage />} />
-        <Route path="/favoritos" element={<Navigate to="/perfil" replace />} />
-        <Route path="/perfil" element={<ProfilePage />} />
-        <Route path="/info" element={<InfoPage />} />
-        <Route path="/tienda" element={<StorePage />} />
-        <Route path="/producto/crear" element={<CreateProductoPage />} />
-        <Route path="/producto/:id/editar" element={<EditProductoPage />} />
-        <Route path="/producto/:id" element={<ProductPage />} />
-        <Route path="/carrito" element={<CartPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </>
-  );
+    useRoutePersist();
+    return (
+        <>
+            <ScrollToTop />
+            <ToastContainer />
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/senderos" element={<CategoryPage />} />
+                <Route path="/ruta/:id/editar" element={<EditRutaPage />} />
+                <Route path="/ruta/:id" element={<ContentPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/registro" element={<RegisterPage />} />
+                <Route path="/crear-ruta" element={<CreatePage />} />
+                <Route path="/favoritos" element={<Navigate to="/perfil" replace />} />
+                <Route path="/perfil" element={<ProfilePage />} />
+                <Route path="/info" element={<InfoPage />} />
+                <Route path="/tienda" element={<StorePage />} />
+                <Route path="/producto/crear" element={<CreateProductoPage />} />
+                <Route path="/producto/:id/editar" element={<EditProductoPage />} />
+                <Route path="/producto/:id" element={<ProductPage />} />
+                <Route path="/carrito" element={<CartPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/reset-password" element={<ResetPasswordPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+        </>
+    );
 }
 
 export default App;

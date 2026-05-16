@@ -4,7 +4,6 @@ import com.example.tfg_backend.dto.AvatarUpdateRequest;
 import com.example.tfg_backend.dto.UpdateUsuarioRequest;
 import com.example.tfg_backend.dto.UsuarioResponse;
 import com.example.tfg_backend.entity.Usuario;
-import com.example.tfg_backend.exception.BadRequestException;
 import com.example.tfg_backend.exception.ResourceNotFoundException;
 import com.example.tfg_backend.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;

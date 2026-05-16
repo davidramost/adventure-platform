@@ -1,4 +1,4 @@
-import { useState, type ImgHTMLAttributes } from 'react';
+import {type ImgHTMLAttributes, useState} from 'react';
 
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     fallback?: string;
@@ -7,11 +7,11 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 export default function Image({
-    fallback = '/Img/Icons/sin-imagen.png',
-    containerClassName = '',
-    fallbackSize = 50,
-    ...props
-}: ImageProps) {
+                                  fallback = '/Img/Icons/sin-imagen.png',
+                                  containerClassName = '',
+                                  fallbackSize = 50,
+                                  ...props
+                              }: ImageProps) {
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -35,7 +35,8 @@ export default function Image({
         <div className={`relative overflow-hidden ${containerClassName}`}>
             {isLoading && (
                 <div className="absolute inset-0 z-10 bg-[#2a2a2a] overflow-hidden">
-                    <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                    <div
+                        className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent"/>
                 </div>
             )}
             <img

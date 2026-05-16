@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import {useCallback, useEffect, useRef, useState} from 'react';
+import {Link} from 'react-router-dom';
 import Image from './Image';
-import type { Ruta } from '../types';
+import type {Ruta} from '../types';
 
 const BATCH_SIZE = 10;
 
@@ -9,7 +9,7 @@ interface GallerySliderProps {
     rutas: Ruta[];
 }
 
-export default function GallerySlider({ rutas }: GallerySliderProps) {
+export default function GallerySlider({rutas}: GallerySliderProps) {
     const rutasConImagen = rutas.filter(r => r.imagen_url);
     const [current, setCurrent] = useState(0);
     const [paused, setPaused] = useState(false);
@@ -67,7 +67,7 @@ export default function GallerySlider({ rutas }: GallerySliderProps) {
                     <div
                         key={ruta.id_ruta}
                         className={`absolute inset-0 transition-opacity duration-700 ${index === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                            }`}
+                        }`}
                         role="group"
                         aria-roledescription="diapositiva"
                         aria-label={`${index + 1} de ${loadedCount}: ${ruta.nombre_ruta}`}
@@ -84,7 +84,8 @@ export default function GallerySlider({ rutas }: GallerySliderProps) {
                                 containerClassName="w-full h-full"
                                 className="w-full h-full object-cover brightness-[0.75] hover:brightness-[0.9] transition-[filter] duration-300"
                             />
-                            <div className="absolute bottom-0 left-0 w-full bg-linear-to-t from-black/70 to-transparent text-white py-6 px-6">
+                            <div
+                                className="absolute bottom-0 left-0 w-full bg-linear-to-t from-black/70 to-transparent text-white py-6 px-6">
                                 <h3 className="m-0 mb-1 text-2xl font-bold">{ruta.nombre_ruta}</h3>
                                 {ruta.nombre_ubicacion && (
                                     <span className="text-sm text-gray-300">{ruta.nombre_ubicacion}</span>
@@ -130,7 +131,9 @@ export default function GallerySlider({ rutas }: GallerySliderProps) {
                     Ver todas las rutas
                     <span className="ml-2 w-6 h-6 rounded-full bg-primary-dark flex items-center justify-center
                            group-hover:bg-primary-light group-hover:translate-x-1 transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                             stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                             aria-hidden="true">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>
                         </svg>

@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { adminService, type AdminUpdateUsuarioRequest } from '../services/adminService';
-import type { Usuario, Ruta, Producto } from '../types';
+import type { Producto, Ruta, Usuario } from '../types';
 
 type Tab = 'usuarios' | 'rutas' | 'productos';
 
@@ -129,9 +129,12 @@ export default function AdminPage() {
                     </div>
                 )}
                 {error && (
-                    <div className="mb-4 px-4 py-3 bg-red-600 text-white rounded-xl text-sm font-medium flex justify-between items-center">
+                    <div
+                        className="mb-4 px-4 py-3 bg-red-600 text-white rounded-xl text-sm font-medium flex justify-between items-center">
                         <span>{error}</span>
-                        <button onClick={() => setError(null)} className="ml-4 font-bold bg-transparent border-none text-white cursor-pointer">✕</button>
+                        <button onClick={() => setError(null)}
+                            className="ml-4 font-bold bg-transparent border-none text-white cursor-pointer">✕
+                        </button>
                     </div>
                 )}
 
@@ -176,13 +179,15 @@ export default function AdminPage() {
                                         </thead>
                                         <tbody>
                                             {usuarios.map(u => (
-                                                <tr key={u.id_usuario} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                                <tr key={u.id_usuario}
+                                                    className="border-b border-white/5 hover:bg-white/5 transition-colors">
                                                     <td className="px-4 py-3 text-gray-400">{u.id_usuario}</td>
                                                     <td className="px-4 py-3 font-medium">{u.nombre_usuario}</td>
                                                     <td className="px-4 py-3 text-gray-300">{u.email}</td>
                                                     <td className="px-4 py-3 text-gray-300">{[u.nombre, u.apellido].filter(Boolean).join(' ') || '—'}</td>
                                                     <td className="px-4 py-3">
-                                                        <span className={`px-2 py-0.5 rounded text-xs font-semibold ${u.rol === 'admin' ? 'bg-purple-600' : 'bg-gray-600'}`}>
+                                                        <span
+                                                            className={`px-2 py-0.5 rounded text-xs font-semibold ${u.rol === 'admin' ? 'bg-purple-600' : 'bg-gray-600'}`}>
                                                             {u.rol}
                                                         </span>
                                                     </td>
@@ -216,13 +221,15 @@ export default function AdminPage() {
                                         <p className="text-center text-gray-400 py-8">No hay usuarios</p>
                                     ) : (
                                         usuarios.map(u => (
-                                            <div key={u.id_usuario} className="bg-black/30 rounded-xl p-4 space-y-2 border border-white/10">
+                                            <div key={u.id_usuario}
+                                                className="bg-black/30 rounded-xl p-4 space-y-2 border border-white/10">
                                                 <div className="flex justify-between items-start">
                                                     <div>
                                                         <p className="text-gray-400 text-xs">ID: {u.id_usuario}</p>
                                                         <p className="text-white font-semibold text-sm">{u.nombre_usuario}</p>
                                                     </div>
-                                                    <span className={`px-2 py-0.5 rounded text-xs font-semibold ${u.rol === 'admin' ? 'bg-purple-600' : 'bg-gray-600'}`}>
+                                                    <span
+                                                        className={`px-2 py-0.5 rounded text-xs font-semibold ${u.rol === 'admin' ? 'bg-purple-600' : 'bg-gray-600'}`}>
                                                         {u.rol}
                                                     </span>
                                                 </div>
@@ -277,7 +284,8 @@ export default function AdminPage() {
                                         </thead>
                                         <tbody>
                                             {productos.map(p => (
-                                                <tr key={p.id_producto} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                                <tr key={p.id_producto}
+                                                    className="border-b border-white/5 hover:bg-white/5 transition-colors">
                                                     <td className="px-4 py-3 text-gray-400">{p.id_producto}</td>
                                                     <td className="px-4 py-3 font-medium">{p.nombre}</td>
                                                     <td className="px-4 py-3 text-gray-300">{p.precio.toFixed(2)} €</td>
@@ -312,16 +320,20 @@ export default function AdminPage() {
                                         <p className="text-center text-gray-400 py-8">No hay productos</p>
                                     ) : (
                                         productos.map(p => (
-                                            <div key={p.id_producto} className="bg-black/30 rounded-xl p-4 space-y-2 border border-white/10">
+                                            <div key={p.id_producto}
+                                                className="bg-black/30 rounded-xl p-4 space-y-2 border border-white/10">
                                                 <div className="flex justify-between items-start">
                                                     <div>
                                                         <p className="text-gray-400 text-xs">ID: {p.id_producto}</p>
                                                         <p className="text-white font-semibold text-sm">{p.nombre}</p>
                                                     </div>
-                                                    <span className="px-2 py-0.5 rounded text-xs font-semibold bg-gray-600">{p.categoria}</span>
+                                                    <span
+                                                        className="px-2 py-0.5 rounded text-xs font-semibold bg-gray-600">{p.categoria}</span>
                                                 </div>
                                                 <div className="text-xs text-gray-300 space-y-1">
-                                                    <p><span className="text-gray-400">Precio:</span> {p.precio.toFixed(2)} €</p>
+                                                    <p><span
+                                                        className="text-gray-400">Precio:</span> {p.precio.toFixed(2)} €
+                                                    </p>
                                                     <p><span className="text-gray-400">Stock:</span> {p.stock}</p>
                                                 </div>
                                                 <div className="flex gap-2 pt-2">
@@ -370,11 +382,13 @@ export default function AdminPage() {
                                         </thead>
                                         <tbody>
                                             {rutas.map(r => (
-                                                <tr key={r.id_ruta} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                                <tr key={r.id_ruta}
+                                                    className="border-b border-white/5 hover:bg-white/5 transition-colors">
                                                     <td className="px-4 py-3 text-gray-400">{r.id_ruta}</td>
                                                     <td className="px-4 py-3 font-medium">{r.nombre_ruta}</td>
                                                     <td className="px-4 py-3">
-                                                        <span className={`px-2 py-0.5 rounded text-xs font-semibold ${r.dificultad === 'Alta' ? 'bg-red-700' : r.dificultad === 'Media' ? 'bg-yellow-600' : 'bg-green-700'}`}>
+                                                        <span
+                                                            className={`px-2 py-0.5 rounded text-xs font-semibold ${r.dificultad === 'Alta' ? 'bg-red-700' : r.dificultad === 'Media' ? 'bg-yellow-600' : 'bg-green-700'}`}>
                                                             {r.dificultad}
                                                         </span>
                                                     </td>
@@ -409,19 +423,25 @@ export default function AdminPage() {
                                         <p className="text-center text-gray-400 py-8">No hay rutas</p>
                                     ) : (
                                         rutas.map(r => (
-                                            <div key={r.id_ruta} className="bg-black/30 rounded-xl p-4 space-y-2 border border-white/10">
+                                            <div key={r.id_ruta}
+                                                className="bg-black/30 rounded-xl p-4 space-y-2 border border-white/10">
                                                 <div className="flex justify-between items-start">
                                                     <div>
                                                         <p className="text-gray-400 text-xs">ID: {r.id_ruta}</p>
                                                         <p className="text-white font-semibold text-sm">{r.nombre_ruta}</p>
                                                     </div>
-                                                    <span className={`px-2 py-0.5 rounded text-xs font-semibold ${r.dificultad === 'Alta' ? 'bg-red-700' : r.dificultad === 'Media' ? 'bg-yellow-600' : 'bg-green-700'}`}>
+                                                    <span
+                                                        className={`px-2 py-0.5 rounded text-xs font-semibold ${r.dificultad === 'Alta' ? 'bg-red-700' : r.dificultad === 'Media' ? 'bg-yellow-600' : 'bg-green-700'}`}>
                                                         {r.dificultad}
                                                     </span>
                                                 </div>
                                                 <div className="text-xs text-gray-300 space-y-1">
-                                                    <p><span className="text-gray-400">Distancia:</span> {r.distancia_km} km</p>
-                                                    <p><span className="text-gray-400">Puntuación:</span> {r.media_puntuacion ? r.media_puntuacion.toFixed(1) : '—'}</p>
+                                                    <p><span
+                                                        className="text-gray-400">Distancia:</span> {r.distancia_km} km
+                                                    </p>
+                                                    <p><span
+                                                        className="text-gray-400">Puntuación:</span> {r.media_puntuacion ? r.media_puntuacion.toFixed(1) : '—'}
+                                                    </p>
                                                 </div>
                                                 <div className="flex gap-2 pt-2">
                                                     <Link
@@ -451,7 +471,8 @@ export default function AdminPage() {
             {editingUsuario && (
                 <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center px-4">
                     <div className="bg-gray-900 rounded-2xl p-6 w-full max-w-md shadow-2xl">
-                        <h2 className="text-white text-xl font-bold mb-5">Editar usuario #{editingUsuario.id_usuario}</h2>
+                        <h2 className="text-white text-xl font-bold mb-5">Editar usuario
+                            #{editingUsuario.id_usuario}</h2>
                         <div className="flex flex-col gap-3">
                             <label className="text-gray-300 text-sm">
                                 Nombre de usuario
@@ -493,7 +514,10 @@ export default function AdminPage() {
                         {error && <p className="mt-3 text-red-400 text-sm">{error}</p>}
                         <div className="flex gap-3 mt-6 justify-end">
                             <button
-                                onClick={() => { setEditingUsuario(null); setError(null); }}
+                                onClick={() => {
+                                    setEditingUsuario(null);
+                                    setError(null);
+                                }}
                                 className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-white text-sm transition-colors border-none cursor-pointer"
                             >
                                 Cancelar

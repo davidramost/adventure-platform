@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -122,12 +122,14 @@ export default function CreateProductoPage() {
                         <h1 className="text-white text-[30px] font-bold italic mb-8 tracking-wider">CREAR PRODUCTO</h1>
 
                         {error && (
-                            <div className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-sm">{error}</div>
+                            <div
+                                className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-sm">{error}</div>
                         )}
 
                         <form onSubmit={handleSubmit} className="max-w-[800px] mx-auto">
                             <div className="mb-6">
-                                <label htmlFor="nombre" className="block text-white text-sm font-medium mb-2">Nombre del producto *</label>
+                                <label htmlFor="nombre" className="block text-white text-sm font-medium mb-2">Nombre del
+                                    producto *</label>
                                 <input
                                     type="text" id="nombre" name="nombre" value={form.nombre} onChange={handleChange}
                                     placeholder="Ej: Mochila de senderismo 40L" required
@@ -137,9 +139,11 @@ export default function CreateProductoPage() {
                             </div>
 
                             <div className="mb-6">
-                                <label htmlFor="descripcion" className="block text-white text-sm font-medium mb-2">Descripción</label>
+                                <label htmlFor="descripcion"
+                                    className="block text-white text-sm font-medium mb-2">Descripción</label>
                                 <textarea
-                                    id="descripcion" name="descripcion" rows={4} value={form.descripcion} onChange={handleChange}
+                                    id="descripcion" name="descripcion" rows={4} value={form.descripcion}
+                                    onChange={handleChange}
                                     placeholder="Describe el producto..."
                                     className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                                      placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
@@ -148,16 +152,19 @@ export default function CreateProductoPage() {
 
                             <div className="flex flex-col md:flex-row gap-4 mb-6">
                                 <div className="flex-1">
-                                    <label htmlFor="precio" className="block text-white text-sm font-medium mb-2">Precio (€) *</label>
+                                    <label htmlFor="precio" className="block text-white text-sm font-medium mb-2">Precio
+                                        (€) *</label>
                                     <input
-                                        type="number" id="precio" name="precio" value={form.precio} onChange={handleChange}
+                                        type="number" id="precio" name="precio" value={form.precio}
+                                        onChange={handleChange}
                                         placeholder="Ej: 49.99" step="0.01" min="0" required
                                         className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                                          placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
                                     />
                                 </div>
                                 <div className="flex-1">
-                                    <label htmlFor="stock" className="block text-white text-sm font-medium mb-2">Stock *</label>
+                                    <label htmlFor="stock" className="block text-white text-sm font-medium mb-2">Stock
+                                        *</label>
                                     <input
                                         type="number" id="stock" name="stock" value={form.stock} onChange={handleChange}
                                         placeholder="Ej: 100" step="1" min="0" required
@@ -168,9 +175,11 @@ export default function CreateProductoPage() {
                             </div>
 
                             <div className="mb-6">
-                                <label htmlFor="categoria" className="block text-white text-sm font-medium mb-2">Categoría *</label>
+                                <label htmlFor="categoria" className="block text-white text-sm font-medium mb-2">Categoría
+                                    *</label>
                                 <select
-                                    id="categoria" name="categoria" value={form.categoria} onChange={handleChange} required
+                                    id="categoria" name="categoria" value={form.categoria} onChange={handleChange}
+                                    required
                                     className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                                      focus:border-white focus:bg-white/15 font-[Montserrat]"
                                 >
@@ -182,7 +191,8 @@ export default function CreateProductoPage() {
                             </div>
 
                             <div className="mb-6">
-                                <label className="block text-white text-sm font-medium mb-2">Imagen del producto (Máx. 1 imagen, 3MB)</label>
+                                <label className="block text-white text-sm font-medium mb-2">Imagen del producto (Máx. 1
+                                    imagen, 3MB)</label>
                                 <div className="bg-white/5 border-2 border-dashed border-white/30 rounded-xl p-6">
                                     <div className="flex items-center gap-3 flex-wrap">
                                         <input
@@ -203,13 +213,16 @@ export default function CreateProductoPage() {
                                             </button>
                                         )}
                                     </div>
-                                    <p className="text-white/50 text-xs mt-3">Formatos: JPG, PNG, GIF, WEBP — Máx. 1 imagen de 3MB</p>
+                                    <p className="text-white/50 text-xs mt-3">Formatos: JPG, PNG, GIF, WEBP — Máx. 1
+                                        imagen de 3MB</p>
                                     {imagenFileName && (
-                                        <p className="text-white/70 text-xs mt-2">Archivo seleccionado: {imagenFileName}</p>
+                                        <p className="text-white/70 text-xs mt-2">Archivo
+                                            seleccionado: {imagenFileName}</p>
                                     )}
                                     {imagenPreview && (
                                         <div className="mt-4">
-                                            <img src={imagenPreview} alt="Preview" className="max-h-[200px] rounded-lg" />
+                                            <img src={imagenPreview} alt="Preview"
+                                                className="max-h-[200px] rounded-lg" />
                                         </div>
                                     )}
                                 </div>

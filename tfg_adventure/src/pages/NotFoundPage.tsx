@@ -9,7 +9,8 @@ export default function NotFoundPage() {
                 <Header transparent />
             </header>
 
-            <main className="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-light to-primary-dark">
+            <main
+                className="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-light to-primary-dark">
                 <div className="text-center text-white px-6">
                     <h1 className="text-8xl font-bold mb-4 opacity-60">404</h1>
                     <h2 className="text-2xl font-semibold mb-4">Página no encontrada</h2>

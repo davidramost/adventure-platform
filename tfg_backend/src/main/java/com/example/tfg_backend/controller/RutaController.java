@@ -40,21 +40,21 @@ public class RutaController {
 
     @PostMapping
     public ResponseEntity<RutaResponse> createRuta(@Valid @RequestBody RutaRequest request,
-            @AuthenticationPrincipal Usuario usuario) {
+                                                   @AuthenticationPrincipal Usuario usuario) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(rutaService.createRuta(request, usuario.getIdUsuario()));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<RutaResponse> updateRuta(@PathVariable Integer id,
-            @Valid @RequestBody RutaRequest request,
-            @AuthenticationPrincipal Usuario usuario) {
+                                                   @Valid @RequestBody RutaRequest request,
+                                                   @AuthenticationPrincipal Usuario usuario) {
         return ResponseEntity.ok(rutaService.updateRuta(id, request, usuario.getIdUsuario()));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRuta(@PathVariable Integer id,
-            @AuthenticationPrincipal Usuario usuario) {
+                                           @AuthenticationPrincipal Usuario usuario) {
         rutaService.deleteRuta(id, usuario.getIdUsuario());
         return ResponseEntity.noContent().build();
     }

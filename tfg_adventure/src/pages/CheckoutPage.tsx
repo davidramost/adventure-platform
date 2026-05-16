@@ -6,7 +6,7 @@ import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { pedidoService } from '../services/pedidoService';
-import type { TipoEnvio, MetodoPago } from '../types';
+import type { MetodoPago, TipoEnvio } from '../types';
 
 const ENVIO_OPTIONS: { value: TipoEnvio; label: string; sublabel: string; precio: number }[] = [
     { value: 'ESTANDAR', label: 'Envío estándar', sublabel: '3-5 días hábiles', precio: 0 },
@@ -159,7 +159,8 @@ export default function CheckoutPage() {
                 <main className="flex-1 bg-surface-dark flex items-center justify-center">
                     <div className="text-center">
                         <p className="text-gray-400 text-lg mb-6">Tu carrito está vacío.</p>
-                        <Link to="/tienda" className="inline-block bg-primary-dark hover:bg-primary-light text-white font-bold py-3 px-8 rounded-full transition-colors no-underline">
+                        <Link to="/tienda"
+                            className="inline-block bg-primary-dark hover:bg-primary-light text-white font-bold py-3 px-8 rounded-full transition-colors no-underline">
                             Ir a la Tienda
                         </Link>
                     </div>
@@ -176,19 +177,25 @@ export default function CheckoutPage() {
                     <Header transparent />
                 </header>
                 <main className="flex-1 bg-surface-dark flex items-center justify-center px-4">
-                    <div className="bg-surface rounded-2xl border border-[#333] p-10 max-w-md w-full text-center shadow-xl">
-                        <div className="w-16 h-16 rounded-full bg-green-400/20 flex items-center justify-center mx-auto mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <div
+                        className="bg-surface rounded-2xl border border-[#333] p-10 max-w-md w-full text-center shadow-xl">
+                        <div
+                            className="w-16 h-16 rounded-full bg-green-400/20 flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round"
+                                strokeLinejoin="round">
                                 <polyline points="20 6 9 17 4 12" />
                             </svg>
                         </div>
                         <h2 className="text-white text-2xl font-bold mb-3">¡Pedido confirmado!</h2>
                         <p className="text-gray-400 mb-8">Gracias por tu compra. Recibirás la confirmación en breve.</p>
                         <div className="flex flex-col gap-3">
-                            <Link to="/tienda" className="w-full inline-block bg-primary-light hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition-colors no-underline text-center">
+                            <Link to="/tienda"
+                                className="w-full inline-block bg-primary-light hover:bg-primary-dark text-white font-bold py-3 rounded-xl transition-colors no-underline text-center">
                                 Seguir comprando
                             </Link>
-                            <Link to="/perfil" className="w-full inline-block bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-xl transition-colors no-underline text-center">
+                            <Link to="/perfil"
+                                className="w-full inline-block bg-primary hover:bg-primary-dark text-white font-medium py-3 rounded-xl transition-colors no-underline text-center">
                                 Ver mis pedidos
                             </Link>
                         </div>
@@ -209,17 +216,30 @@ export default function CheckoutPage() {
                 <div className="max-w-6xl mx-auto">
                     <div className="flex items-center gap-3 mb-8">
                         <Link to="/carrito" className="text-gray-400 hover:text-white transition-colors no-underline">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                strokeLinejoin="round">
+                                <polyline points="15 18 9 12 15 6" />
+                            </svg>
                         </Link>
                         <h1 className="text-white text-3xl font-bold">Finalizar compra</h1>
                     </div>
 
                     {!profileOk && (
-                        <div className="bg-yellow-400/10 border border-yellow-400/40 rounded-xl p-4 mb-6 flex items-start gap-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#eab308" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
+                        <div
+                            className="bg-yellow-400/10 border border-yellow-400/40 rounded-xl p-4 mb-6 flex items-start gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="#eab308" strokeWidth="2" strokeLinecap="round"
+                                strokeLinejoin="round" className="shrink-0 mt-0.5">
+                                <path
+                                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                                <line x1="12" y1="9" x2="12" y2="13" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
                             <p className="text-yellow-400 text-sm">
                                 Tu perfil está incompleto. Para agilizar el proceso,{' '}
-                                <Link to="/perfil" className="underline text-yellow-300 hover:text-yellow-200">completa tus datos</Link>{' '}
+                                <Link to="/perfil" className="underline text-yellow-300 hover:text-yellow-200">completa
+                                    tus datos</Link>{' '}
                                 (nombre, apellido y domicilio).
                             </p>
                         </div>
@@ -232,37 +252,53 @@ export default function CheckoutPage() {
                             {/* Section 1: Shipping address */}
                             <section className="bg-surface rounded-2xl border border-[#333] p-6 shadow-lg">
                                 <h2 className="text-white font-bold text-lg mb-5 flex items-center gap-2">
-                                    <span className="w-6 h-6 rounded-full bg-primary-dark text-white text-xs flex items-center justify-center font-bold">1</span>
+                                    <span
+                                        className="w-6 h-6 rounded-full bg-primary-dark text-white text-xs flex items-center justify-center font-bold">1</span>
                                     Dirección de envío
                                 </h2>
 
                                 {usuario.nombre && (
                                     <div className="bg-[#1a1a1a] rounded-lg p-3 mb-5 text-gray-400 text-sm">
-                                        <span className="text-white font-medium">{usuario.nombre} {usuario.apellido}</span>
+                                        <span
+                                            className="text-white font-medium">{usuario.nombre} {usuario.apellido}</span>
                                     </div>
                                 )}
 
                                 <div className="flex flex-col gap-3">
                                     {usuario.domicilio && (
-                                        <label className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${direccionOpt === 'domicilio' ? 'border-primary-dark bg-primary-dark/25 shadow-lg shadow-primary-dark/20' : 'border-[#444] hover:border-[#666] hover:shadow-md hover:shadow-white/5'}`}>
-                                            <input type="radio" name="direccion" value="domicilio" checked={direccionOpt === 'domicilio'} onChange={() => setDireccionOpt('domicilio')} className="mt-1 accent-primary-dark w-5 h-5" />
+                                        <label
+                                            className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${direccionOpt === 'domicilio' ? 'border-primary-dark bg-primary-dark/25 shadow-lg shadow-primary-dark/20' : 'border-[#444] hover:border-[#666] hover:shadow-md hover:shadow-white/5'}`}>
+                                            <input type="radio" name="direccion" value="domicilio"
+                                                checked={direccionOpt === 'domicilio'}
+                                                onChange={() => setDireccionOpt('domicilio')}
+                                                className="mt-1 accent-primary-dark w-5 h-5" />
                                             <div>
-                                                <p className={`${direccionOpt === 'domicilio' ? 'text-white' : 'text-gray-300'} font-medium text-sm`}>Mi domicilio</p>
+                                                <p className={`${direccionOpt === 'domicilio' ? 'text-white' : 'text-gray-300'} font-medium text-sm`}>Mi
+                                                    domicilio</p>
                                                 <p className="text-gray-400 text-sm">{usuario.domicilio}</p>
                                             </div>
                                         </label>
                                     )}
                                     {usuario.fact_domicilio && (
-                                        <label className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${direccionOpt === 'facturacion' ? 'border-primary-dark bg-primary-dark/25 shadow-lg shadow-primary-dark/20' : 'border-[#444] hover:border-[#666] hover:shadow-md hover:shadow-white/5'}`}>
-                                            <input type="radio" name="direccion" value="facturacion" checked={direccionOpt === 'facturacion'} onChange={() => setDireccionOpt('facturacion')} className="mt-1 accent-primary-dark w-5 h-5" />
+                                        <label
+                                            className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${direccionOpt === 'facturacion' ? 'border-primary-dark bg-primary-dark/25 shadow-lg shadow-primary-dark/20' : 'border-[#444] hover:border-[#666] hover:shadow-md hover:shadow-white/5'}`}>
+                                            <input type="radio" name="direccion" value="facturacion"
+                                                checked={direccionOpt === 'facturacion'}
+                                                onChange={() => setDireccionOpt('facturacion')}
+                                                className="mt-1 accent-primary-dark w-5 h-5" />
                                             <div>
-                                                <p className={`${direccionOpt === 'facturacion' ? 'text-white' : 'text-gray-300'} font-medium text-sm`}>Dirección de facturación</p>
+                                                <p className={`${direccionOpt === 'facturacion' ? 'text-white' : 'text-gray-300'} font-medium text-sm`}>Dirección
+                                                    de facturación</p>
                                                 <p className="text-gray-400 text-sm">{usuario.fact_domicilio}</p>
                                             </div>
                                         </label>
                                     )}
-                                    <label className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${direccionOpt === 'otra' ? 'border-primary-dark bg-primary-dark/25 shadow-lg shadow-primary-dark/20' : 'border-[#444] hover:border-[#666] hover:shadow-md hover:shadow-white/5'}`}>
-                                        <input type="radio" name="direccion" value="otra" checked={direccionOpt === 'otra'} onChange={() => setDireccionOpt('otra')} className="mt-1 accent-primary-dark w-5 h-5" />
+                                    <label
+                                        className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${direccionOpt === 'otra' ? 'border-primary-dark bg-primary-dark/25 shadow-lg shadow-primary-dark/20' : 'border-[#444] hover:border-[#666] hover:shadow-md hover:shadow-white/5'}`}>
+                                        <input type="radio" name="direccion" value="otra"
+                                            checked={direccionOpt === 'otra'}
+                                            onChange={() => setDireccionOpt('otra')}
+                                            className="mt-1 accent-primary-dark w-5 h-5" />
                                         <div className="flex-1">
                                             <p className="text-white font-medium text-sm mb-2">Otra dirección</p>
                                             {direccionOpt === 'otra' && (
@@ -283,7 +319,8 @@ export default function CheckoutPage() {
                             {/* Section 2: Shipping type */}
                             <section className="bg-surface rounded-2xl border border-[#333] p-6 shadow-lg">
                                 <h2 className="text-white font-bold text-lg mb-5 flex items-center gap-2">
-                                    <span className="w-6 h-6 rounded-full bg-primary-dark text-white text-xs flex items-center justify-center font-bold">2</span>
+                                    <span
+                                        className="w-6 h-6 rounded-full bg-primary-dark text-white text-xs flex items-center justify-center font-bold">2</span>
                                     Tipo de envío
                                 </h2>
                                 <div className="flex flex-col gap-3">
@@ -293,13 +330,17 @@ export default function CheckoutPage() {
                                             className={`flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer transition-all ${tipoEnvio === opt.value ? 'border-primary-dark bg-primary-dark/25 shadow-lg shadow-primary-dark/20' : 'border-[#444] hover:border-[#666] hover:shadow-md hover:shadow-white/5'}`}
                                         >
                                             <div className="flex items-center gap-3">
-                                                <input type="radio" name="tipoEnvio" value={opt.value} checked={tipoEnvio === opt.value} onChange={() => setTipoEnvio(opt.value)} className="accent-primary-dark w-5 h-5" />
+                                                <input type="radio" name="tipoEnvio" value={opt.value}
+                                                    checked={tipoEnvio === opt.value}
+                                                    onChange={() => setTipoEnvio(opt.value)}
+                                                    className="accent-primary-dark w-5 h-5" />
                                                 <div>
                                                     <p className="text-white font-medium text-sm">{opt.label}</p>
                                                     <p className="text-gray-400 text-xs">{opt.sublabel}</p>
                                                 </div>
                                             </div>
-                                            <span className={`text-sm font-bold ${opt.precio === 0 ? 'text-green-400' : tipoEnvio === opt.value ? 'text-white' : 'text-gray-300'}`}>
+                                            <span
+                                                className={`text-sm font-bold ${opt.precio === 0 ? 'text-green-400' : tipoEnvio === opt.value ? 'text-white' : 'text-gray-300'}`}>
                                                 {opt.precio === 0 ? 'Gratis' : `${opt.precio.toFixed(2)} €`}
                                             </span>
                                         </label>
@@ -310,7 +351,8 @@ export default function CheckoutPage() {
                             {/* Section 3: Payment */}
                             <section className="bg-surface rounded-2xl border border-[#333] p-6 shadow-lg">
                                 <h2 className="text-white font-bold text-lg mb-5 flex items-center gap-2">
-                                    <span className="w-6 h-6 rounded-full bg-primary-dark text-white text-xs flex items-center justify-center font-bold">3</span>
+                                    <span
+                                        className="w-6 h-6 rounded-full bg-primary-dark text-white text-xs flex items-center justify-center font-bold">3</span>
                                     Método de pago
                                 </h2>
 
@@ -331,7 +373,8 @@ export default function CheckoutPage() {
                                 {metodoPago === 'TARJETA' && (
                                     <div className="flex flex-col gap-4">
                                         <div>
-                                            <label className="block text-gray-400 text-xs mb-1.5">Número de tarjeta</label>
+                                            <label className="block text-gray-400 text-xs mb-1.5">Número de
+                                                tarjeta</label>
                                             <input
                                                 type="text"
                                                 inputMode="numeric"
@@ -341,10 +384,12 @@ export default function CheckoutPage() {
                                                 className="w-full bg-[#1a1a1a] border border-[#444] rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-dark tracking-widest"
                                                 maxLength={19}
                                             />
-                                            {errors.cardNumero && <p className="text-red-400 text-xs mt-1">{errors.cardNumero}</p>}
+                                            {errors.cardNumero &&
+                                                <p className="text-red-400 text-xs mt-1">{errors.cardNumero}</p>}
                                         </div>
                                         <div>
-                                            <label className="block text-gray-400 text-xs mb-1.5">Titular de la tarjeta</label>
+                                            <label className="block text-gray-400 text-xs mb-1.5">Titular de la
+                                                tarjeta</label>
                                             <input
                                                 type="text"
                                                 placeholder="Nombre y apellidos"
@@ -352,11 +397,13 @@ export default function CheckoutPage() {
                                                 onChange={e => setCardTitular(e.target.value.toUpperCase())}
                                                 className="w-full bg-[#1a1a1a] border border-[#444] rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-dark uppercase"
                                             />
-                                            {errors.cardTitular && <p className="text-red-400 text-xs mt-1">{errors.cardTitular}</p>}
+                                            {errors.cardTitular &&
+                                                <p className="text-red-400 text-xs mt-1">{errors.cardTitular}</p>}
                                         </div>
                                         <div className="flex gap-4">
                                             <div className="flex-1">
-                                                <label className="block text-gray-400 text-xs mb-1.5">Fecha de caducidad</label>
+                                                <label className="block text-gray-400 text-xs mb-1.5">Fecha de
+                                                    caducidad</label>
                                                 <input
                                                     type="text"
                                                     inputMode="numeric"
@@ -366,7 +413,8 @@ export default function CheckoutPage() {
                                                     className="w-full bg-[#1a1a1a] border border-[#444] rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-dark"
                                                     maxLength={5}
                                                 />
-                                                {errors.cardExpiry && <p className="text-red-400 text-xs mt-1">{errors.cardExpiry}</p>}
+                                                {errors.cardExpiry &&
+                                                    <p className="text-red-400 text-xs mt-1">{errors.cardExpiry}</p>}
                                             </div>
                                             <div className="w-28">
                                                 <label className="block text-gray-400 text-xs mb-1.5">CVV</label>
@@ -379,11 +427,17 @@ export default function CheckoutPage() {
                                                     className="w-full bg-[#1a1a1a] border border-[#444] rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-primary-dark"
                                                     maxLength={3}
                                                 />
-                                                {errors.cardCvv && <p className="text-red-400 text-xs mt-1">{errors.cardCvv}</p>}
+                                                {errors.cardCvv &&
+                                                    <p className="text-red-400 text-xs mt-1">{errors.cardCvv}</p>}
                                             </div>
                                         </div>
                                         <p className="text-gray-400 text-xs flex items-center gap-1.5">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                                                strokeLinecap="round" strokeLinejoin="round">
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                            </svg>
                                             Pago simulado. No se realizará ningún cargo real.
                                         </p>
                                     </div>
@@ -393,7 +447,8 @@ export default function CheckoutPage() {
                                     <div>
                                         <label className="block text-gray-400 text-xs mb-1.5">Número de móvil</label>
                                         <div className="flex gap-3 items-center">
-                                            <span className="text-gray-400 text-sm bg-[#1a1a1a] border border-[#444] rounded-lg px-3 py-3 shrink-0">+34</span>
+                                            <span
+                                                className="text-gray-400 text-sm bg-[#1a1a1a] border border-[#444] rounded-lg px-3 py-3 shrink-0">+34</span>
                                             <input
                                                 type="tel"
                                                 inputMode="numeric"
@@ -404,9 +459,15 @@ export default function CheckoutPage() {
                                                 maxLength={9}
                                             />
                                         </div>
-                                        {errors.bizumTelefono && <p className="text-red-400 text-xs mt-1">{errors.bizumTelefono}</p>}
+                                        {errors.bizumTelefono &&
+                                            <p className="text-red-400 text-xs mt-1">{errors.bizumTelefono}</p>}
                                         <p className="text-gray-400 text-xs mt-3 flex items-center gap-1.5">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                                                strokeLinecap="round" strokeLinejoin="round">
+                                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                            </svg>
                                             Pago simulado. No se realizará ningún cargo real.
                                         </p>
                                     </div>
@@ -415,8 +476,13 @@ export default function CheckoutPage() {
                                 {metodoPago === 'PAYPAL' && (
                                     <div className="text-center py-4">
                                         {paypalConectado ? (
-                                            <div className="flex items-center justify-center gap-2 text-green-400 font-medium">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                                            <div
+                                                className="flex items-center justify-center gap-2 text-green-400 font-medium">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                    <polyline points="20 6 9 17 4 12" />
+                                                </svg>
                                                 Cuenta PayPal conectada correctamente
                                             </div>
                                         ) : (
@@ -425,11 +491,14 @@ export default function CheckoutPage() {
                                                     onClick={() => setPaypalConectado(true)}
                                                     className="bg-[#003087] hover:bg-[#002060] text-white font-bold py-3 px-8 rounded-full transition-colors cursor-pointer border-none text-sm"
                                                 >
-                                                    <span className="text-[#009cde]">Pay</span><span className="text-[#012169]">Pal</span>
+                                                    <span className="text-[#009cde]">Pay</span><span
+                                                        className="text-[#012169]">Pal</span>
                                                     <span className="ml-2 text-white">— Continuar con PayPal</span>
                                                 </button>
-                                                {errors.paypal && <p className="text-red-400 text-xs mt-2">{errors.paypal}</p>}
-                                                <p className="text-gray-400 text-xs mt-3">Pago simulado. No se realizará ningún cargo real.</p>
+                                                {errors.paypal &&
+                                                    <p className="text-red-400 text-xs mt-2">{errors.paypal}</p>}
+                                                <p className="text-gray-400 text-xs mt-3">Pago simulado. No se realizará
+                                                    ningún cargo real.</p>
                                             </>
                                         )}
                                     </div>
@@ -441,19 +510,23 @@ export default function CheckoutPage() {
                         <div className="lg:w-2/5">
                             <div className="bg-surface rounded-2xl border border-[#333] p-6 shadow-lg sticky top-6">
                                 <h2 className="text-white font-bold text-lg mb-5 flex items-center gap-2">
-                                    <span className="w-6 h-6 rounded-full bg-primary-dark text-white text-xs flex items-center justify-center font-bold">4</span>
+                                    <span
+                                        className="w-6 h-6 rounded-full bg-primary-dark text-white text-xs flex items-center justify-center font-bold">4</span>
                                     Resumen del pedido
                                 </h2>
 
                                 <ul className="flex flex-col gap-4 mb-5 max-h-72 overflow-y-auto pr-1">
                                     {cart.map(item => (
                                         <li key={item.producto.id_producto} className="flex items-center gap-3">
-                                            <Image src={item.producto.imagen} alt={item.producto.nombre} containerClassName="w-14 h-14 shrink-0 rounded-xl" className="w-14 h-14 object-cover" />
+                                            <Image src={item.producto.imagen} alt={item.producto.nombre}
+                                                containerClassName="w-14 h-14 shrink-0 rounded-xl"
+                                                className="w-14 h-14 object-cover" />
                                             <div className="flex-1 min-w-0">
                                                 <p className="text-white text-sm font-medium truncate">{item.producto.nombre}</p>
                                                 <p className="text-gray-400 text-xs">Cant. {item.cantidad}</p>
                                             </div>
-                                            <span className="text-gray-300 text-sm shrink-0">{(item.producto.precio * item.cantidad).toFixed(2)} €</span>
+                                            <span
+                                                className="text-gray-300 text-sm shrink-0">{(item.producto.precio * item.cantidad).toFixed(2)} €</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -464,7 +537,8 @@ export default function CheckoutPage() {
                                         <span>{totalPrice.toFixed(2)} €</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
-                                        <span className="text-gray-400">Envío ({ENVIO_OPTIONS.find(o => o.value === tipoEnvio)?.label})</span>
+                                        <span
+                                            className="text-gray-400">Envío ({ENVIO_OPTIONS.find(o => o.value === tipoEnvio)?.label})</span>
                                         <span className={gastoEnvio === 0 ? 'text-green-400' : 'text-gray-300'}>
                                             {gastoEnvio === 0 ? 'Gratis' : `${gastoEnvio.toFixed(2)} €`}
                                         </span>
@@ -477,7 +551,8 @@ export default function CheckoutPage() {
                                 </div>
 
                                 {errors.general && (
-                                    <div className="bg-red-400/10 border border-red-400/30 rounded-lg p-3 mb-4 text-red-400 text-sm">
+                                    <div
+                                        className="bg-red-400/10 border border-red-400/30 rounded-lg p-3 mb-4 text-red-400 text-sm">
                                         {errors.general}
                                     </div>
                                 )}
@@ -491,7 +566,12 @@ export default function CheckoutPage() {
                                 </button>
 
                                 <p className="text-gray-400 text-xs text-center mt-3 flex items-center justify-center gap-1.5">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                        strokeLinejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    </svg>
                                     Transacción segura y simulada
                                 </p>
                             </div>

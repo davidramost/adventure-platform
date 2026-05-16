@@ -2,74 +2,74 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-dark: #263238;
-  --color-primary: #37474F;
-  --color-primary-light: #455A64;
-  --color-secondary: #546E7A;
-  --color-accent: #607D8B;
-  --color-surface: #4a4a4a;
-  --color-surface-dark: #2d2d2d;
-  --color-bg: #f0f3f5;
-  --color-success: #4CAF50;
-  --color-error: #ff6464;
-  --font-sans: "Montserrat", sans-serif;
-  --font-display: "Cinzel", "Gill Sans", serif;
-  --font-heading: "Cinzel", serif;
+    --color-primary-dark: #263238;
+    --color-primary: #37474F;
+    --color-primary-light: #455A64;
+    --color-secondary: #546E7A;
+    --color-accent: #607D8B;
+    --color-surface: #4a4a4a;
+    --color-surface-dark: #2d2d2d;
+    --color-bg: #f0f3f5;
+    --color-success: #4CAF50;
+    --color-error: #ff6464;
+    --font-sans: "Montserrat", sans-serif;
+    --font-display: "Cinzel", "Gill Sans", serif;
+    --font-heading: "Cinzel", serif;
 }
 
 @layer base {
-  body {
-    margin: 0;
-    font-family: var(--font-sans);
-    background-color: var(--color-bg);
-    min-height: 100vh;
-  }
+    body {
+        margin: 0;
+        font-family: var(--font-sans);
+        background-color: var(--color-bg);
+        min-height: 100vh;
+    }
 
-  * {
-    box-sizing: border-box;
-  }
+    * {
+        box-sizing: border-box;
+    }
 }
 
 @keyframes fade-in-down {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes shimmer {
-  from {
-    transform: translateX(-100%);
-  }
+    from {
+        transform: translateX(-100%);
+    }
 
-  to {
-    transform: translateX(200%);
-  }
+    to {
+        transform: translateX(200%);
+    }
 }
 
 @keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(100%);
-  }
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
 
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @layer utilities {
-  .animate-fade-in-down {
-    animation: fade-in-down 0.3s ease-out both;
-  }
+    .animate-fade-in-down {
+        animation: fade-in-down 0.3s ease-out both;
+    }
 
-  .animate-slide-in-right {
-    animation: slide-in-right 0.4s ease-out both;
-  }
+    .animate-slide-in-right {
+        animation: slide-in-right 0.4s ease-out both;
+    }
 }

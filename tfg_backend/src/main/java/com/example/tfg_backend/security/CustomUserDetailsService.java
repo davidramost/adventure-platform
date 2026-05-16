@@ -1,6 +1,5 @@
 package com.example.tfg_backend.security;
 
-import com.example.tfg_backend.entity.Usuario;
 import com.example.tfg_backend.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

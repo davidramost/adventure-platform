@@ -51,7 +51,8 @@ export default function ResetPasswordPage() {
                 <header className="bg-gradient-to-br from-primary-light to-primary-dark">
                     <Header transparent />
                 </header>
-                <main className="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-light to-primary-dark py-12">
+                <main
+                    className="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-light to-primary-dark py-12">
                     <div className="text-center px-6 w-full max-w-md">
                         <p className="text-white text-lg mb-6">El enlace de recuperación no es válido.</p>
                         <Link to="/forgot-password" className="text-white underline text-sm">
@@ -70,7 +71,8 @@ export default function ResetPasswordPage() {
                 <Header transparent />
             </header>
 
-            <main className="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-light to-primary-dark py-12">
+            <main
+                className="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-light to-primary-dark py-12">
                 <div className="text-center px-6 w-full max-w-md">
                     <h1 className="text-white text-4xl font-bold mb-4 tracking-wider">Nueva contraseña</h1>
                     <p className="text-white/80 text-sm mb-10">
@@ -78,16 +80,19 @@ export default function ResetPasswordPage() {
                     </p>
 
                     {error && (
-                        <div className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-center text-sm">
+                        <div
+                            className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-center text-sm">
                             {error}
                         </div>
                     )}
 
                     <form onSubmit={handleSubmit}>
                         <div className="mb-6 text-left">
-                            <label htmlFor="newPassword" className="block text-white text-sm mb-2 font-medium">Nueva contraseña</label>
+                            <label htmlFor="newPassword" className="block text-white text-sm mb-2 font-medium">Nueva
+                                contraseña</label>
                             <div className="relative">
-                                <img src="/Img/Icons/lock.png" alt="Contraseña" className="absolute left-4 top-1/2 -translate-y-1/2 w-[25px] h-[25px]" />
+                                <img src="/Img/Icons/lock.png" alt="Contraseña"
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-[25px] h-[25px]" />
                                 <input
                                     type="password"
                                     id="newPassword"
@@ -104,9 +109,11 @@ export default function ResetPasswordPage() {
                         </div>
 
                         <div className="mb-6 text-left">
-                            <label htmlFor="confirmPassword" className="block text-white text-sm mb-2 font-medium">Confirmar contraseña</label>
+                            <label htmlFor="confirmPassword" className="block text-white text-sm mb-2 font-medium">Confirmar
+                                contraseña</label>
                             <div className="relative">
-                                <img src="/Img/Icons/lock.png" alt="Confirmar" className="absolute left-4 top-1/2 -translate-y-1/2 w-[25px] h-[25px]" />
+                                <img src="/Img/Icons/lock.png" alt="Confirmar"
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 w-[25px] h-[25px]" />
                                 <input
                                     type="password"
                                     id="confirmPassword"
@@ -130,9 +137,12 @@ export default function ResetPasswordPage() {
                         >
                             {loading ? (
                                 <>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="animate-spin">
-                                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.25"></circle>
-                                        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="2" fill="none"></path>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" strokeWidth="2" className="animate-spin">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"
+                                            opacity="0.25"></circle>
+                                        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="2"
+                                            fill="none"></path>
                                     </svg>
                                     <span>Guardando...</span>
                                 </>

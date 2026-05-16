@@ -1,27 +1,27 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "java",
-            "name": "TFG Backend (Run)",
-            "request": "launch",
-            "mainClass": "com.example.tfg_backend.TfgBackendApplication",
-            "projectName": "tfg_backend",
-            "cwd": "${workspaceFolder}/tfg_backend",
-            "console": "integratedTerminal",
-            "env": {
-                "JAVA_HOME": "${env:JAVA_HOME}"
-            }
-        },
-        {
-            "type": "java",
-            "name": "TFG Backend (Debug)",
-            "request": "launch",
-            "mainClass": "com.example.tfg_backend.TfgBackendApplication",
-            "projectName": "tfg_backend",
-            "cwd": "${workspaceFolder}/tfg_backend",
-            "console": "integratedTerminal",
-            "stopOnEntry": false
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "TFG Backend (Run)",
+      "request": "launch",
+      "mainClass": "com.example.tfg_backend.TfgBackendApplication",
+      "projectName": "tfg_backend",
+      "cwd": "${workspaceFolder}/tfg_backend",
+      "console": "integratedTerminal",
+      "env": {
+        "JAVA_HOME": "${env:JAVA_HOME}"
+      }
+    },
+    {
+      "type": "java",
+      "name": "TFG Backend (Debug)",
+      "request": "launch",
+      "mainClass": "com.example.tfg_backend.TfgBackendApplication",
+      "projectName": "tfg_backend",
+      "cwd": "${workspaceFolder}/tfg_backend",
+      "console": "integratedTerminal",
+      "stopOnEntry": false
+    }
+  ]
 }

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
@@ -230,14 +230,17 @@ export default function EditRutaPage() {
                         <h1 className="text-white text-[30px] font-bold italic mb-8 tracking-wider">EDITAR RUTA</h1>
 
                         {error && (
-                            <div className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-sm">{error}</div>
+                            <div
+                                className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-sm">{error}</div>
                         )}
 
                         <form onSubmit={handleSubmit} className="max-w-[800px] mx-auto">
                             <div className="mb-6">
-                                <label htmlFor="tituloRuta" className="block text-white text-sm font-medium mb-2">Título de la publicación</label>
+                                <label htmlFor="tituloRuta" className="block text-white text-sm font-medium mb-2">Título
+                                    de la publicación</label>
                                 <input
-                                    type="text" id="tituloRuta" name="tituloRuta" value={form.tituloRuta} onChange={handleChange}
+                                    type="text" id="tituloRuta" name="tituloRuta" value={form.tituloRuta}
+                                    onChange={handleChange}
                                     placeholder="Ej: Aventura en el Bosque" required
                                     className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                              placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
@@ -245,9 +248,11 @@ export default function EditRutaPage() {
                             </div>
 
                             <div className="mb-6">
-                                <label htmlFor="nombreRuta" className="block text-white text-sm font-medium mb-2">Nombre de la ruta (Lugar)</label>
+                                <label htmlFor="nombreRuta" className="block text-white text-sm font-medium mb-2">Nombre
+                                    de la ruta (Lugar)</label>
                                 <input
-                                    type="text" id="nombreRuta" name="nombreRuta" value={form.nombreRuta} onChange={handleChange}
+                                    type="text" id="nombreRuta" name="nombreRuta" value={form.nombreRuta}
+                                    onChange={handleChange}
                                     placeholder="Ej: Arroyo del Bejarano" required
                                     className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                              placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
@@ -256,9 +261,11 @@ export default function EditRutaPage() {
 
                             <div className="flex flex-col md:flex-row gap-4 mb-6">
                                 <div className="flex-1">
-                                    <label htmlFor="nivelRuta" className="block text-white text-sm font-medium mb-2">Nivel de dificultad</label>
+                                    <label htmlFor="nivelRuta" className="block text-white text-sm font-medium mb-2">Nivel
+                                        de dificultad</label>
                                     <select
-                                        id="nivelRuta" name="nivelRuta" value={form.nivelRuta} onChange={handleChange} required
+                                        id="nivelRuta" name="nivelRuta" value={form.nivelRuta} onChange={handleChange}
+                                        required
                                         className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                                focus:border-white focus:bg-white/15 font-[Montserrat]"
                                     >
@@ -269,9 +276,12 @@ export default function EditRutaPage() {
                                     </select>
                                 </div>
                                 <div className="flex-1">
-                                    <label htmlFor="distanciaRuta" className="block text-white text-sm font-medium mb-2">Distancia (km) *</label>
+                                    <label htmlFor="distanciaRuta"
+                                        className="block text-white text-sm font-medium mb-2">Distancia (km)
+                                        *</label>
                                     <input
-                                        type="number" id="distanciaRuta" name="distanciaRuta" value={form.distanciaRuta} onChange={handleChange}
+                                        type="number" id="distanciaRuta" name="distanciaRuta" value={form.distanciaRuta}
+                                        onChange={handleChange}
                                         placeholder="Ej: 10.5" step="0.1" min="0" required
                                         className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                                placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
@@ -281,9 +291,11 @@ export default function EditRutaPage() {
 
                             <div className="flex flex-col md:flex-row gap-4 mb-6">
                                 <div className="flex-1">
-                                    <label htmlFor="desnivelRuta" className="block text-white text-sm font-medium mb-2">Desnivel (m) *</label>
+                                    <label htmlFor="desnivelRuta" className="block text-white text-sm font-medium mb-2">Desnivel
+                                        (m) *</label>
                                     <input
-                                        type="number" id="desnivelRuta" name="desnivelRuta" value={form.desnivelRuta} onChange={handleChange}
+                                        type="number" id="desnivelRuta" name="desnivelRuta" value={form.desnivelRuta}
+                                        onChange={handleChange}
                                         placeholder="Ej: 300" step="1" min="0" required
                                         className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                                placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
@@ -291,11 +303,14 @@ export default function EditRutaPage() {
                                 </div>
                                 <div className="flex-1">
                                     <fieldset className="border-none p-0 m-0">
-                                        <legend className="block text-white text-sm font-medium mb-2">Duración estimada</legend>
+                                        <legend className="block text-white text-sm font-medium mb-2">Duración
+                                            estimada
+                                        </legend>
                                         <div className="flex items-center gap-2">
                                             <label htmlFor="duracionHoras" className="sr-only">Horas</label>
                                             <input
-                                                id="duracionHoras" type="number" name="duracionHoras" value={form.duracionHoras} onChange={handleChange}
+                                                id="duracionHoras" type="number" name="duracionHoras"
+                                                value={form.duracionHoras} onChange={handleChange}
                                                 placeholder="Horas" min="0" max="24"
                                                 className="w-[40%] p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                                    placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
@@ -303,7 +318,8 @@ export default function EditRutaPage() {
                                             <span className="text-white text-sm" aria-hidden="true">h</span>
                                             <label htmlFor="duracionMinutos" className="sr-only">Minutos</label>
                                             <input
-                                                id="duracionMinutos" type="number" name="duracionMinutos" value={form.duracionMinutos} onChange={handleChange}
+                                                id="duracionMinutos" type="number" name="duracionMinutos"
+                                                value={form.duracionMinutos} onChange={handleChange}
                                                 placeholder="Min" min="0" max="59"
                                                 className="w-[40%] p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                                    placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
@@ -315,9 +331,11 @@ export default function EditRutaPage() {
                             </div>
 
                             <div className="mb-6">
-                                <label htmlFor="ubicacionRuta" className="block text-white text-sm font-medium mb-2">Ubicación (Nombre)</label>
+                                <label htmlFor="ubicacionRuta" className="block text-white text-sm font-medium mb-2">Ubicación
+                                    (Nombre)</label>
                                 <input
-                                    type="text" id="ubicacionRuta" name="ubicacionRuta" value={form.ubicacionRuta} onChange={handleChange}
+                                    type="text" id="ubicacionRuta" name="ubicacionRuta" value={form.ubicacionRuta}
+                                    onChange={handleChange}
                                     placeholder="Ej: Trassierra, Córdoba" required
                                     className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                              placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
@@ -325,9 +343,11 @@ export default function EditRutaPage() {
                             </div>
 
                             <div className="mb-6">
-                                <label htmlFor="descripcionRuta" className="block text-white text-sm font-medium mb-2">Descripción de la ruta</label>
+                                <label htmlFor="descripcionRuta" className="block text-white text-sm font-medium mb-2">Descripción
+                                    de la ruta</label>
                                 <textarea
-                                    id="descripcionRuta" name="descripcionRuta" rows={5} value={form.descripcionRuta} onChange={handleChange}
+                                    id="descripcionRuta" name="descripcionRuta" rows={5} value={form.descripcionRuta}
+                                    onChange={handleChange}
                                     placeholder="Describe la ruta, el recorrido, puntos de interés..." required
                                     className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                              placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
@@ -335,9 +355,12 @@ export default function EditRutaPage() {
                             </div>
 
                             <div className="mb-6">
-                                <label htmlFor="recomendacionesRuta" className="block text-white text-sm font-medium mb-2">Recomendaciones de ropa y equipo</label>
+                                <label htmlFor="recomendacionesRuta"
+                                    className="block text-white text-sm font-medium mb-2">Recomendaciones de ropa y
+                                    equipo</label>
                                 <textarea
-                                    id="recomendacionesRuta" name="recomendacionesRuta" rows={3} value={form.recomendacionesRuta} onChange={handleChange}
+                                    id="recomendacionesRuta" name="recomendacionesRuta" rows={3}
+                                    value={form.recomendacionesRuta} onChange={handleChange}
                                     placeholder="Calzado recomendado, ropa, equipo necesario..."
                                     className="w-full p-4 text-sm border-2 border-white/30 rounded-xl bg-white/10 text-white outline-none
                              placeholder:text-[#aaa] focus:border-white focus:bg-white/15 font-[Montserrat]"
@@ -345,7 +368,8 @@ export default function EditRutaPage() {
                             </div>
 
                             <div className="mb-6">
-                                <label className="block text-white text-sm font-medium mb-2">Imagen de la ruta (Máx. 1 imagen, 3MB)</label>
+                                <label className="block text-white text-sm font-medium mb-2">Imagen de la ruta (Máx. 1
+                                    imagen, 3MB)</label>
                                 <div className="bg-white/5 border-2 border-dashed border-white/30 rounded-xl p-6">
                                     <input
                                         type="file"
@@ -354,13 +378,16 @@ export default function EditRutaPage() {
                                         className="text-white text-sm cursor-pointer file:bg-accent file:text-white file:border-none file:px-5 file:py-2
                                file:rounded-lg file:cursor-pointer file:text-sm file:mr-4 file:hover:bg-primary-light"
                                     />
-                                    <p className="text-white/50 text-xs mt-3">Formatos: JPG, PNG, GIF, WEBP — Máx. 1 imagen de 3MB</p>
+                                    <p className="text-white/50 text-xs mt-3">Formatos: JPG, PNG, GIF, WEBP — Máx. 1
+                                        imagen de 3MB</p>
                                     {imagenFileName && (
-                                        <p className="text-white/70 text-xs mt-2">Archivo seleccionado: {imagenFileName}</p>
+                                        <p className="text-white/70 text-xs mt-2">Archivo
+                                            seleccionado: {imagenFileName}</p>
                                     )}
                                     {imagenPreview && (
                                         <div className="mt-4">
-                                            <img src={imagenPreview} alt="Preview" className="max-h-[200px] rounded-lg" />
+                                            <img src={imagenPreview} alt="Preview"
+                                                className="max-h-[200px] rounded-lg" />
                                             <button
                                                 type="button"
                                                 onClick={handleDeleteImage}
@@ -374,7 +401,8 @@ export default function EditRutaPage() {
                             </div>
 
                             <div className="mb-6">
-                                <label className="block text-white text-sm font-medium mb-2">Archivo GPX de la ruta (Opcional, máx. 3MB)</label>
+                                <label className="block text-white text-sm font-medium mb-2">Archivo GPX de la ruta
+                                    (Opcional, máx. 3MB)</label>
                                 <div className="bg-white/5 border-2 border-dashed border-white/30 rounded-xl p-6">
                                     <input
                                         type="file"
@@ -385,7 +413,8 @@ export default function EditRutaPage() {
                                     />
                                     <p className="text-white/50 text-xs mt-3">Formato: GPX — Máx. 3MB</p>
                                     {gpxFileName && (
-                                        <p className="text-white/70 text-xs mt-2">Archivo seleccionado: {gpxFileName}</p>
+                                        <p className="text-white/70 text-xs mt-2">Archivo
+                                            seleccionado: {gpxFileName}</p>
                                     )}
                                     {gpxUrl && !gpxFileName && (
                                         <p className="text-white/70 text-xs mt-2">GPX actual: archivo subido</p>
@@ -410,9 +439,12 @@ export default function EditRutaPage() {
                                 >
                                     {submitting ? (
                                         <>
-                                            <svg className="animate-spin w-5 h-5 mr-2 text-primary-dark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                                            <svg className="animate-spin w-5 h-5 mr-2 text-primary-dark"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10"
+                                                    stroke="currentColor" strokeWidth="4" />
+                                                <path className="opacity-75" fill="currentColor"
+                                                    d="M4 12a8 8 0 018-8v8H4z" />
                                             </svg>
                                             Guardando...
                                         </>

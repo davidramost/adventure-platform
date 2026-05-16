@@ -1,11 +1,11 @@
-import { useContext } from 'react';
-import { ToastContext } from '../context/ToastContext';
+import {useContext} from 'react';
+import {ToastContext} from '../context/ToastContext';
 
 export default function ToastContainer() {
     const context = useContext(ToastContext);
     if (!context) return null;
 
-    const { toasts, removeToast } = context;
+    const {toasts, removeToast} = context;
 
     return (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-3 pointer-events-none">
@@ -21,11 +21,11 @@ export default function ToastContainer() {
             flex items-center gap-3
             backdrop-blur-sm
             ${toast.type === 'success'
-                            ? 'bg-green-600/90 border border-green-500/50'
-                            : toast.type === 'error'
-                                ? 'bg-red-600/90 border border-red-500/50'
-                                : 'bg-blue-600/90 border border-blue-500/50'
-                        }
+                        ? 'bg-green-600/90 border border-green-500/50'
+                        : toast.type === 'error'
+                            ? 'bg-red-600/90 border border-red-500/50'
+                            : 'bg-blue-600/90 border border-blue-500/50'
+                    }
           `}
                 >
                     <span>

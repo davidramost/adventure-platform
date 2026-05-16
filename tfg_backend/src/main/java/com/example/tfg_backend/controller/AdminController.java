@@ -1,10 +1,6 @@
 package com.example.tfg_backend.controller;
 
-import com.example.tfg_backend.dto.ProductoRequest;
-import com.example.tfg_backend.dto.ProductoResponse;
-import com.example.tfg_backend.dto.RutaResponse;
-import com.example.tfg_backend.dto.UpdateUsuarioRequest;
-import com.example.tfg_backend.dto.UsuarioResponse;
+import com.example.tfg_backend.dto.*;
 import com.example.tfg_backend.entity.Usuario;
 import com.example.tfg_backend.service.ProductoService;
 import com.example.tfg_backend.service.RutaService;

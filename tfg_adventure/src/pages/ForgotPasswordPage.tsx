@@ -31,7 +31,8 @@ export default function ForgotPasswordPage() {
                 <Header transparent />
             </header>
 
-            <main className="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-light to-primary-dark py-12">
+            <main
+                className="flex-1 flex items-center justify-center bg-gradient-to-br from-primary-light to-primary-dark py-12">
                 <div className="text-center px-6 w-full max-w-md">
                     <h1 className="text-white text-4xl font-bold mb-4 tracking-wider">Recuperar contraseña</h1>
                     <p className="text-white/80 text-sm mb-10">
@@ -39,21 +40,28 @@ export default function ForgotPasswordPage() {
                     </p>
 
                     {error && (
-                        <div className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-center text-sm">
+                        <div
+                            className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-center text-sm">
                             {error}
                         </div>
                     )}
 
                     {success ? (
-                        <div className="bg-white/20 border border-white/40 text-white p-6 rounded-xl text-sm leading-relaxed">
-                            Si el email está registrado, recibirás un enlace de recuperación en unos minutos. Revisa también tu carpeta de spam.
+                        <div
+                            className="bg-white/20 border border-white/40 text-white p-6 rounded-xl text-sm leading-relaxed">
+                            Si el email está registrado, recibirás un enlace de recuperación en unos minutos. Revisa
+                            también tu carpeta de spam.
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit}>
                             <div className="mb-6 text-left">
-                                <label htmlFor="email" className="block text-white text-sm mb-2 font-medium">Email</label>
+                                <label htmlFor="email"
+                                    className="block text-white text-sm mb-2 font-medium">Email</label>
                                 <div className="relative">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
                                         <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                                     </svg>
@@ -80,9 +88,13 @@ export default function ForgotPasswordPage() {
                             >
                                 {loading ? (
                                     <>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="animate-spin">
-                                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.25"></circle>
-                                            <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="2" fill="none"></path>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                                            className="animate-spin">
+                                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"
+                                                fill="none" opacity="0.25"></circle>
+                                            <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="2"
+                                                fill="none"></path>
                                         </svg>
                                         <span>Enviando...</span>
                                     </>

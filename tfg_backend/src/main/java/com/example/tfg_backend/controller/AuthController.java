@@ -1,10 +1,6 @@
 package com.example.tfg_backend.controller;
 
-import com.example.tfg_backend.dto.AuthResponse;
-import com.example.tfg_backend.dto.ForgotPasswordRequest;
-import com.example.tfg_backend.dto.LoginRequest;
-import com.example.tfg_backend.dto.RegisterRequest;
-import com.example.tfg_backend.dto.ResetPasswordRequest;
+import com.example.tfg_backend.dto.*;
 import com.example.tfg_backend.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,5 @@
 import api from '../api/client';
-import type { Usuario, Ruta, Producto, ProductoRequest } from '../types';
+import type { Producto, ProductoRequest, Ruta, Usuario } from '../types';
 
 export interface AdminUpdateUsuarioRequest {
     nombre_usuario?: string;
