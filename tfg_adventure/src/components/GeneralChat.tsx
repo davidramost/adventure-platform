@@ -210,7 +210,7 @@ export default function GeneralChat() {
                                 value={input}
                                 onChange={e => setInput(e.target.value)}
                                 onKeyDown={handleKeyDown}
-                                placeholder="Escribe un mensaje... (Enter para enviar)"
+                                placeholder="Escribe un mensaje..."
                                 rows={1}
                                 disabled={sending}
                                 className="flex-1 resize-none rounded-xl border border-gray-300 px-4 py-2.5 text-sm
