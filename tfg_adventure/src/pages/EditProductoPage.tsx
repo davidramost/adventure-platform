@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { adminService } from '../services/adminService';
 import { productoService } from '../services/productoService';
 import { cloudinaryService } from '../services/cloudinaryService';
+import { useToast } from '../hooks/useToast';
 
 const CATEGORIAS = [
     'Camping',
@@ -22,6 +23,7 @@ const CATEGORIAS = [
 
 export default function EditProductoPage() {
     const { usuario } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
     const location = useLocation();
     const { id } = useParams<{ id: string }>();
@@ -38,7 +40,6 @@ export default function EditProductoPage() {
     const [imagenFileName, setImagenFileName] = useState('');
     const [imagenPreview, setImagenPreview] = useState<string | null>(null);
     const [imagenDeleted, setImagenDeleted] = useState(false);
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
 
@@ -60,7 +61,7 @@ export default function EditProductoPage() {
                 }
                 setImagenDeleted(false);
             } catch (err: any) {
-                setError('Error al cargar el producto.');
+                addToast('Error al cargar el producto.', 'error');
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -96,7 +97,7 @@ export default function EditProductoPage() {
         const file = e.target.files?.[0];
         if (file) {
             if (file.size > 3 * 1024 * 1024) {
-                setError('La imagen no debe superar los 3MB.');
+                addToast('La imagen no debe superar los 3MB.', 'error');
                 return;
             }
             setImagenFile(file);
@@ -117,10 +118,8 @@ export default function EditProductoPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError('');
 
         if (!form.categoria) {
-            setError('Selecciona una categoría.');
             return;
         }
 
@@ -147,7 +146,7 @@ export default function EditProductoPage() {
 
             navigate(from === 'product' ? `/producto/${id}` : '/admin');
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Error al actualizar el producto.');
+            addToast(err.response?.data?.message || 'Error al actualizar el producto.', 'error');
             setSubmitting(false);
         }
     };
@@ -162,11 +161,6 @@ export default function EditProductoPage() {
                 <section className="bg-gradient-to-br from-primary-light to-primary-dark py-12">
                     <div className="mx-auto px-[5%] text-left">
                         <h1 className="text-white text-[30px] font-bold italic mb-8 tracking-wider">EDITAR PRODUCTO</h1>
-
-                        {error && (
-                            <div
-                                className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-sm">{error}</div>
-                        )}
 
                         <form onSubmit={handleSubmit} className="max-w-[800px] mx-auto">
                             <div className="mb-6">

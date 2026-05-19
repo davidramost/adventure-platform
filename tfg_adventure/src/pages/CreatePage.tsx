@@ -4,9 +4,11 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { cloudinaryService } from '../services/cloudinaryService';
+import { useToast } from '../hooks/useToast';
 
 export default function CreatePage() {
     const { usuario, addRuta } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -23,7 +25,6 @@ export default function CreatePage() {
         descripcionRuta: '',
         recomendacionesRuta: '',
     });
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [imagenFile, setImagenFile] = useState<File | null>(null);
     const [imagenFileName, setImagenFileName] = useState('');
@@ -52,7 +53,7 @@ export default function CreatePage() {
         const file = e.target.files?.[0];
         if (file) {
             if (file.size > 3 * 1024 * 1024) {
-                setError('La imagen no debe superar los 3MB.');
+                addToast('La imagen no debe superar los 3MB.', 'error');
                 setImagenFile(null);
                 setImagenFileName('');
                 setImagenPreview(null);
@@ -71,11 +72,11 @@ export default function CreatePage() {
         const file = e.target.files?.[0];
         if (!file) return;
         if (!file.name.toLowerCase().endsWith('.gpx')) {
-            setError('Solo se permiten archivos .gpx');
+            addToast('Solo se permiten archivos .gpx', 'error');
             return;
         }
         if (file.size > 3 * 1024 * 1024) {
-            setError('El archivo .gpx no debe superar los 3MB');
+            addToast('El archivo .gpx no debe superar los 3MB', 'error');
             return;
         }
         setGpxFile(file);
@@ -84,10 +85,9 @@ export default function CreatePage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError('');
 
         if (imagenFile && imagenFile.size > 3 * 1024 * 1024) {
-            setError('La imagen no debe superar los 3MB.');
+            addToast('La imagen no debe superar los 3MB.', 'error');
             return;
         }
 
@@ -101,7 +101,6 @@ export default function CreatePage() {
 
         const dificultad = dificultadMap[form.nivelRuta];
         if (!dificultad) {
-            setError('Selecciona un nivel de dificultad.');
             setLoading(false);
             return;
         }
@@ -138,7 +137,7 @@ export default function CreatePage() {
             });
             navigate('/');
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Error al crear la ruta.');
+            addToast(err.response?.data?.message || 'Error al crear la ruta.', 'error');
             setLoading(false);
         }
     };
@@ -154,11 +153,6 @@ export default function CreatePage() {
                     <div className="mx-auto px-[5%] text-left">
                         <h1 className="text-white text-[30px] font-bold italic mb-8 tracking-wider">CREAR NUEVA
                             RUTA</h1>
-
-                        {error && (
-                            <div
-                                className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-sm">{error}</div>
-                        )}
 
                         <form onSubmit={handleSubmit} className="max-w-[800px] mx-auto">
                             {/* Title */}

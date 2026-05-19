@@ -3,16 +3,17 @@ import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../hooks/useToast';
 
 export default function LoginPage() {
     const { login, usuario } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
     const location = useLocation();
     const mensajeExito = (location.state as { mensaje?: string } | null)?.mensaje;
     const [email, setEmail] = useState('');
     const [contrasena, setContrasena] = useState('');
     const [recordar, setRecordar] = useState(false);
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
     if (usuario) return <Navigate to="/" replace />;
@@ -20,11 +21,10 @@ export default function LoginPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        setError('');
 
         const err = await login(email.trim(), contrasena.trim());
         if (err) {
-            setError(err);
+            addToast(err, 'error');
             setContrasena('');
             setLoading(false);
         } else {
@@ -52,13 +52,6 @@ export default function LoginPage() {
                         <div
                             className="bg-green-500/30 border border-green-400 text-white p-4 rounded-xl mb-6 text-center text-sm">
                             {mensajeExito}
-                        </div>
-                    )}
-
-                    {error && (
-                        <div
-                            className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-center text-sm">
-                            {error}
                         </div>
                     )}
 

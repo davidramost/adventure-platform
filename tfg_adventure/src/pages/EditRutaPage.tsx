@@ -5,9 +5,11 @@ import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { getRutaById } from '../services/rutaService';
 import { cloudinaryService } from '../services/cloudinaryService';
+import { useToast } from '../hooks/useToast';
 
 export default function EditRutaPage() {
     const { usuario, updateRuta } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
     const location = useLocation();
     const { id } = useParams<{ id: string }>();
@@ -27,7 +29,6 @@ export default function EditRutaPage() {
         descripcionRuta: '',
         recomendacionesRuta: '',
     });
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [imagenFile, setImagenFile] = useState<File | null>(null);
@@ -84,11 +85,11 @@ export default function EditRutaPage() {
                 }
 
                 if (!usuario || (usuario.id_usuario !== data.id_usuario && usuario.rol !== 'admin')) {
-                    setError('No tienes permiso para editar esta ruta.');
+                    addToast('No tienes permiso para editar esta ruta.', 'error');
                     setTimeout(() => navigate('/senderos'), 2000);
                 }
             } catch (err: any) {
-                setError('Error al cargar la ruta.');
+                addToast('Error al cargar la ruta.', 'error');
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -125,7 +126,7 @@ export default function EditRutaPage() {
         const file = e.target.files?.[0];
         if (file) {
             if (file.size > 3 * 1024 * 1024) {
-                setError('La imagen no debe superar los 3MB.');
+                addToast('La imagen no debe superar los 3MB.', 'error');
                 return;
             }
             setImagenFile(file);
@@ -148,11 +149,11 @@ export default function EditRutaPage() {
         const file = e.target.files?.[0];
         if (!file) return;
         if (!file.name.toLowerCase().endsWith('.gpx')) {
-            setError('Solo se permiten archivos .gpx');
+            addToast('Solo se permiten archivos .gpx', 'error');
             return;
         }
         if (file.size > 3 * 1024 * 1024) {
-            setError('El archivo .gpx no debe superar los 3MB');
+            addToast('El archivo .gpx no debe superar los 3MB', 'error');
             return;
         }
         setGpxFile(file);
@@ -161,7 +162,6 @@ export default function EditRutaPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError('');
         setSubmitting(true);
 
         const dificultadMap: Record<string, 'Baja' | 'Media' | 'Alta'> = {
@@ -172,7 +172,6 @@ export default function EditRutaPage() {
 
         const dificultad = dificultadMap[form.nivelRuta];
         if (!dificultad) {
-            setError('Selecciona un nivel de dificultad.');
             setSubmitting(false);
             return;
         }
@@ -213,7 +212,7 @@ export default function EditRutaPage() {
             });
             navigate(from === 'admin' ? '/admin' : `/ruta/${id}`);
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Error al actualizar la ruta.');
+            addToast(err.response?.data?.message || 'Error al actualizar la ruta.', 'error');
             setSubmitting(false);
         }
     };
@@ -228,11 +227,6 @@ export default function EditRutaPage() {
                 <section className="bg-gradient-to-br from-primary-light to-primary-dark py-12">
                     <div className="mx-auto px-[5%] text-left">
                         <h1 className="text-white text-[30px] font-bold italic mb-8 tracking-wider">EDITAR RUTA</h1>
-
-                        {error && (
-                            <div
-                                className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-sm">{error}</div>
-                        )}
 
                         <form onSubmit={handleSubmit} className="max-w-[800px] mx-auto">
                             <div className="mb-6">

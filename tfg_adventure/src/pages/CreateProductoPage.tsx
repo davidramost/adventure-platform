@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { adminService } from '../services/adminService';
 import { cloudinaryService } from '../services/cloudinaryService';
+import { useToast } from '../hooks/useToast';
 
 const CATEGORIAS = [
     'Camping',
@@ -21,6 +22,7 @@ const CATEGORIAS = [
 
 export default function CreateProductoPage() {
     const { usuario } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -34,7 +36,6 @@ export default function CreateProductoPage() {
     const [imagenFileName, setImagenFileName] = useState('');
     const [imagenPreview, setImagenPreview] = useState<string | null>(null);
     const imageInputRef = useRef<HTMLInputElement>(null);
-    const [error, setError] = useState('');
     const [submitting, setSubmitting] = useState(false);
 
     if (!usuario || usuario.rol !== 'admin') {
@@ -57,7 +58,7 @@ export default function CreateProductoPage() {
         const file = e.target.files?.[0];
         if (file) {
             if (file.size > 3 * 1024 * 1024) {
-                setError('La imagen no debe superar los 3MB.');
+                addToast('La imagen no debe superar los 3MB.', 'error');
                 setImagenFile(null);
                 setImagenFileName('');
                 setImagenPreview(null);
@@ -74,15 +75,13 @@ export default function CreateProductoPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError('');
 
         if (imagenFile && imagenFile.size > 3 * 1024 * 1024) {
-            setError('La imagen no debe superar los 3MB.');
+            addToast('La imagen no debe superar los 3MB.', 'error');
             return;
         }
 
         if (!form.categoria) {
-            setError('Selecciona una categoría.');
             return;
         }
 
@@ -105,7 +104,7 @@ export default function CreateProductoPage() {
 
             navigate('/admin');
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Error al crear el producto.');
+            addToast(err.response?.data?.message || 'Error al crear el producto.', 'error');
             setSubmitting(false);
         }
     };
@@ -120,11 +119,6 @@ export default function CreateProductoPage() {
                 <section className="bg-gradient-to-br from-primary-light to-primary-dark py-12">
                     <div className="mx-auto px-[5%] text-left">
                         <h1 className="text-white text-[30px] font-bold italic mb-8 tracking-wider">CREAR PRODUCTO</h1>
-
-                        {error && (
-                            <div
-                                className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-sm">{error}</div>
-                        )}
 
                         <form onSubmit={handleSubmit} className="max-w-[800px] mx-auto">
                             <div className="mb-6">

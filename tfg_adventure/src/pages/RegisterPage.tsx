@@ -5,9 +5,11 @@ import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { useProfileValidation } from '../hooks/useProfileValidation';
 import { cloudinaryService } from '../services/cloudinaryService';
+import { useToast } from '../hooks/useToast';
 
 export default function RegisterPage() {
     const { register, usuario } = useAuth();
+    const { addToast } = useToast();
     const navigate = useNavigate();
     const { validateProfileData, normalizeProfileData } = useProfileValidation();
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -21,23 +23,20 @@ export default function RegisterPage() {
     const [apellido, setApellido] = useState('');
     const [domicilio, setDomicilio] = useState('');
     const [factDomicilio, setFactDomicilio] = useState('');
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
-    const [avatarError, setAvatarError] = useState('');
 
     const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
         if (file.size > 3 * 1024 * 1024) {
-            setAvatarError('La foto no debe superar los 3MB.');
+            addToast('La foto no debe superar los 3MB.', 'error');
             return;
         }
 
         setAvatarFile(file);
-        setAvatarError('');
         const reader = new FileReader();
         reader.onloadend = () => setAvatarPreview(reader.result as string);
         reader.readAsDataURL(file);
@@ -46,7 +45,6 @@ export default function RegisterPage() {
     const handleRemoveAvatar = () => {
         setAvatarPreview(null);
         setAvatarFile(null);
-        setAvatarError('');
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
@@ -54,42 +52,39 @@ export default function RegisterPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError('');
 
         if (!nombreUsuario || !email || !password || !confirmarPassword) {
-            setError('Todos los campos son obligatorios.');
             return;
         }
         if (nombreUsuario.length < 3 || nombreUsuario.length > 20) {
-            setError('El nombre de usuario debe tener entre 3 y 20 caracteres.');
+            addToast('El nombre de usuario debe tener entre 3 y 20 caracteres.', 'error');
             return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            setError('El formato del correo electrónico no es válido.');
             return;
         }
         if (password !== confirmarPassword) {
-            setError('Las contraseñas no coinciden.');
+            addToast('Las contraseñas no coinciden.', 'error');
             return;
         }
         if (password.length < 8 || password.length > 20) {
-            setError('La contraseña debe tener entre 8 y 20 caracteres.');
+            addToast('La contraseña debe tener entre 8 y 20 caracteres.', 'error');
             return;
         }
         if (!/[A-Z]/.test(password)) {
-            setError('La contraseña debe contener al menos una letra mayúscula.');
+            addToast('La contraseña debe contener al menos una letra mayúscula.', 'error');
             return;
         }
         if (!/[a-z]/.test(password)) {
-            setError('La contraseña debe contener al menos una letra minúscula.');
+            addToast('La contraseña debe contener al menos una letra minúscula.', 'error');
             return;
         }
         if (!/[0-9]/.test(password)) {
-            setError('La contraseña debe contener al menos un número.');
+            addToast('La contraseña debe contener al menos un número.', 'error');
             return;
         }
         if (!/[\W_]/.test(password)) {
-            setError('La contraseña debe contener al menos un carácter especial.');
+            addToast('La contraseña debe contener al menos un carácter especial.', 'error');
             return;
         }
 
@@ -102,7 +97,7 @@ export default function RegisterPage() {
             });
 
             if (!profileValidation.isValid) {
-                setError(profileValidation.errors.join('. '));
+                addToast(profileValidation.errors.join('. '), 'error');
                 return;
             }
         }
@@ -133,13 +128,13 @@ export default function RegisterPage() {
                 imagenUrl
             );
             if (err) {
-                setError(err);
+                addToast(err, 'error');
                 setLoading(false);
             } else {
                 navigate('/');
             }
         } catch (err: any) {
-            setError('Error al subir la foto de perfil. Intenta de nuevo.');
+            addToast('Error al subir la foto de perfil. Intenta de nuevo.', 'error');
             setLoading(false);
         }
     };
@@ -204,12 +199,6 @@ export default function RegisterPage() {
                             <h1 className="text-white text-3xl lg:text-4xl font-bold mb-2 tracking-wide">Crear
                                 Cuenta</h1>
                             <p className="text-white/60 text-sm mb-8">Rellena los datos para unirte a la aventura.</p>
-
-                            {error && (
-                                <div className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-sm">
-                                    {error}
-                                </div>
-                            )}
 
                             <form onSubmit={handleSubmit}>
 
@@ -374,9 +363,6 @@ export default function RegisterPage() {
                                                 >
                                                     Eliminar foto
                                                 </button>
-                                            )}
-                                            {avatarError && (
-                                                <p className="text-error text-xs">{avatarError}</p>
                                             )}
                                         </div>
                                     </div>

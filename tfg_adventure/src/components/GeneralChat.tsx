@@ -1,7 +1,7 @@
-import {useCallback, useEffect, useRef, useState} from 'react';
-import {useAuth} from '../context/AuthContext';
-import {getGeneralMessages, sendGeneralMessage} from '../services/mensajeService';
-import type {Mensaje} from '../types';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { getGeneralMessages, sendGeneralMessage } from '../services/mensajeService';
+import type { Mensaje } from '../types';
 
 function formatTime(fechaHora: string): string {
     const date = new Date(fechaHora);
@@ -12,15 +12,15 @@ function formatTime(fechaHora: string): string {
         date.getMonth() === now.getMonth() &&
         date.getFullYear() === now.getFullYear();
 
-    const hhmm = date.toLocaleTimeString('es-ES', {hour: '2-digit', minute: '2-digit'});
+    const hhmm = date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
     if (isToday) return `hoy a las ${hhmm}`;
 
-    const ddmm = date.toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit'});
+    const ddmm = date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' });
     return `${ddmm} a las ${hhmm}`;
 }
 
 export default function GeneralChat() {
-    const {usuario} = useAuth();
+    const { usuario } = useAuth();
     const [messages, setMessages] = useState<Mensaje[]>([]);
     const [input, setInput] = useState('');
     const [sending, setSending] = useState(false);
@@ -40,7 +40,7 @@ export default function GeneralChat() {
     const scrollToBottom = useCallback((instant = false) => {
         const el = messagesContainerRef.current;
         if (!el) return;
-        el.scrollTo({top: el.scrollHeight, behavior: instant ? 'instant' : 'smooth'});
+        el.scrollTo({ top: el.scrollHeight, behavior: instant ? 'instant' : 'smooth' });
         setUnreadCount(0);
         isAtBottomRef.current = true;
     }, []);
@@ -113,7 +113,7 @@ export default function GeneralChat() {
 
             <div
                 className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-lg border border-gray-200 flex flex-col"
-                style={{height: '520px'}}>
+                style={{ height: '520px' }}>
 
                 {/* Header */}
                 <div className="bg-primary-dark px-5 py-3 flex items-center gap-3">
@@ -134,9 +134,9 @@ export default function GeneralChat() {
                         {!usuario ? (
                             <div className="flex flex-col items-center justify-center h-full gap-3 text-gray-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12 opacity-30" fill="none"
-                                     viewBox="0 0 24 24" stroke="currentColor">
+                                    viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                                          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                 </svg>
                                 <p className="text-sm font-medium">Inicia sesión para ver y enviar mensajes</p>
                             </div>
@@ -152,14 +152,14 @@ export default function GeneralChat() {
 
                                 return (
                                     <div key={msg.id_mensaje}
-                                         className={`flex gap-3 ${showHeader ? 'mt-3' : 'mt-0.5'}`}>
+                                        className={`flex gap-3 ${showHeader ? 'mt-3' : 'mt-0.5'}`}>
                                         {showHeader ? (
                                             <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold mt-0.5
                                             ${isOwn ? 'bg-primary-dark' : 'bg-secondary'}`}>
                                                 {msg.nombre_usuario.charAt(0).toUpperCase()}
                                             </div>
                                         ) : (
-                                            <div className="w-8 flex-shrink-0"/>
+                                            <div className="w-8 flex-shrink-0" />
                                         )}
 
                                         <div className="flex-1 min-w-0">
@@ -182,7 +182,7 @@ export default function GeneralChat() {
                                 );
                             })
                         )}
-                        <div/>
+                        <div />
                     </div>
 
                     {unreadCount > 0 && (
@@ -193,8 +193,8 @@ export default function GeneralChat() {
                                        px-4 py-1.5 rounded-full shadow-lg hover:bg-primary-light transition-colors animate-bounce"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24"
-                                     fill="currentColor">
-                                    <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                                    fill="currentColor">
+                                    <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                                 </svg>
                                 {unreadCount} mensaje{unreadCount !== 1 ? 's' : ''} nuevo{unreadCount !== 1 ? 's' : ''}
                             </button>
@@ -216,7 +216,7 @@ export default function GeneralChat() {
                                 className="flex-1 resize-none rounded-xl border border-gray-300 px-4 py-2.5 text-sm
                                            focus:outline-none focus:border-primary-dark focus:ring-1 focus:ring-primary-dark
                                            disabled:opacity-50 bg-gray-50"
-                                style={{maxHeight: '96px'}}
+                                style={{ maxHeight: '96px' }}
                             />
                             <button
                                 type="submit"
@@ -228,13 +228,13 @@ export default function GeneralChat() {
                                 {sending ? (
                                     <svg className="w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none">
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                                strokeWidth="4"/>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+                                            strokeWidth="4" />
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                                     </svg>
                                 ) : (
                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24"
-                                         fill="currentColor">
-                                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                                        fill="currentColor">
+                                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
                                     </svg>
                                 )}
                             </button>

@@ -93,7 +93,7 @@ export default function ProductPage() {
                 </Link>
 
                 <div
-                    className="bg-surface rounded-2xl overflow-hidden border border-[#333] flex flex-col md:flex-row shadow-2xl">
+                    className="bg-surface rounded-2xl overflow-hidden border border-[#333] flex flex-col md:flex-row shadow-2xl md:max-h-[520px]">
                     {/* Image */}
                     <div className="md:w-2/5 relative overflow-hidden h-[280px] md:h-auto">
                         <Image
@@ -135,7 +135,7 @@ export default function ProductPage() {
                             <p className="text-[#bbb] leading-relaxed text-sm">{producto.descripcion}</p>
                         </div>
 
-                        <div className="border-t border-white/10 pt-6 mt-auto">
+                        <div className="border-t border-white/10 pt-6">
                             <div className="mb-6">
                                 <label className="block text-gray-300 text-sm font-medium mb-3">Cantidad:</label>
                                 <div className="flex items-center justify-between gap-2 flex-wrap">
