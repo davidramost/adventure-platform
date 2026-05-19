@@ -106,6 +106,7 @@ public class AuthService {
         }).orElse(null);
     }
 
+    @Transactional
     public void forgotPassword(ForgotPasswordRequest request) {
         String result = preparePasswordReset(request.getEmail());
         if (result == null)
