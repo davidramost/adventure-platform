@@ -38,11 +38,11 @@ public class PhpMailerService {
                     "body", body);
 
             HttpEntity<Map<String, String>> request = new HttpEntity<>(payload, headers);
-            restTemplate.postForObject(phpMailerUrl, request, String.class);
+            String response = restTemplate.postForObject(phpMailerUrl, request, String.class);
 
-            log.info("Email enviado via PHPMailer a: {}", to);
+            log.info("Email enviado via PHPMailer a: {}. Respuesta: {}", to, response);
         } catch (Exception e) {
-            log.error("Error enviando email via PHPMailer a {}: {}", to, e.getMessage());
+            log.error("Error enviando email via PHPMailer a {}: {}", to, e.getMessage(), e);
         }
     }
 }
