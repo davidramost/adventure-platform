@@ -10,8 +10,6 @@ import com.example.tfg_backend.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,10 +26,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
-    private final JavaMailSender mailSender;
-
-    @Value("${app.mail.from}")
-    private String mailFrom;
+    private final PhpMailerService phpMailerService;
 
     @Value("${app.frontend.url}")
     private String frontendUrl;
@@ -117,23 +112,15 @@ public class AuthService {
         String nombreUsuario = parts[1];
         String toEmail = parts[2];
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(mailFrom);
-        message.setTo(toEmail);
-        message.setSubject("Recuperación de contraseña - TFG Adventure");
-        message.setText(
-                "Hola " + nombreUsuario + ",\n\n" +
-                        "Has solicitado recuperar tu contraseña.\n\n" +
-                        "Haz clic en el siguiente enlace para crear una nueva contraseña (válido 15 minutos):\n\n" +
-                        resetLink + "\n\n" +
-                        "Si no has solicitado esto, ignora este correo.\n\n" +
-                        "TFG Adventure");
-        try {
-            mailSender.send(message);
-            log.info("Email de recuperación enviado a: {}", toEmail);
-        } catch (Exception e) {
-            log.error("Error enviando email de recuperación a {}: {}", toEmail, e.getMessage());
-        }
+        String subject = "Recuperación de contraseña - TFG Adventure";
+        String body = "Hola " + nombreUsuario + ",\n\n" +
+                "Has solicitado recuperar tu contraseña.\n\n" +
+                "Haz clic en el siguiente enlace para crear una nueva contraseña (válido 15 minutos):\n\n" +
+                resetLink + "\n\n" +
+                "Si no has solicitado esto, ignora este correo.\n\n" +
+                "TFG Adventure";
+
+        phpMailerService.sendEmail(toEmail, subject, body);
     }
 
     @Transactional

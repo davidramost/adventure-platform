@@ -2,3 +2,6 @@
 /.github
 /.vscode
 .DS_Store
+# PHP Mailer config (contiene credenciales)
+php-mailer/mail-config.php
+php-mailer/vendor/
