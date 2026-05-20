@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { useRoutePersist } from './hooks/useUrlMask';
 import ScrollToTop from './components/ScrollToTop';
 import ToastContainer from './components/ToastContainer';
 import HomePage from './pages/HomePage';
@@ -23,7 +22,6 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function App() {
-    useRoutePersist();
     return (
         <>
             <ScrollToTop />
