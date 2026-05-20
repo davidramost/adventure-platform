@@ -73,6 +73,7 @@ try {
     $mail->addCustomHeader('List-Unsubscribe', '<mailto:unsubscribe@cicloflorenciopintado.es>');
 
     $mail->Subject = $subject;
+    $mail->isHTML(true);
     $mail->Body    = $body;
 
     $mail->send();
