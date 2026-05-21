@@ -61,12 +61,12 @@ export default function CartPage() {
                                     <ul className="list-none p-0 m-0">
                                         {cart.map((item) => (
                                             <li key={item.producto.id_producto}
-                                                className="p-6 border-b border-white/10 last:border-b-0 flex flex-col sm:grid sm:grid-cols-12 gap-4 items-center">
+                                                className="p-4 sm:p-6 border-b border-white/10 last:border-b-0 flex flex-col sm:grid sm:grid-cols-12 gap-3 sm:gap-4 sm:items-center">
                                                 {/* Product Info */}
                                                 <div className="col-span-6 flex items-center gap-4 w-full">
                                                     <button
                                                         onClick={() => removeFromCart(item.producto.id_producto)}
-                                                        className="text-gray-500 hover:text-red-500 transition-colors bg-transparent border-none cursor-pointer p-1"
+                                                        className="text-gray-500 hover:text-red-500 transition-colors bg-transparent border-none cursor-pointer p-1 shrink-0"
                                                         title="Eliminar producto"
                                                     >
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -80,39 +80,40 @@ export default function CartPage() {
                                                     <Link to={`/producto/${item.producto.id_producto}`}
                                                         className="shrink-0">
                                                         <Image src={item.producto.imagen} alt={item.producto.nombre}
-                                                            containerClassName="w-20 h-20 rounded-xl"
-                                                            className="w-20 h-20 object-cover" />
+                                                            containerClassName="w-16 sm:w-20 h-16 sm:h-20 rounded-xl"
+                                                            className="w-16 sm:w-20 h-16 sm:h-20 object-cover" />
                                                     </Link>
                                                     <Link to={`/producto/${item.producto.id_producto}`}
-                                                        className="no-underline text-white hover:text-primary-light transition-colors font-medium">
+                                                        className="no-underline text-white hover:text-primary-light transition-colors font-medium text-sm sm:text-base flex-1 min-w-0">
                                                         {item.producto.nombre}
                                                     </Link>
                                                 </div>
 
                                                 {/* Price */}
                                                 <div
-                                                    className="col-span-2 text-center text-gray-300 w-full sm:w-auto flex justify-between sm:block">
-                                                    <span className="sm:hidden text-gray-500">Precio:</span>
-                                                    {item.producto.precio.toFixed(2)} €
+                                                    className="col-span-2 text-gray-300 w-full sm:w-auto flex items-center justify-between sm:flex-col sm:items-center gap-2">
+                                                    <span className="sm:hidden text-gray-500 text-sm">Precio:</span>
+                                                    <span className="text-sm sm:text-base">{item.producto.precio.toFixed(2)} €</span>
                                                 </div>
 
                                                 {/* Quantity */}
-                                                <div className="col-span-2 flex justify-center w-full sm:w-auto">
+                                                <div className="col-span-2 w-full sm:w-auto flex items-center justify-between sm:justify-center">
+                                                    <span className="sm:hidden text-gray-500 text-sm">Cantidad:</span>
                                                     <div
-                                                        className="flex items-center bg-[#222] rounded overflow-hidden border border-[#444] inline-flex">
+                                                        className="flex items-center bg-[#222] rounded overflow-hidden border border-[#444] h-9">
                                                         <button
                                                             onClick={() => updateQuantity(item.producto.id_producto, item.cantidad - 1)}
-                                                            className="px-2 py-1 text-white bg-transparent border-none hover:bg-[#333] transition-colors cursor-pointer"
+                                                            className="w-9 text-white bg-transparent border-none hover:bg-[#333] transition-colors cursor-pointer text-sm h-full flex items-center justify-center"
                                                         >
                                                             -
                                                         </button>
                                                         <span
-                                                            className="text-white px-2 py-1 text-sm min-w-[2ch] text-center border-l border-r border-[#444]">
+                                                            className="w-9 text-white text-sm text-center border-l border-r border-[#444] h-full flex items-center justify-center">
                                                             {item.cantidad}
                                                         </span>
                                                         <button
                                                             onClick={() => updateQuantity(item.producto.id_producto, Math.min(item.producto.stock, item.cantidad + 1))}
-                                                            className="px-2 py-1 text-white bg-transparent border-none hover:bg-[#333] transition-colors cursor-pointer"
+                                                            className="w-9 text-white bg-transparent border-none hover:bg-[#333] transition-colors cursor-pointer text-sm h-full flex items-center justify-center"
                                                         >
                                                             +
                                                         </button>
@@ -121,10 +122,10 @@ export default function CartPage() {
 
                                                 {/* Subtotal */}
                                                 <div
-                                                    className="col-span-2 text-right text-white font-bold w-full sm:w-auto flex justify-between sm:block">
+                                                    className="col-span-2 text-white font-bold w-full sm:w-auto flex items-center justify-between sm:flex-col sm:items-end gap-2">
                                                     <span
-                                                        className="sm:hidden text-gray-500 font-normal">Subtotal:</span>
-                                                    {(item.producto.precio * item.cantidad).toFixed(2)} €
+                                                        className="sm:hidden text-gray-500 font-normal text-sm">Subtotal:</span>
+                                                    <span className="text-sm sm:text-base">{(item.producto.precio * item.cantidad).toFixed(2)} €</span>
                                                 </div>
                                             </li>
                                         ))}
