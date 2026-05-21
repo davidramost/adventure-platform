@@ -17,4 +17,7 @@ public interface ResenaRepository extends JpaRepository<Resena, Integer> {
 
     @Query("SELECT AVG(r.puntuacion) FROM Resena r WHERE r.ruta.idRuta = :idRuta")
     Double findAveragePuntuacionByRutaIdRuta(@Param("idRuta") Integer idRuta);
+
+    @Query("SELECT r.ruta.idRuta, AVG(r.puntuacion) FROM Resena r GROUP BY r.ruta.idRuta")
+    List<Object[]> findAllAveragesByRuta();
 }

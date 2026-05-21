@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +38,7 @@ public class RutaService {
         } else {
             rutas = rutaRepository.findAll();
         }
-        return rutas.stream().map(this::toRutaResponse).toList();
+        return toRutaResponseList(rutas);
     }
 
     @Transactional(readOnly = true)
@@ -144,14 +146,44 @@ public class RutaService {
     public List<RutaResponse> searchRutas(String keyword) {
         List<Ruta> rutas = rutaRepository.findByTituloContainingIgnoreCaseOrNombreRutaContainingIgnoreCase(keyword,
                 keyword);
-        return rutas.stream().map(this::toRutaResponse).toList();
+        return toRutaResponseList(rutas);
     }
 
     public List<RutaResponse> getMyRutas(Integer idUsuario) {
         Usuario usuario = usuarioRepository.findById(idUsuario)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
         List<Ruta> rutas = rutaRepository.findByUsuarioIdUsuario(idUsuario);
-        return rutas.stream().map(this::toRutaResponse).toList();
+        return toRutaResponseList(rutas);
+    }
+
+    private List<RutaResponse> toRutaResponseList(List<Ruta> rutas) {
+        Map<Integer, Double> averages = resenaRepository.findAllAveragesByRuta()
+                .stream()
+                .collect(Collectors.toMap(
+                        row -> (Integer) row[0],
+                        row -> (Double) row[1]
+                ));
+        return rutas.stream().map(ruta -> toRutaResponseWithAverages(ruta, averages)).toList();
+    }
+
+    private RutaResponse toRutaResponseWithAverages(Ruta ruta, Map<Integer, Double> averages) {
+        return RutaResponse.builder()
+                .idRuta(ruta.getIdRuta())
+                .titulo(ruta.getTitulo())
+                .nombreRuta(ruta.getNombreRuta())
+                .descripcion(ruta.getDescripcion())
+                .distanciaKm(ruta.getDistanciaKm())
+                .duracionEstimada(ruta.getDuracionEstimada())
+                .dificultad(ruta.getDificultad())
+                .desnivelMetros(ruta.getDesnivelMetros())
+                .imagenUrl(ruta.getImagenUrl())
+                .gpxUrl(ruta.getGpxUrl())
+                .nombreUbicacion(ruta.getUbicacion() != null ? ruta.getUbicacion().getNombre() : null)
+                .latitud(ruta.getUbicacion() != null ? ruta.getUbicacion().getLatitud() : null)
+                .longitud(ruta.getUbicacion() != null ? ruta.getUbicacion().getLongitud() : null)
+                .idUsuario(ruta.getUsuario() != null ? ruta.getUsuario().getIdUsuario() : null)
+                .mediaPuntuacion(averages.get(ruta.getIdRuta()))
+                .build();
     }
 
     public RutaResponse toRutaResponse(Ruta ruta) {
