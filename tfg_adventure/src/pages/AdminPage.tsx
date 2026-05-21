@@ -23,7 +23,6 @@ export default function AdminPage() {
     const [successMsg, setSuccessMsg] = useState<string | null>(null);
     const [allPedidos, setAllPedidos] = useState<PedidoResponse[]>([]);
     const [selectedUsuarioId, setSelectedUsuarioId] = useState<string>('');
-    const [loadingAllPedidos, setLoadingAllPedidos] = useState(false);
 
     useEffect(() => {
         if (!usuario || usuario.rol !== 'admin') {
@@ -34,14 +33,16 @@ export default function AdminPage() {
     const fetchData = useCallback(async () => {
         setLoading(true);
         try {
-            const [usuariosRes, rutasRes, productosRes] = await Promise.all([
+            const [usuariosRes, rutasRes, productosRes, pedidosRes] = await Promise.all([
                 adminService.getUsuarios(),
                 adminService.getRutas(),
                 adminService.getProductos(),
+                adminService.getAllPedidos(),
             ]);
             setUsuarios(usuariosRes.data);
             setRutas(rutasRes.data);
             setProductos(productosRes.data);
+            setAllPedidos(pedidosRes.data);
         } catch {
             setError('Error al cargar los datos');
         } finally {
@@ -91,19 +92,8 @@ export default function AdminPage() {
         }
     };
 
-    const handleTabChange = async (t: Tab) => {
+    const handleTabChange = (t: Tab) => {
         setTab(t);
-        if (t === 'pedidos' && allPedidos.length === 0) {
-            setLoadingAllPedidos(true);
-            try {
-                const res = await adminService.getAllPedidos();
-                setAllPedidos(res.data);
-            } catch {
-                setError('Error al cargar los pedidos');
-            } finally {
-                setLoadingAllPedidos(false);
-            }
-        }
     };
 
     const startEditUsuario = (u: Usuario) => {
@@ -179,7 +169,7 @@ export default function AdminPage() {
                         onClick={() => handleTabChange('pedidos')}
                         className={`px-6 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer border-none ${tab === 'pedidos' ? 'bg-accent text-white' : 'bg-white/10 text-white hover:bg-white/20'}`}
                     >
-                        Pedidos
+                        Pedidos ({allPedidos.length})
                     </button>
                 </div>
 
@@ -511,9 +501,7 @@ export default function AdminPage() {
                                     </select>
                                 </div>
 
-                                {loadingAllPedidos ? (
-                                    <p className="text-white text-center py-16">Cargando pedidos...</p>
-                                ) : (() => {
+                                {(() => {
                                     const pedidosFiltrados = selectedUsuarioId
                                         ? allPedidos.filter(p => String(p.id_usuario) === selectedUsuarioId)
                                         : allPedidos;
