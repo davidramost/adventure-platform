@@ -66,16 +66,16 @@ export default function StorePage() {
                                 <option key={cat} value={cat}>{cat}</option>
                             ))}
                         </select>
-                        <div className="flex items-center bg-[#555] rounded overflow-hidden">
+                        <div className="flex items-center bg-[#555] rounded overflow-visible focus-within:ring-1 focus-within:ring-white/50 focus-within:shadow-lg h-10">
                             <input
                                 type="text"
                                 placeholder="Buscar producto..."
                                 value={search}
                                 onChange={e => setSearch(e.target.value)}
-                                className="bg-transparent border-none text-white px-4 py-2.5 text-sm w-[150px] outline-none focus:ring-1 focus:ring-white/50 placeholder:text-[#aaa]"
+                                className="bg-transparent border-none text-white px-4 py-0 text-sm w-[150px] outline-none placeholder:text-[#aaa] h-full"
                             />
                             <button aria-label="Buscar productos"
-                                className="bg-transparent border-none text-white px-4 py-2.5 cursor-pointer hover:text-gray-300">
+                                className="bg-transparent border-none text-white px-4 py-0 cursor-pointer hover:text-gray-300 h-full flex items-center">
                                 <img src="/Img/Icons/search.png" alt="" aria-hidden="true"
                                     className="w-[25px] h-[25px] align-middle invert" />
                             </button>
@@ -120,7 +120,7 @@ export default function StorePage() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {filteredProductos.map(producto => (
                                 <article key={producto.id_producto}
-                                    className="bg-surface rounded-xl overflow-hidden border border-[#333] hover:border-primary-light motion-safe:hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 transition-[transform,box-shadow,border-color] duration-300 group flex flex-col">
+                                    className="bg-surface rounded-xl overflow-hidden border border-[#333] hover:border-primary-light motion-safe:hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 transition-[transform,box-shadow,border-color] duration-200 group flex flex-col">
                                     <Link to={`/producto/${producto.id_producto}`}
                                         className="w-full h-[200px] overflow-hidden relative block">
                                         <Image
