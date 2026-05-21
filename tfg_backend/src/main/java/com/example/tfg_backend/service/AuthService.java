@@ -136,9 +136,9 @@ public class AuthService {
                 +
                 ".greeting { font-size: 16px; margin-bottom: 20px; color: #263238; font-weight: 500; }" +
                 ".message { margin: 20px 0; font-size: 14px; color: #546E7A; line-height: 1.7; }" +
-                ".reset-button { display: inline-block; background: linear-gradient(135deg, #263238 0%, #37474F 100%); color: white; padding: 14px 32px; text-decoration: none; border-radius: 6px; font-weight: 600; margin: 25px 0; font-size: 15px; transition: transform 0.2s ease; }"
+                ".reset-button { display: inline-block; background: #4db8a8; color: white; padding: 16px 40px; text-decoration: none; border-radius: 6px; font-weight: 700; margin: 25px 0; font-size: 16px; transition: transform 0.2s ease; border: none; cursor: pointer; }"
                 +
-                ".reset-button:hover { transform: translateY(-2px); }" +
+                ".reset-button:hover { transform: translateY(-2px); background: #3da499; }" +
                 ".link-section { background: #f0f3f5; padding: 15px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #455A64; }"
                 +
                 ".link-text { word-break: break-all; background: white; padding: 12px; border-radius: 4px; font-size: 12px; color: #37474F; font-family: 'Courier New', monospace; margin-top: 8px; }"
