@@ -27,15 +27,15 @@ public class ResenaController {
 
     @PostMapping("/ruta/{idRuta}")
     public ResponseEntity<ResenaResponse> createResena(@PathVariable Integer idRuta,
-                                                       @Valid @RequestBody ResenaRequest request,
-                                                       @AuthenticationPrincipal Usuario usuario) {
+            @Valid @RequestBody ResenaRequest request,
+            @AuthenticationPrincipal Usuario usuario) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(resenaService.createResena(idRuta, request, usuario.getIdUsuario()));
     }
 
     @DeleteMapping("/{idResena}")
     public ResponseEntity<Void> deleteResena(@PathVariable Integer idResena,
-                                             @AuthenticationPrincipal Usuario usuario) {
+            @AuthenticationPrincipal Usuario usuario) {
         resenaService.deleteResena(idResena, usuario);
         return ResponseEntity.noContent().build();
     }
