@@ -2,6 +2,11 @@
 /.github
 /.vscode
 .DS_Store
+.agents/skills
+.claude/
+.continue
+.idea/
+
 # PHP Mailer config (contiene credenciales)
 php-mailer/mail-config.php
 php-mailer/vendor/
