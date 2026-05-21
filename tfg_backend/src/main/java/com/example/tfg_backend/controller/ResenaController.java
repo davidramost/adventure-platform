@@ -36,7 +36,7 @@ public class ResenaController {
     @DeleteMapping("/{idResena}")
     public ResponseEntity<Void> deleteResena(@PathVariable Integer idResena,
                                              @AuthenticationPrincipal Usuario usuario) {
-        resenaService.deleteResena(idResena, usuario.getIdUsuario());
+        resenaService.deleteResena(idResena, usuario);
         return ResponseEntity.noContent().build();
     }
 }

@@ -49,10 +49,13 @@ public class ResenaService {
     }
 
     @Transactional
-    public void deleteResena(Integer idResena, Integer idUsuario) {
+    public void deleteResena(Integer idResena, Usuario usuarioActual) {
         Resena resena = resenaRepository.findById(idResena)
                 .orElseThrow(() -> new ResourceNotFoundException("Resena no encontrada con id: " + idResena));
-        if (!resena.getUsuario().getIdUsuario().equals(idUsuario)) {
+        boolean esAdmin = usuarioActual.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        boolean esPropietario = resena.getUsuario().getIdUsuario().equals(usuarioActual.getIdUsuario());
+        if (!esAdmin && !esPropietario) {
             throw new UnauthorizedException("No tienes permiso para eliminar esta resena");
         }
         resenaRepository.delete(resena);
