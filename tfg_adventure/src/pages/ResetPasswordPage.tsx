@@ -32,7 +32,8 @@ export default function ResetPasswordPage() {
 
         try {
             await resetPassword(token, newPassword);
-            navigate('/login', { state: { mensaje: 'Contraseña actualizada correctamente. Ya puedes iniciar sesión.' } });
+            addToast('Contraseña actualizada correctamente. Ya puedes iniciar sesión.', 'success');
+            setTimeout(() => navigate('/login'), 1500);
         } catch (err: unknown) {
             const status = (err as { response?: { status?: number } })?.response?.status;
             if (status === 400) {
