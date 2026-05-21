@@ -133,8 +133,8 @@ export default function CategoryPage() {
                                     key={ruta.id_ruta}
                                     onClick={() => navigate(`/ruta/${ruta.id_ruta}`)}
                                     className="relative bg-white/5 border border-white/10 rounded-2xl overflow-hidden
-                             hover:border-white/25 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30
-                             transition-all duration-200 group h-full flex flex-col cursor-pointer"
+                             hover:border-white/25 motion-safe:hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30
+                             transition-[transform,box-shadow,border-color] duration-300 group h-full flex flex-col cursor-pointer"
                                 >
                                     {/* Image */}
                                     <div className="relative h-44 overflow-hidden">

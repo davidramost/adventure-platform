@@ -86,14 +86,41 @@ export default function StorePage() {
                 {/* Product Grid */}
                 <section className="px-[5%] py-8 lg:py-12">
                     {loading ? (
-                        <p className="text-white text-center py-20">Cargando productos...</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            {Array.from({ length: 8 }).map((_, i) => (
+                                <div key={i} className="bg-surface rounded-xl overflow-hidden border border-[#333] flex flex-col">
+                                    <div className="relative h-[200px] bg-[#2a2a2a] overflow-hidden">
+                                        <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                    </div>
+                                    <div className="p-5 flex flex-col gap-3">
+                                        <div className="h-5 w-3/4 rounded bg-white/10 overflow-hidden relative">
+                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                        </div>
+                                        <div className="h-3 w-full rounded bg-white/10 overflow-hidden relative">
+                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                        </div>
+                                        <div className="h-3 w-2/3 rounded bg-white/10 overflow-hidden relative">
+                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                        </div>
+                                        <div className="flex items-center justify-between mt-2">
+                                            <div className="h-6 w-16 rounded bg-white/10 overflow-hidden relative">
+                                                <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                            </div>
+                                            <div className="h-8 w-20 rounded-lg bg-white/10 overflow-hidden relative">
+                                                <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     ) : error ? (
                         <p className="text-red-400 text-center py-12 text-lg">{error}</p>
                     ) : filteredProductos.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {filteredProductos.map(producto => (
                                 <article key={producto.id_producto}
-                                    className="bg-surface rounded-xl overflow-hidden border border-[#333] hover:border-primary-light transition-colors group flex flex-col">
+                                    className="bg-surface rounded-xl overflow-hidden border border-[#333] hover:border-primary-light motion-safe:hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 transition-[transform,box-shadow,border-color] duration-300 group flex flex-col">
                                     <Link to={`/producto/${producto.id_producto}`}
                                         className="w-full h-[200px] overflow-hidden relative block">
                                         <Image
