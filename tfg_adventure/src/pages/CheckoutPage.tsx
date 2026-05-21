@@ -6,6 +6,7 @@ import Image from '../components/Image';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { pedidoService } from '../services/pedidoService';
+import { usuarioService } from '../services/usuarioService';
 import type { MetodoPago, TipoEnvio } from '../types';
 
 const ENVIO_OPTIONS: { value: TipoEnvio; label: string; sublabel: string; precio: number }[] = [
@@ -25,7 +26,7 @@ function formatExpiry(value: string) {
 }
 
 export default function CheckoutPage() {
-    const { usuario } = useAuth();
+    const { usuario, refreshUsuario } = useAuth();
     const { cart, totalPrice, clearCart } = useCart();
     const navigate = useNavigate();
 
@@ -33,6 +34,14 @@ export default function CheckoutPage() {
         !!usuario?.nombre?.trim() &&
         !!usuario?.apellido?.trim() &&
         !!usuario?.domicilio?.trim();
+
+    const [profileNombre, setProfileNombre] = useState('');
+    const [profileApellido, setProfileApellido] = useState('');
+    const [profileDomicilio, setProfileDomicilio] = useState('');
+
+    const isProfileDataReady =
+        profileOk ||
+        (!!profileNombre.trim() && !!profileApellido.trim() && !!profileDomicilio.trim());
 
     const [tipoEnvio, setTipoEnvio] = useState<TipoEnvio>('ESTANDAR');
     const [metodoPago, setMetodoPago] = useState<MetodoPago>('TARJETA');
@@ -55,7 +64,7 @@ export default function CheckoutPage() {
     const totalFinal = totalPrice + gastoEnvio;
 
     const getDireccionEnvio = () => {
-        if (direccionOpt === 'domicilio') return usuario?.domicilio ?? '';
+        if (direccionOpt === 'domicilio') return usuario?.domicilio?.trim() || profileDomicilio.trim();
         if (direccionOpt === 'facturacion') return usuario?.fact_domicilio ?? '';
         return otraDireccion.trim();
     };
@@ -84,6 +93,7 @@ export default function CheckoutPage() {
     };
 
     const isFormIncomplete = () => {
+        if (!isProfileDataReady) return true;
         const direccion = getDireccionEnvio();
         const direccionValid = !!direccion;
         return !direccionValid || !isMetodoPagoValid();
@@ -91,6 +101,10 @@ export default function CheckoutPage() {
 
     const validate = () => {
         const e: Record<string, string> = {};
+
+        if (!isProfileDataReady) {
+            e.perfil = 'Debes completar tu nombre, apellido y domicilio antes de continuar.';
+        }
 
         const dir = getDireccionEnvio();
         if (!dir) e.direccion = 'La dirección de envío es obligatoria.';
@@ -130,6 +144,15 @@ export default function CheckoutPage() {
         if (!validate()) return;
         setLoading(true);
         try {
+            if (!profileOk && isProfileDataReady) {
+                await usuarioService.updateProfile({
+                    nombre: profileNombre.trim(),
+                    apellido: profileApellido.trim(),
+                    domicilio: profileDomicilio.trim(),
+                    fact_domicilio: profileDomicilio.trim(),
+                });
+                await refreshUsuario();
+            }
             await pedidoService.crear({
                 lineas: cart.map(item => ({ id_producto: item.producto.id_producto, cantidad: item.cantidad })),
                 direccion_envio: getDireccionEnvio(),
@@ -226,23 +249,48 @@ export default function CheckoutPage() {
                     </div>
 
                     {!profileOk && (
-                        <div
-                            className="bg-yellow-400/10 border border-yellow-400/40 rounded-xl p-4 mb-6 flex items-start gap-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="#eab308" strokeWidth="2" strokeLinecap="round"
-                                strokeLinejoin="round" className="shrink-0 mt-0.5">
-                                <path
-                                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-                                <line x1="12" y1="9" x2="12" y2="13" />
-                                <line x1="12" y1="17" x2="12.01" y2="17" />
-                            </svg>
-                            <p className="text-yellow-400 text-sm">
-                                Tu perfil está incompleto. Para agilizar el proceso,{' '}
-                                <Link to="/perfil" className="underline text-yellow-300 hover:text-yellow-200">completa
-                                    tus datos</Link>{' '}
-                                (nombre, apellido y domicilio).
+                        <section className="bg-surface rounded-2xl border border-yellow-400/40 p-6 shadow-lg mb-6">
+                            <h2 className="text-yellow-400 font-bold text-base mb-1 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="#eab308" strokeWidth="2" strokeLinecap="round"
+                                    strokeLinejoin="round" className="shrink-0">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                                    <line x1="12" y1="9" x2="12" y2="13" />
+                                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                                </svg>
+                                Completa tus datos para continuar
+                            </h2>
+                            <p className="text-gray-400 text-sm mb-4">
+                                Necesitamos tu nombre, apellido y domicilio para procesar el pedido.
+                                Se guardarán automáticamente en tu perfil.
                             </p>
-                        </div>
+                            <div className="flex flex-col gap-3">
+                                <div className="flex gap-3">
+                                    <input
+                                        type="text"
+                                        placeholder="Nombre *"
+                                        value={profileNombre}
+                                        onChange={e => setProfileNombre(e.target.value)}
+                                        className="flex-1 bg-[#1a1a1a] border border-[#444] rounded-lg px-3 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-yellow-400/60"
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="Apellido *"
+                                        value={profileApellido}
+                                        onChange={e => setProfileApellido(e.target.value)}
+                                        className="flex-1 bg-[#1a1a1a] border border-[#444] rounded-lg px-3 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-yellow-400/60"
+                                    />
+                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="Domicilio (Calle, número, piso, ciudad, CP) *"
+                                    value={profileDomicilio}
+                                    onChange={e => setProfileDomicilio(e.target.value)}
+                                    className="w-full bg-[#1a1a1a] border border-[#444] rounded-lg px-3 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-yellow-400/60"
+                                />
+                            </div>
+                            {errors.perfil && <p className="text-red-400 text-xs mt-2">{errors.perfil}</p>}
+                        </section>
                     )}
 
                     <div className="flex flex-col lg:flex-row gap-8">
@@ -257,15 +305,28 @@ export default function CheckoutPage() {
                                     Dirección de envío
                                 </h2>
 
-                                {usuario.nombre && (
+                                {(usuario.nombre || profileNombre.trim()) && (
                                     <div className="bg-[#1a1a1a] rounded-lg p-3 mb-5 text-gray-400 text-sm">
-                                        <span
-                                            className="text-white font-medium">{usuario.nombre} {usuario.apellido}</span>
+                                        <span className="text-white font-medium">
+                                            {usuario.nombre || profileNombre} {usuario.apellido || profileApellido}
+                                        </span>
                                     </div>
                                 )}
 
                                 <div className="flex flex-col gap-3">
-                                    {usuario.domicilio && (
+                                    {!(usuario.domicilio || profileDomicilio.trim()) && !usuario.fact_domicilio && (
+                                        <div className="flex items-center gap-3 p-4 rounded-xl border border-dashed border-gray-400 text-gray-400 text-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                                fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                                strokeLinejoin="round" className="shrink-0">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <line x1="12" y1="8" x2="12" y2="12" />
+                                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                                            </svg>
+                                            El domicilio que indiques en el formulario superior se usará como dirección de envío.
+                                        </div>
+                                    )}
+                                    {(usuario.domicilio || profileDomicilio.trim()) && (
                                         <label
                                             className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${direccionOpt === 'domicilio' ? 'border-primary-dark bg-primary-dark/25 shadow-lg shadow-primary-dark/20' : 'border-[#444] hover:border-[#666] hover:shadow-md hover:shadow-white/5'}`}>
                                             <input type="radio" name="direccion" value="domicilio"
@@ -273,9 +334,8 @@ export default function CheckoutPage() {
                                                 onChange={() => setDireccionOpt('domicilio')}
                                                 className="mt-1 accent-primary-dark w-5 h-5" />
                                             <div>
-                                                <p className={`${direccionOpt === 'domicilio' ? 'text-white' : 'text-gray-300'} font-medium text-sm`}>Mi
-                                                    domicilio</p>
-                                                <p className="text-gray-400 text-sm">{usuario.domicilio}</p>
+                                                <p className={`${direccionOpt === 'domicilio' ? 'text-white' : 'text-gray-300'} font-medium text-sm`}>Mi domicilio</p>
+                                                <p className="text-gray-400 text-sm">{usuario.domicilio || profileDomicilio.trim()}</p>
                                             </div>
                                         </label>
                                     )}
@@ -287,31 +347,41 @@ export default function CheckoutPage() {
                                                 onChange={() => setDireccionOpt('facturacion')}
                                                 className="mt-1 accent-primary-dark w-5 h-5" />
                                             <div>
-                                                <p className={`${direccionOpt === 'facturacion' ? 'text-white' : 'text-gray-300'} font-medium text-sm`}>Dirección
-                                                    de facturación</p>
+                                                <p className={`${direccionOpt === 'facturacion' ? 'text-white' : 'text-gray-300'} font-medium text-sm`}>Dirección de facturación</p>
                                                 <p className="text-gray-400 text-sm">{usuario.fact_domicilio}</p>
                                             </div>
                                         </label>
                                     )}
-                                    <label
-                                        className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${direccionOpt === 'otra' ? 'border-primary-dark bg-primary-dark/25 shadow-lg shadow-primary-dark/20' : 'border-[#444] hover:border-[#666] hover:shadow-md hover:shadow-white/5'}`}>
-                                        <input type="radio" name="direccion" value="otra"
-                                            checked={direccionOpt === 'otra'}
-                                            onChange={() => setDireccionOpt('otra')}
-                                            className="mt-1 accent-primary-dark w-5 h-5" />
-                                        <div className="flex-1">
-                                            <p className="text-white font-medium text-sm mb-2">Otra dirección</p>
-                                            {direccionOpt === 'otra' && (
-                                                <input
-                                                    type="text"
-                                                    placeholder="Calle, número, piso, ciudad, código postal"
-                                                    value={otraDireccion}
-                                                    onChange={e => setOtraDireccion(e.target.value)}
-                                                    className="w-full bg-[#222] border border-[#444] rounded-lg px-3 py-2 text-white text-sm placeholder-gray-400 focus:outline-none focus:border-primary-dark"
-                                                />
-                                            )}
+                                    {usuario.domicilio && direccionOpt !== 'otra' && (
+                                        <button
+                                            type="button"
+                                            onClick={() => setDireccionOpt('otra')}
+                                            className="text-gray-400 hover:text-gray-300 text-xs text-left transition-colors underline underline-offset-2 cursor-pointer bg-transparent border-none px-1 pt-1"
+                                        >
+                                            Enviar a otra dirección
+                                        </button>
+                                    )}
+                                    {direccionOpt === 'otra' && (
+                                        <div className="flex flex-col gap-2 p-4 rounded-xl border-2 border-primary-dark bg-primary-dark/25 shadow-lg shadow-primary-dark/20">
+                                            <div className="flex items-center justify-between mb-1">
+                                                <p className="text-white font-medium text-sm">Otra dirección de envío</p>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => { setDireccionOpt('domicilio'); setOtraDireccion(''); }}
+                                                    className="text-gray-500 hover:text-gray-300 text-xs transition-colors cursor-pointer bg-transparent border-none underline underline-offset-2"
+                                                >
+                                                    Cancelar
+                                                </button>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                placeholder="Calle, número, piso, ciudad, código postal"
+                                                value={otraDireccion}
+                                                onChange={e => setOtraDireccion(e.target.value)}
+                                                className="w-full bg-[#222] border border-[#444] rounded-lg px-3 py-2 text-white text-sm placeholder-gray-400 focus:outline-none focus:border-primary-dark"
+                                            />
                                         </div>
-                                    </label>
+                                    )}
                                 </div>
                                 {errors.direccion && <p className="text-red-400 text-xs mt-2">{errors.direccion}</p>}
                             </section>
