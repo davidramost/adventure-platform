@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import * as resenaService from '../services/resenaService';
 import { useWeather } from '../hooks/useWeather';
+import { useToast } from '../hooks/useToast';
 import type { Resena } from '../types';
 
 function FitBoundsToTrack({ points }: { points: [number, number][] }) {
@@ -21,10 +22,10 @@ export default function ContentPage() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     const { rutas, usuario, loading, esFavorito, toggleFavorito } = useAuth();
+    const { addToast } = useToast();
     const [resenas, setResenas] = useState<Resena[]>([]);
     const [comentario, setComentario] = useState('');
     const [puntuacion, setPuntuacion] = useState(0);
-    const [mensaje, setMensaje] = useState('');
     const [gpxPoints, setGpxPoints] = useState<[number, number][]>([]);
 
     const idRuta = parseInt(id || '0');
@@ -97,21 +98,21 @@ export default function ContentPage() {
     const handleSubmitReview = async (e: React.FormEvent) => {
         e.preventDefault();
         if (puntuacion < 1 || puntuacion > 5) {
-            setMensaje('La puntuación debe estar entre 1 y 5.');
+            addToast('La puntuación debe estar entre 1 y 5.', 'error');
             return;
         }
         if (!comentario.trim()) {
-            setMensaje('El comentario no puede estar vacío.');
+            addToast('El comentario no puede estar vacío.', 'error');
             return;
         }
         try {
             const newResena = await resenaService.createResena(idRuta, { comentario, puntuacion });
             setResenas(prev => [newResena, ...prev]);
-            setMensaje('¡Reseña publicada con éxito!');
+            addToast('¡Reseña publicada con éxito!', 'success');
             setComentario('');
             setPuntuacion(0);
         } catch (err: any) {
-            setMensaje(err.response?.data?.message || 'Error al publicar la reseña.');
+            addToast(err.response?.data?.message || 'Error al publicar la reseña.', 'error');
         }
     };
 
@@ -256,15 +257,6 @@ export default function ContentPage() {
 
                                 {usuario ? (
                                     <>
-                                        {mensaje && (
-                                            <div
-                                                className={`p-4 rounded-xl mb-6 text-center text-sm ${mensaje.includes('éxito')
-                                                    ? 'bg-success/25 border border-success text-green-300'
-                                                    : 'bg-error/30 border border-error text-white'
-                                                    }`}>
-                                                {mensaje}
-                                            </div>
-                                        )}
                                         <form onSubmit={handleSubmitReview}
                                             className="mb-8 bg-white/5 rounded-xl p-5 border border-white/10">
                                             <div className="mb-4">

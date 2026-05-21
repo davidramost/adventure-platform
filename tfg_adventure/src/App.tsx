@@ -32,7 +32,7 @@ function App() {
                 <Route path="/ruta/:id/editar" element={<EditRutaPage />} />
                 <Route path="/ruta/:id" element={<ContentPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/registro" element={<RegisterPage />} />
+                <Route path="/register" element={<RegisterPage />} />
                 <Route path="/crear-ruta" element={<CreatePage />} />
                 <Route path="/favoritos" element={<Navigate to="/perfil" replace />} />
                 <Route path="/perfil" element={<ProfilePage />} />

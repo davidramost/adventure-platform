@@ -12,7 +12,7 @@ export default function InfoPage() {
             title: 'Trabaja con Nosotros',
             body: (
                 <div className="space-y-4">
-                    <p>En <strong>Senderos</strong>, somos un equipo impulsado por dos grandes pasiones: la tecnología y
+                    <p>En <strong>Adventure</strong>, somos un equipo impulsado por dos grandes pasiones: la tecnología y
                         la naturaleza. Este proyecto nació del deseo de conectar a las personas con el medio ambiente a
                         través de una plataforma digital intuitiva y moderna.</p>
                     <p>Buscamos desarrolladores, diseñadores y creadores de contenido que compartan nuestro entusiasmo

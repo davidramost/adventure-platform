@@ -153,7 +153,7 @@ export default function LoginPage() {
                     </div>
 
                     <div className="mt-4">
-                        <Link to="/registro" className="text-white no-underline text-sm hover:underline">
+                        <Link to="/register" className="text-white no-underline text-sm hover:underline">
                             ¿No tienes cuenta? Regístrate
                         </Link>
                     </div>
