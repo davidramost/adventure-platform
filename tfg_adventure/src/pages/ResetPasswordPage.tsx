@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { resetPassword } from '../services/authService';
+import { useToast } from '../hooks/useToast';
 
 export default function ResetPasswordPage() {
     const [searchParams] = useSearchParams();
@@ -12,19 +13,18 @@ export default function ResetPasswordPage() {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const { addToast } = useToast();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError('');
 
         if (newPassword !== confirmPassword) {
-            setError('Las contraseñas no coinciden.');
+            addToast('Las contraseñas no coinciden.', 'error');
             return;
         }
 
         if (newPassword.length < 6) {
-            setError('La contraseña debe tener al menos 6 caracteres.');
+            addToast('La contraseña debe tener al menos 6 caracteres.', 'error');
             return;
         }
 
@@ -36,9 +36,9 @@ export default function ResetPasswordPage() {
         } catch (err: unknown) {
             const status = (err as { response?: { status?: number } })?.response?.status;
             if (status === 400) {
-                setError('El enlace ha expirado o ya ha sido utilizado. Solicita uno nuevo.');
+                addToast('El enlace ha expirado o ya ha sido utilizado. Solicita uno nuevo.', 'error');
             } else {
-                setError('Ha ocurrido un error. Inténtalo de nuevo más tarde.');
+                addToast('Ha ocurrido un error. Inténtalo de nuevo más tarde.', 'error');
             }
         } finally {
             setLoading(false);
@@ -78,13 +78,6 @@ export default function ResetPasswordPage() {
                     <p className="text-white/80 text-sm mb-10">
                         Introduce tu nueva contraseña para recuperar el acceso a tu cuenta.
                     </p>
-
-                    {error && (
-                        <div
-                            className="bg-error/30 border border-error text-white p-4 rounded-xl mb-6 text-center text-sm">
-                            {error}
-                        </div>
-                    )}
 
                     <form onSubmit={handleSubmit}>
                         <div className="mb-6 text-left">
