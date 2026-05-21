@@ -33,7 +33,7 @@ export default function Image({
     if (hasError || !hasValidSrc) {
         return (
             <div
-                className={`flex items-center justify-center bg-gradient-to-br from-[#3a3a3a] to-[#1a1a1a] w-full h-full ${containerClassName}`}
+                className={`flex items-center justify-center bg-gradient-to-br from-[#3a3a3a] to-[#1a1a1a] ${containerClassName}`}
             >
                 <img
                     src={fallback}
