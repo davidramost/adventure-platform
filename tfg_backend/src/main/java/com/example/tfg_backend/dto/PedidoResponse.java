@@ -25,4 +25,6 @@ public class PedidoResponse {
     private TipoEnvio tipoEnvio;
     private MetodoPago metodoPago;
     private List<LineaPedidoResponse> lineas;
+    private Integer idUsuario;
+    private String nombreUsuario;
 }

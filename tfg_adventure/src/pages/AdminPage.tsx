@@ -4,9 +4,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { adminService, type AdminUpdateUsuarioRequest } from '../services/adminService';
-import type { Producto, Ruta, Usuario } from '../types';
+import type { PedidoResponse, Producto, Ruta, Usuario } from '../types';
 
-type Tab = 'usuarios' | 'rutas' | 'productos';
+type Tab = 'usuarios' | 'rutas' | 'productos' | 'pedidos';
 
 export default function AdminPage() {
     const { usuario } = useAuth();
@@ -21,6 +21,9 @@ export default function AdminPage() {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [successMsg, setSuccessMsg] = useState<string | null>(null);
+    const [allPedidos, setAllPedidos] = useState<PedidoResponse[]>([]);
+    const [selectedUsuarioId, setSelectedUsuarioId] = useState<string>('');
+    const [loadingAllPedidos, setLoadingAllPedidos] = useState(false);
 
     useEffect(() => {
         if (!usuario || usuario.rol !== 'admin') {
@@ -88,6 +91,21 @@ export default function AdminPage() {
         }
     };
 
+    const handleTabChange = async (t: Tab) => {
+        setTab(t);
+        if (t === 'pedidos' && allPedidos.length === 0) {
+            setLoadingAllPedidos(true);
+            try {
+                const res = await adminService.getAllPedidos();
+                setAllPedidos(res.data);
+            } catch {
+                setError('Error al cargar los pedidos');
+            } finally {
+                setLoadingAllPedidos(false);
+            }
+        }
+    };
+
     const startEditUsuario = (u: Usuario) => {
         setEditingUsuario(u);
         setEditForm({
@@ -138,24 +156,30 @@ export default function AdminPage() {
                     </div>
                 )}
 
-                <div className="flex gap-2 mb-6">
+                <div className="flex gap-2 mb-6 flex-wrap">
                     <button
-                        onClick={() => setTab('usuarios')}
+                        onClick={() => handleTabChange('usuarios')}
                         className={`px-6 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer border-none ${tab === 'usuarios' ? 'bg-accent text-white' : 'bg-white/10 text-white hover:bg-white/20'}`}
                     >
                         Usuarios ({usuarios.length})
                     </button>
                     <button
-                        onClick={() => setTab('rutas')}
+                        onClick={() => handleTabChange('rutas')}
                         className={`px-6 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer border-none ${tab === 'rutas' ? 'bg-accent text-white' : 'bg-white/10 text-white hover:bg-white/20'}`}
                     >
                         Rutas ({rutas.length})
                     </button>
                     <button
-                        onClick={() => setTab('productos')}
+                        onClick={() => handleTabChange('productos')}
                         className={`px-6 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer border-none ${tab === 'productos' ? 'bg-accent text-white' : 'bg-white/10 text-white hover:bg-white/20'}`}
                     >
                         Productos ({productos.length})
+                    </button>
+                    <button
+                        onClick={() => handleTabChange('pedidos')}
+                        className={`px-6 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer border-none ${tab === 'pedidos' ? 'bg-accent text-white' : 'bg-white/10 text-white hover:bg-white/20'}`}
+                    >
+                        Pedidos
                     </button>
                 </div>
 
@@ -463,6 +487,92 @@ export default function AdminPage() {
                                     )}
                                 </div>
                             </>
+                        )}
+
+                        {tab === 'pedidos' && (
+                            <div>
+                                <div className="mb-6">
+                                    <label htmlFor="usuario-select" className="block text-gray-300 text-sm font-medium mb-2">
+                                        Filtrar por usuario
+                                    </label>
+                                    <select
+                                        id="usuario-select"
+                                        value={selectedUsuarioId}
+                                        onChange={e => setSelectedUsuarioId(e.target.value)}
+                                        className="w-full max-w-xs px-3 py-2 bg-gray-900 border border-white/20 rounded-lg text-white text-sm focus:outline-none focus:border-accent"
+                                        style={{ backgroundColor: '#111827', color: '#ffffff' }}
+                                    >
+                                        <option value="">Todos los usuarios</option>
+                                        {usuarios.map(u => (
+                                            <option key={u.id_usuario} value={String(u.id_usuario)}>
+                                                {u.nombre_usuario} ({u.email})
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                {loadingAllPedidos ? (
+                                    <p className="text-white text-center py-16">Cargando pedidos...</p>
+                                ) : (() => {
+                                    const pedidosFiltrados = selectedUsuarioId
+                                        ? allPedidos.filter(p => String(p.id_usuario) === selectedUsuarioId)
+                                        : allPedidos;
+                                    return pedidosFiltrados.length === 0 ? (
+                                        <p className="text-gray-400 text-center py-16">
+                                            {selectedUsuarioId ? 'Este usuario no tiene pedidos' : 'No hay pedidos registrados'}
+                                        </p>
+                                    ) : (
+                                        <div className="space-y-4">
+                                            {pedidosFiltrados.map(pedido => (
+                                                <div key={pedido.id_pedido} className="bg-black/30 rounded-2xl p-5 border border-white/10">
+                                                    <div className="flex justify-between items-start mb-3">
+                                                        <div>
+                                                            <p className="text-white font-semibold">Pedido #{pedido.id_pedido}</p>
+                                                            <p className="text-gray-400 text-xs mt-0.5">
+                                                                {new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(pedido.fecha))}
+                                                            </p>
+                                                            {pedido.nombre_usuario && (
+                                                                <p className="text-gray-400 text-xs mt-0.5">
+                                                                    Usuario: <span className="text-gray-300">{pedido.nombre_usuario}</span>
+                                                                </p>
+                                                            )}
+                                                        </div>
+                                                        <div className="text-right">
+                                                            <p className="text-white font-bold text-lg" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                                                                {new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(pedido.total)}
+                                                            </p>
+                                                            <p className="text-gray-400 text-xs mt-0.5">{pedido.metodo_pago}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        {pedido.lineas.map(linea => (
+                                                            <div key={linea.id_producto} className="flex justify-between items-center text-sm">
+                                                                <div className="flex items-center gap-2 min-w-0">
+                                                                    {linea.imagen_producto && (
+                                                                        <img src={linea.imagen_producto} alt={linea.nombre_producto} width={32} height={32} className="w-8 h-8 rounded object-cover shrink-0" />
+                                                                    )}
+                                                                    <span className="text-gray-300 truncate">{linea.nombre_producto}</span>
+                                                                    <span className="text-gray-500 shrink-0">×{linea.cantidad}</span>
+                                                                </div>
+                                                                <span className="text-gray-300 shrink-0 ml-4" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                                                                    {new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(linea.subtotal)}
+                                                                </span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                    <div className="mt-3 pt-3 border-t border-white/10 flex flex-wrap gap-4 text-xs text-gray-400">
+                                                        <span>{pedido.tipo_envio.replace('_', ' ')}</span>
+                                                        <span className="truncate">{pedido.direccion_envio}</span>
+                                                        {pedido.gasto_envio > 0 && (
+                                                            <span>Envío: {new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(pedido.gasto_envio)}</span>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    );
+                                })()}
+                            </div>
                         )}
                     </>
                 )}

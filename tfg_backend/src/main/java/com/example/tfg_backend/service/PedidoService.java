@@ -95,6 +95,20 @@ public class PedidoService {
         }).toList();
     }
 
+    @Transactional(readOnly = true)
+    public List<PedidoResponse> getAllPedidos() {
+        List<Pedido> pedidos = pedidoRepository.findAllByOrderByFechaDesc();
+        return pedidos.stream().map(pedido -> {
+            List<LineaPedido> lineas = lineaPedidoRepository.findByIdPedido(pedido.getIdPedido());
+            PedidoResponse response = toPedidoResponse(pedido, lineas);
+            if (pedido.getUsuario() != null) {
+                response.setIdUsuario(pedido.getUsuario().getIdUsuario());
+                response.setNombreUsuario(pedido.getUsuario().getNombreUsuario());
+            }
+            return response;
+        }).toList();
+    }
+
     private PedidoResponse toPedidoResponse(Pedido pedido, List<LineaPedido> lineas) {
         List<LineaPedidoResponse> lineasResponse = lineas.stream()
                 .map(this::toLineaPedidoResponse)

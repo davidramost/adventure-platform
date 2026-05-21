@@ -150,6 +150,8 @@ export interface PedidoResponse {
     tipo_envio: TipoEnvio;
     metodo_pago: MetodoPago;
     lineas: LineaPedidoResponse[];
+    id_usuario?: number;
+    nombre_usuario?: string;
 }
 
 export type TipoEnvio = 'ESTANDAR' | 'EXPRESS' | 'RECOGIDA_PUNTO';

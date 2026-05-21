@@ -2,6 +2,7 @@ package com.example.tfg_backend.controller;
 
 import com.example.tfg_backend.dto.*;
 import com.example.tfg_backend.entity.Usuario;
+import com.example.tfg_backend.service.PedidoService;
 import com.example.tfg_backend.service.ProductoService;
 import com.example.tfg_backend.service.RutaService;
 import com.example.tfg_backend.service.UsuarioService;
@@ -23,6 +24,7 @@ public class AdminController {
     private final UsuarioService usuarioService;
     private final RutaService rutaService;
     private final ProductoService productoService;
+    private final PedidoService pedidoService;
 
     @GetMapping("/usuarios")
     public ResponseEntity<List<UsuarioResponse>> getAllUsuarios() {
@@ -81,5 +83,15 @@ public class AdminController {
     public ResponseEntity<Void> deleteProducto(@PathVariable Integer id) {
         productoService.deleteProducto(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/usuarios/{id}/pedidos")
+    public ResponseEntity<List<PedidoResponse>> getPedidosDeUsuario(@PathVariable Integer id) {
+        return ResponseEntity.ok(pedidoService.getMisPedidos(id));
+    }
+
+    @GetMapping("/pedidos")
+    public ResponseEntity<List<PedidoResponse>> getAllPedidos() {
+        return ResponseEntity.ok(pedidoService.getAllPedidos());
     }
 }
