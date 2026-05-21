@@ -1,5 +1,17 @@
 import {type ImgHTMLAttributes, useState} from 'react';
 
+function optimizeCloudinaryUrl(src: string, width?: number): string {
+    if (!src || !src.includes('res.cloudinary.com') || !width) return src;
+    const uploadMarker = '/upload/';
+    const idx = src.indexOf(uploadMarker);
+    if (idx === -1) return src;
+    const alreadyTransformed = /\/upload\/[a-z_,0-9]+\//.test(src.slice(idx + 1));
+    if (alreadyTransformed) return src;
+    const before = src.slice(0, idx + uploadMarker.length);
+    const after = src.slice(idx + uploadMarker.length);
+    return `${before}w_${width},q_auto,f_auto/${after}`;
+}
+
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     fallback?: string;
     containerClassName?: string;
@@ -15,6 +27,7 @@ export default function Image({
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
+    const optimizedSrc = optimizeCloudinaryUrl(props.src ?? '', props.width as number | undefined);
     const hasValidSrc = Boolean(props.src && props.src.trim() !== '');
 
     if (hasError || !hasValidSrc) {
@@ -41,6 +54,7 @@ export default function Image({
             )}
             <img
                 {...props}
+                src={optimizedSrc}
                 className={`${props.className ?? ''} ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-300'}`}
                 onLoad={(e) => {
                     setIsLoading(false);

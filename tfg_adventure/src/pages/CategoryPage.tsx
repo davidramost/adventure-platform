@@ -106,7 +106,26 @@ export default function CategoryPage() {
                 {/* ── CARD GRID ───────────────────────────────────────────── */}
                 <div className="px-[5%] py-10">
                     {loading ? (
-                        <p className="text-white text-center py-16">Cargando rutas...</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            {Array.from({ length: 8 }).map((_, i) => (
+                                <div key={i} className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden h-full flex flex-col">
+                                    <div className="relative h-44 bg-[#2a2a2a] overflow-hidden">
+                                        <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                    </div>
+                                    <div className="flex-1 p-4 flex flex-col gap-3">
+                                        <div className="h-4 w-3/4 rounded bg-white/10 overflow-hidden relative">
+                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                        </div>
+                                        <div className="h-3 w-1/2 rounded bg-white/10 overflow-hidden relative">
+                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                        </div>
+                                        <div className="h-3 w-2/3 rounded bg-white/10 overflow-hidden relative">
+                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     ) : filteredRutas.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {filteredRutas.map(ruta => (
