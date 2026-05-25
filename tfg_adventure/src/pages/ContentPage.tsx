@@ -26,6 +26,7 @@ export default function ContentPage() {
     const [resenas, setResenas] = useState<Resena[]>([]);
     const [comentario, setComentario] = useState('');
     const [puntuacion, setPuntuacion] = useState(0);
+    const [hoverPuntuacion, setHoverPuntuacion] = useState(0);
     const [gpxPoints, setGpxPoints] = useState<[number, number][]>([]);
 
     const idRuta = parseInt(id || '0');
@@ -262,14 +263,15 @@ export default function ContentPage() {
                                             <div className="mb-4">
                                                 <label
                                                     className="block text-white text-sm font-medium mb-2">Puntuación:</label>
-                                                <div className="flex flex-row-reverse justify-end gap-1">
-                                                    {[5, 4, 3, 2, 1].map(star => (
+                                                <div className="flex justify-start gap-1">
+                                                    {[1, 2, 3, 4, 5].map(star => (
                                                         <button
                                                             key={star}
                                                             type="button"
                                                             onClick={() => setPuntuacion(star)}
-                                                            className={`text-3xl bg-transparent border-none cursor-pointer transition-colors ${star <= puntuacion ? 'text-yellow-400' : 'text-gray-500'
-                                                                } hover:text-yellow-400`}
+                                                            onMouseEnter={() => setHoverPuntuacion(star)}
+                                                            onMouseLeave={() => setHoverPuntuacion(0)}
+                                                            className={`text-3xl bg-transparent border-none cursor-pointer transition-colors ${star <= (hoverPuntuacion || puntuacion) ? 'text-yellow-400' : 'text-gray-500'}`}
                                                         >
                                                             ★
                                                         </button>
