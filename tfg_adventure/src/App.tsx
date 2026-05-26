@@ -52,7 +52,7 @@ function App() {
                     path="/admin"
                     element={
                         <AdminRoute>
-z                            <Suspense fallback={
+                            <Suspense fallback={
                                 <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-primary-light to-primary-dark">
                                     <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin" />
                                 </div>
