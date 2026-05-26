@@ -9,15 +9,11 @@ interface AdminRouteProps {
 export default function AdminRoute({ children }: AdminRouteProps) {
     const { usuario, loading } = useAuth();
 
-    if (usuario && usuario.rol !== 'admin') {
-        return <NotFoundPage />;
+    if (usuario) {
+        return usuario.rol === 'admin' ? <>{children}</> : <NotFoundPage />;
     }
 
     if (loading) return null;
 
-    if (!usuario) {
-        return <NotFoundPage />;
-    }
-
-    return <>{children}</>;
+    return <NotFoundPage />;
 }
