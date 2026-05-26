@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import ToastContainer from './components/ToastContainer';
+import ServerUnavailableBanner from './components/ServerUnavailableBanner';
 import HomePage from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
 import ContentPage from './pages/ContentPage';
@@ -26,6 +27,7 @@ function App() {
         <>
             <ScrollToTop />
             <ToastContainer />
+            <ServerUnavailableBanner />
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/senderos" element={<CategoryPage />} />
