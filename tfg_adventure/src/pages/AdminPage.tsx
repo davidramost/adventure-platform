@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
@@ -23,12 +24,6 @@ export default function AdminPage() {
     const [successMsg, setSuccessMsg] = useState<string | null>(null);
     const [allPedidos, setAllPedidos] = useState<PedidoResponse[]>([]);
     const [selectedUsuarioId, setSelectedUsuarioId] = useState<string>('');
-
-    useEffect(() => {
-        if (!usuario || usuario.rol !== 'admin') {
-            navigate('/');
-        }
-    }, [usuario, navigate]);
 
     const fetchData = useCallback(async () => {
         setLoading(true);
@@ -123,8 +118,6 @@ export default function AdminPage() {
         }
     };
 
-    if (!usuario || usuario.rol !== 'admin') return null;
-
     return (
         <div className="min-h-screen flex flex-col bg-gradient-to-br from-primary-light to-primary-dark">
             <Header />
@@ -212,7 +205,7 @@ export default function AdminPage() {
                                                         >
                                                             Editar
                                                         </button>
-                                                        {u.id_usuario !== usuario.id_usuario && (
+                                                        {u.id_usuario !== usuario?.id_usuario && (
                                                             <button
                                                                 onClick={() => handleDeleteUsuario(u.id_usuario)}
                                                                 className="px-3 py-1.5 bg-red-600 hover:bg-red-500 rounded-lg text-xs font-medium transition-colors border-none cursor-pointer text-white"
@@ -258,7 +251,7 @@ export default function AdminPage() {
                                                     >
                                                         Editar
                                                     </button>
-                                                    {u.id_usuario !== usuario.id_usuario && (
+                                                    {u.id_usuario !== usuario?.id_usuario && (
                                                         <button
                                                             onClick={() => handleDeleteUsuario(u.id_usuario)}
                                                             className="flex-1 px-3 py-1.5 bg-red-600 hover:bg-red-500 rounded-lg text-xs font-medium transition-colors border-none cursor-pointer text-white"

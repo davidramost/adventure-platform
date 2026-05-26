@@ -1,7 +1,9 @@
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import ToastContainer from './components/ToastContainer';
 import ServerUnavailableBanner from './components/ServerUnavailableBanner';
+import AdminRoute from './components/AdminRoute';
 import HomePage from './pages/HomePage';
 import CategoryPage from './pages/CategoryPage';
 import ContentPage from './pages/ContentPage';
@@ -16,11 +18,12 @@ import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import NotFoundPage from './pages/NotFoundPage';
-import AdminPage from './pages/AdminPage';
 import CreateProductoPage from './pages/CreateProductoPage';
 import EditProductoPage from './pages/EditProductoPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+
+const AdminPage = lazy(() => import('./pages/AdminPage'));
 
 function App() {
     return (
@@ -45,7 +48,16 @@ function App() {
                 <Route path="/producto/:id" element={<ProductPage />} />
                 <Route path="/carrito" element={<CartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
-                <Route path="/admin" element={<AdminPage />} />
+                <Route
+                    path="/admin"
+                    element={
+                        <AdminRoute>
+                            <Suspense fallback={null}>
+                                <AdminPage />
+                            </Suspense>
+                        </AdminRoute>
+                    }
+                />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                 <Route path="/reset-password" element={<ResetPasswordPage />} />
                 <Route path="*" element={<NotFoundPage />} />
