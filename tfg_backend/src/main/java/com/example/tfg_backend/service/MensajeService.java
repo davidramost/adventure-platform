@@ -23,6 +23,7 @@ public class MensajeService {
         private final MensajeRepository mensajeRepository;
         private final RutaRepository rutaRepository;
         private final UsuarioRepository usuarioRepository;
+        private final SseService sseService;
 
         @Transactional(readOnly = true)
         public List<MensajeResponse> getMensajesByRuta(Integer idRuta) {
@@ -63,7 +64,9 @@ public class MensajeService {
                                 .fechaHora(LocalDateTime.now())
                                 .build();
                 mensaje = mensajeRepository.save(mensaje);
-                return toMensajeResponse(mensaje);
+                MensajeResponse response = toMensajeResponse(mensaje);
+                sseService.broadcast(response);
+                return response;
         }
 
         private MensajeResponse toMensajeResponse(Mensaje mensaje) {

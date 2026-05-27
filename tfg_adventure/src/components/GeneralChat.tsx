@@ -26,7 +26,6 @@ export default function GeneralChat() {
     const [sending, setSending] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [unreadCount, setUnreadCount] = useState(0);
-    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
     const messagesContainerRef = useRef<HTMLDivElement>(null);
     const isAtBottomRef = useRef(true);
     const prevMessagesLengthRef = useRef(0);
@@ -62,9 +61,31 @@ export default function GeneralChat() {
     useEffect(() => {
         if (!usuario) return;
         loadMessages();
-        intervalRef.current = setInterval(loadMessages, 5000);
+
+        const token = localStorage.getItem('token');
+        const apiBaseUrl = import.meta.env.VITE_API_URL || 'https://tfg-daw-smx4.onrender.com/api';
+        const eventSource = new EventSource(`${apiBaseUrl}/mensajes/general/stream?token=${token}`);
+
+        eventSource.addEventListener('mensaje', (event) => {
+            try {
+                const nuevoMensaje = JSON.parse(event.data) as Mensaje;
+                setMessages((prev) => {
+                    if (prev.some((m) => m.id_mensaje === nuevoMensaje.id_mensaje)) {
+                        return prev;
+                    }
+                    return [...prev, nuevoMensaje];
+                });
+            } catch (err) {
+                console.error('Error al parsear mensaje recibido vía SSE:', err);
+            }
+        });
+
+        eventSource.onerror = (err) => {
+            console.error('Error en conexión SSE (EventSource):', err);
+        };
+
         return () => {
-            if (intervalRef.current) clearInterval(intervalRef.current);
+            eventSource.close();
         };
     }, [usuario, loadMessages]);
 
