@@ -102,14 +102,14 @@ export default function LoginPage() {
                             </div>
                         </div>
 
-                        <div className="mb-6 flex items-center gap-2.5">
+                        <div className="mb-6 flex items-center justify-center gap-2.5">
                             <input
                                 type="checkbox"
                                 id="recordar"
                                 checked={recordar}
                                 onChange={e => setRecordar(e.target.checked)}
                                 disabled={loading}
-                                className="w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-4.5 h-4.5 disabled:opacity-50 disabled:cursor-not-allowed"
                             />
                             <label htmlFor="recordar" className="text-white text-sm cursor-pointer">Recordar mi email</label>
                         </div>
