@@ -75,6 +75,11 @@ export default function Header({ transparent = false }: { transparent?: boolean 
                             className="text-white no-underline text-sm font-medium tracking-wider hover:text-gray-300 transition-colors"
                             onClick={() => setMenuOpen(false)}
                         >
+                            <Link
+                                to="/tienda"
+                                className="text-white no-underline text-sm font-medium tracking-wider hover:text-gray-300 transition-colors"
+                                onClick={() => setMenuOpen(false)}
+                            ></Link>
                             TIENDA
                         </Link>
                     </li>
@@ -180,7 +185,7 @@ export default function Header({ transparent = false }: { transparent?: boolean 
                                                 setUserMenuOpen(false);
                                                 setLogoutMsg(true);
                                                 setTimeout(() => setLogoutMsg(false), 3000);
-                                                navigate('/');
+                                                navigate('/login');
                                             }}
                                             className="flex items-center gap-3 w-full text-left px-5 py-3 text-white text-sm bg-transparent border-none cursor-pointer hover:bg-white/10 transition-colors"
                                         >
