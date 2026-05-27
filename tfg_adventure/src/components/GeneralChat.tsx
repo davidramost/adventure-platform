@@ -109,7 +109,13 @@ export default function GeneralChat() {
         setError(null);
         try {
             const nuevo = await sendGeneralMessage(texto);
-            setMessages(prev => [...prev, nuevo]);
+            setMessages(prev => {
+                // Evitar duplicados por condición de carrera si el evento SSE llegó antes del retorno del POST
+                if (prev.some(m => m.id_mensaje === nuevo.id_mensaje)) {
+                    return prev;
+                }
+                return [...prev, nuevo];
+            });
             setInput('');
             isAtBottomRef.current = true;
         } catch {
