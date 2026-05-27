@@ -11,9 +11,9 @@ export default function LoginPage() {
     const navigate = useNavigate();
     const location = useLocation();
     const mensajeExito = (location.state as { mensaje?: string } | null)?.mensaje;
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(() => localStorage.getItem('email_recordado') || '');
     const [contrasena, setContrasena] = useState('');
-    const [recordar, setRecordar] = useState(false);
+    const [recordar, setRecordar] = useState(() => !!localStorage.getItem('email_recordado'));
     const [loading, setLoading] = useState(false);
 
     if (usuario) return <Navigate to="/" replace />;
@@ -111,8 +111,7 @@ export default function LoginPage() {
                                 disabled={loading}
                                 className="w-auto disabled:opacity-50 disabled:cursor-not-allowed"
                             />
-                            <label htmlFor="recordar" className="text-white text-sm cursor-pointer">Recordar mi
-                                email</label>
+                            <label htmlFor="recordar" className="text-white text-sm cursor-pointer">Recordar mi email</label>
                         </div>
 
                         <button
