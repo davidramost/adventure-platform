@@ -53,7 +53,7 @@ public class PhpMailerService {
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
             HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
 
-            log.warn("⚠️  SSL verification deshabilitado para PHPMailer - Solo para desarrollo/testing");
+            log.warn(" SSL verification deshabilitado para PHPMailer - Solo para desarrollo/testing");
         } catch (Exception e) {
             log.error("Error deshabilitando SSL: {}", e.getMessage());
         }
@@ -73,9 +73,9 @@ public class PhpMailerService {
             HttpEntity<Map<String, String>> request = new HttpEntity<>(payload, headers);
             String response = restTemplate.postForObject(phpMailerUrl, request, String.class);
 
-            log.info("✅ Email enviado via PHPMailer a: {}. Respuesta: {}", to, response);
+            log.info("Email enviado via PHPMailer a: {}. Respuesta: {}", to, response);
         } catch (Exception e) {
-            log.error("❌ Error enviando email via PHPMailer a {}: {}", to, e.getMessage(), e);
+            log.error("Error enviando email via PHPMailer a {}: {}", to, e.getMessage(), e);
         }
     }
 }
