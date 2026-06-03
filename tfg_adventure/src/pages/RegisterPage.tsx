@@ -61,6 +61,7 @@ export default function RegisterPage() {
             return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            addToast('Por favor, ingresa un correo electrónico válido.', 'error');
             return;
         }
         if (password !== confirmarPassword) {
@@ -236,7 +237,7 @@ export default function RegisterPage() {
                                             <img src="/Img/Icons/mail.png" alt="Email"
                                                 className="absolute left-4 top-1/2 -translate-y-1/2 w-5.5 h-5.5" />
                                             <input
-                                                type="email"
+                                                type="text"
                                                 id="email"
                                                 autoComplete="email"
                                                 value={email}

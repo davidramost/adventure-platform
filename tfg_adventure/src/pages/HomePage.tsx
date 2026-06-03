@@ -111,21 +111,6 @@ export default function HomePage() {
                             en el que
                             vivimos, los animales, las plantas, todo aquello que hace posible la vida en este planeta.
                         </p>
-                        <Link
-                            to="/info"
-                            className="inline-flex items-center text-primary-dark no-underline text-lg font-medium
-                         hover:text-primary-light transition-colors group"
-                        >
-                            Sobre el proyecto
-                            <span className="ml-3 w-8 h-8 rounded-full bg-primary-dark flex items-center justify-center
-                              group-hover:bg-primary-light group-hover:translate-x-1 transition-all">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                    stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </span>
-                        </Link>
                     </div>
 
                     <div className="lg:w-1/2">
