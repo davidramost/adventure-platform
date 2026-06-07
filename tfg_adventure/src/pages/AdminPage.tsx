@@ -530,7 +530,7 @@ export default function AdminPage() {
                                                             <div key={linea.id_producto} className="flex justify-between items-center text-sm">
                                                                 <div className="flex items-center gap-2 min-w-0">
                                                                     {linea.imagen_producto && (
-                                                                        <img src={linea.imagen_producto} alt={linea.nombre_producto} width={32} height={32} className="w-8 h-8 rounded object-cover shrink-0" />
+                                                                        <img src={linea.imagen_producto} alt={linea.nombre_producto} width={56} height={56} className="w-14 h-14 rounded object-cover shrink-0" />
                                                                     )}
                                                                     <span className="text-gray-300 truncate">{linea.nombre_producto}</span>
                                                                     <span className="text-gray-500 shrink-0">×{linea.cantidad}</span>
