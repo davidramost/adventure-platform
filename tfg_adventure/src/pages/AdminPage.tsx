@@ -236,7 +236,7 @@ export default function AdminPage() {
                                                         <p className="text-white font-semibold text-sm">{u.nombre_usuario}</p>
                                                     </div>
                                                     <span
-                                                        className={`px-2 py-0.5 rounded text-xs font-semibold ${u.rol === 'admin' ? 'bg-purple-600' : 'bg-gray-600'}`}>
+                                                        className={`px-2 py-0.5 rounded text-xs font-semibold ${u.rol === 'admin' ? 'bg-purple-500' : 'bg-gray-300'}`}>
                                                         {u.rol}
                                                     </span>
                                                 </div>
@@ -335,7 +335,7 @@ export default function AdminPage() {
                                                         <p className="text-white font-semibold text-sm">{p.nombre}</p>
                                                     </div>
                                                     <span
-                                                        className="px-2 py-0.5 rounded text-xs font-semibold bg-gray-600">{p.categoria}</span>
+                                                        className="px-2 py-0.5 rounded text-xs font-semibold bg-gray-300">{p.categoria}</span>
                                                 </div>
                                                 <div className="text-xs text-gray-300 space-y-1">
                                                     <p><span
