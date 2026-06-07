@@ -82,6 +82,6 @@ export const cloudinaryService = {
     },
 
     getPlaceholderAvatar(seed: string = 'default'): string {
-        return `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(seed)}&scale=80`;
+        return '/Img/default_avatar.png';
     },
 };
