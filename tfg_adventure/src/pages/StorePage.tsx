@@ -56,16 +56,23 @@ export default function StorePage() {
                         Tienda de Aventura
                     </h1>
                     <div className="flex items-center gap-3 mx-auto md:mx-0 flex-wrap justify-center">
-                        <select
-                            value={categoriaFiltro}
-                            onChange={e => setCategoriaFiltro(e.target.value)}
-                            className="bg-[#555] border-none text-white px-4 py-2.5 text-sm rounded outline-none focus:ring-1 focus:ring-white/50 cursor-pointer"
-                        >
-                            <option value="">Todas las categorías</option>
-                            {categorias.map(cat => (
-                                <option key={cat} value={cat}>{cat}</option>
-                            ))}
-                        </select>
+                        <div className="relative h-10">
+                            <select
+                                value={categoriaFiltro}
+                                onChange={e => setCategoriaFiltro(e.target.value)}
+                                className="bg-[#555] border-none text-white pl-4 pr-10 py-2.5 text-sm rounded outline-none focus:ring-1 focus:ring-white/50 cursor-pointer h-full appearance-none"
+                            >
+                                <option value="">Todas las categorías</option>
+                                {categorias.map(cat => (
+                                    <option key={cat} value={cat}>{cat}</option>
+                                ))}
+                            </select>
+                            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-white/80">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
                         <div className="flex items-center bg-[#555] rounded overflow-visible focus-within:ring-1 focus-within:ring-white/50 focus-within:shadow-lg h-10">
                             <input
                                 type="text"

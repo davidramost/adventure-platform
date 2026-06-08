@@ -47,7 +47,7 @@ export default function ProfilePage() {
     }
 
     const userFavorites = rutas.filter(r => esFavorito(r.id_ruta));
-    const avatarUrl = usuario.imagen || cloudinaryService.getPlaceholderAvatar(usuario.nombre_usuario);
+    const avatarUrl = usuario.imagen || cloudinaryService.getPlaceholderAvatar();
 
     const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

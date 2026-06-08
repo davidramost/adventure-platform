@@ -81,7 +81,7 @@ export const cloudinaryService = {
         return uploadRawToCloudinary(file, 'tfg_adventure/gpx');
     },
 
-    getPlaceholderAvatar(seed: string = 'default'): string {
+    getPlaceholderAvatar(): string {
         return '/Img/default_avatar.png';
     },
 };
