@@ -92,50 +92,53 @@ export default function ProductPage() {
                     Volver a la tienda
                 </Link>
 
-                <div
-                    className="bg-surface rounded-2xl overflow-hidden border border-[#333] flex flex-col md:flex-row shadow-2xl">
-                    {/* Image */}
-                    <div className="md:w-2/5 relative overflow-hidden h-[280px] md:h-[500px]">
-                        <Image
-                            src={producto.imagen}
-                            alt={producto.nombre}
-                            containerClassName="w-full h-full"
-                            className="w-full h-full object-cover"
-                        />
-                        <div
-                            className="absolute top-4 left-4 bg-primary-dark text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-lg">
+                <div className="bg-surface rounded-2xl overflow-hidden border border-[#333] flex flex-col md:flex-row shadow-2xl items-stretch">
+                    {/* Image Container */}
+                    <div className="w-full md:w-2/5 relative min-h-[300px] md:min-h-full">
+                        <div className="absolute inset-0">
+                            <Image
+                                src={producto.imagen}
+                                alt={producto.nombre}
+                                containerClassName="w-full h-full"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                        <div className="absolute top-4 left-4 bg-primary-dark text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-lg z-10">
                             {producto.categoria}
                         </div>
                     </div>
 
-                    {/* Details */}
-                    <div className="md:w-3/5 p-8 md:p-12 flex flex-col">
-                        <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                            <h1 className="text-white text-2xl md:text-3xl font-bold">{producto.nombre}</h1>
-                            {usuario?.rol === 'admin' && (
-                                <Link
-                                    to={`/producto/${producto.id_producto}/editar`}
-                                    state={{ from: 'product' }}
-                                    className="px-4 py-2 bg-accent hover:bg-accent/80 text-white rounded-lg text-sm font-medium transition-colors flex-shrink-0 no-underline"
-                                >
-                                    Editar producto
-                                </Link>
-                            )}
-                        </div>
-                        <div className="mb-6">
-                            <span className="text-gray-400 text-sm font-medium block mb-2">PRECIO</span>
-                            <p className="text-white text-4xl md:text-5xl font-bold tracking-tight">
-                                {producto.precio.toFixed(2)}
-                                <span className="text-2xl md:text-3xl ml-2">€</span>
-                            </p>
+                    {/* Details Container */}
+                    <div className="w-full md:w-3/5 p-6 sm:p-8 md:p-12 flex flex-col justify-between">
+                        <div>
+                            <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                                <h1 className="text-white text-2xl md:text-3xl font-bold">{producto.nombre}</h1>
+                                {usuario?.rol === 'admin' && (
+                                    <Link
+                                        to={`/producto/${producto.id_producto}/editar`}
+                                        state={{ from: 'product' }}
+                                        className="px-4 py-2 bg-accent hover:bg-accent/80 text-white rounded-lg text-sm font-medium transition-colors flex-shrink-0 no-underline"
+                                    >
+                                        Editar producto
+                                    </Link>
+                                )}
+                            </div>
+
+                            <div className="mb-6">
+                                <span className="text-gray-400 text-sm font-medium block mb-2">PRECIO</span>
+                                <p className="text-white text-4xl md:text-5xl font-bold tracking-tight">
+                                    {producto.precio.toFixed(2)}
+                                    <span className="text-2xl md:text-3xl ml-2">€</span>
+                                </p>
+                            </div>
+
+                            <div className="mb-6">
+                                <h3 className="text-white text-base mb-2 font-medium">Descripción</h3>
+                                <p className="text-[#bbb] leading-relaxed text-sm">{producto.descripcion}</p>
+                            </div>
                         </div>
 
-                        <div className="mb-6">
-                            <h3 className="text-white text-base mb-2 font-medium">Descripción</h3>
-                            <p className="text-[#bbb] leading-relaxed text-sm">{producto.descripcion}</p>
-                        </div>
-
-                        <div className="mt-auto border-t border-white/10 pt-6">
+                        <div className="border-t border-white/10 pt-6 mt-6 md:mt-8">
                             <div className="mb-6">
                                 <label className="block text-gray-300 text-sm font-medium mb-3">Cantidad:</label>
                                 <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -147,8 +150,7 @@ export default function ProductPage() {
                                         >
                                             -
                                         </button>
-                                        <span
-                                            className="text-white px-2 py-2 font-medium w-12 text-center border-l border-r border-[#444] bg-[#1a1a1a]">
+                                        <span className="text-white px-2 py-2 font-medium w-12 text-center border-l border-r border-[#444] bg-[#1a1a1a]">
                                             {cantidad}
                                         </span>
                                         <button
@@ -159,8 +161,7 @@ export default function ProductPage() {
                                             +
                                         </button>
                                     </div>
-                                    <span
-                                        className="text-xs sm:text-sm text-gray-400 whitespace-nowrap">({producto.stock} disponibles)</span>
+                                    <span className="text-xs sm:text-sm text-gray-400 whitespace-nowrap">({producto.stock} disponibles)</span>
                                 </div>
                             </div>
 
@@ -169,9 +170,7 @@ export default function ProductPage() {
                                 disabled={producto.stock === 0}
                                 className={`w-full font-bold py-4 rounded-xl transition-colors text-lg shadow-lg text-white flex items-center justify-center gap-2 cursor-pointer border-none ${producto.stock === 0 ? 'bg-gray-600 opacity-50 cursor-not-allowed' : 'bg-primary-dark hover:bg-primary-light text-white'}`}
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-                                    strokeLinejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="9" cy="21" r="1"></circle>
                                     <circle cx="20" cy="21" r="1"></circle>
                                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>

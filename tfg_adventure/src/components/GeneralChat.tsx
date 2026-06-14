@@ -54,7 +54,7 @@ export default function GeneralChat() {
             const data = await getGeneralMessages();
             setMessages(data);
         } catch {
-            // silencioso en polling
+            console.error('Error al cargar mensajes generales');
         }
     }, []);
 

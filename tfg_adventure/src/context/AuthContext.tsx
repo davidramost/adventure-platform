@@ -1,10 +1,10 @@
-import type {ReactNode} from 'react';
-import {createContext, useCallback, useContext, useEffect, useState} from 'react';
-import type {Ruta, RutaRequest, Usuario} from '../types';
+import type { ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import type { Ruta, RutaRequest, Usuario } from '../types';
 import * as authService from '../services/authService';
 import * as rutaService from '../services/rutaService';
 import * as favoritoService from '../services/favoritoService';
-import {usuarioService} from '../services/usuarioService';
+import { usuarioService } from '../services/usuarioService';
 
 interface AuthContextType {
     usuario: Usuario | null;
@@ -25,7 +25,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export function AuthProvider({children}: { children: ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
     const [usuario, setUsuario] = useState<Usuario | null>(() => {
         const saved = localStorage.getItem('usuario');
         return saved ? JSON.parse(saved) : null;
@@ -66,7 +66,7 @@ export function AuthProvider({children}: { children: ReactNode }) {
 
     const login = async (email: string, password: string): Promise<string | null> => {
         try {
-            const res = await authService.login({email, password});
+            const res = await authService.login({ email, password });
             localStorage.setItem('token', res.token);
             localStorage.setItem('usuario', JSON.stringify(res.usuario));
             setUsuario(res.usuario);
@@ -142,7 +142,7 @@ export function AuthProvider({children}: { children: ReactNode }) {
             localStorage.setItem('usuario', JSON.stringify(updatedUsuario));
             setUsuario(updatedUsuario);
         } catch {
-            // silently fail
+            console.error('Error al refrescar usuario');
         }
     };
 
