@@ -59,7 +59,7 @@ public class SecurityConfig {
                 "http://localhost:5173",
                 "http://localhost:3000",
                 "http://localhost:3001",
-                "https://davidr.cicloflorenciopintado.es",
+                "https://adventure-web-project.netlify.app/",
                 "https://tfg-daw-smx4.onrender.com"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
