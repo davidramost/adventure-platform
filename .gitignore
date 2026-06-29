@@ -6,3 +6,12 @@
 # PHP Mailer config (contiene credenciales)
 php-mailer/mail-config.php
 php-mailer/vendor/
+# Entornos
+.env
+tfg_backend/.env
+
+# Spring Boot
+tfg_backend/target/
+
+# VSCode config
+.vscode/sftp.json

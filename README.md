@@ -86,13 +86,6 @@ TFG_DAW/
 
 ---
 
-## 📚 Documentación
-
-- `ARQUITECTURA_INTEGRACION.md` — Diseño técnico completo
-- `GUIA_DESPLIEGUE.md` — Instrucciones de deployment
-- `QUICK_START_AGENTS.md` — Guía para contribuidores
-
----
 
 ## 👨‍💻 Autor
 
