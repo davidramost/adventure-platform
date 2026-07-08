@@ -1,4 +1,4 @@
-# TFG Adventure 🥾
+# Adventure 🥾
 
 Aplicación web de rutas de senderismo con gestión de favoritos, comentarios y tienda de productos. Un proyecto fullstack moderno con arquitectura cliente-servidor.
 
