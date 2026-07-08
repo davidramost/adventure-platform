@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import ToastContainer from './components/ToastContainer';
@@ -26,6 +26,33 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 
 function App() {
+    const [isServerReady, setIsServerReady] = useState(false);
+
+    useEffect(() => {
+        const checkServer = async () => {
+            const baseUrl = import.meta.env.VITE_API_URL || 'https://tfg-daw-smx4.onrender.com/api';
+            try {
+                await fetch(`${baseUrl}/health`);
+                setIsServerReady(true);
+            } catch (error) {
+                setIsServerReady(true);
+            }
+        };
+        checkServer();
+    }, []);
+
+    if (!isServerReady) {
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-primary-light to-primary-dark">
+                <div className="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin mb-4" />
+                <p className="text-white text-lg font-semibold animate-pulse text-center px-4">
+                    Despertando al servidor... <br/>
+                    <span className="text-sm font-normal opacity-80">(Esto puede tardar hasta 50 segundos la primera vez)</span>
+                </p>
+            </div>
+        );
+    }
+
     return (
         <>
             <ScrollToTop />
