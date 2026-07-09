@@ -2,6 +2,8 @@
 
 Aplicación web de rutas de senderismo con gestión de favoritos, comentarios y tienda de productos. Un proyecto fullstack moderno con arquitectura cliente-servidor.
 
+**Trabajo de Fin de Grado (DAW) - 2026**
+
 ---
 
 ## 🎯 Características principales
@@ -55,6 +57,7 @@ npm run dev
 ### Base de datos
 - Ejecuta `rutas_app.sql` para crear esquema
 - Carga datos de ejemplo con `datos_rutas.sql`
+- Crea un archivo `.env` en cada carpeta con tus credenciales locales (ver `.env.example` si existe)
 
 ---
 
@@ -89,8 +92,14 @@ TFG_DAW/
 
 ## 👨‍💻 Autor
 
-David Ramos — Trabajo de Fin de Grado (DAW)
+David Ramos — Trabajo de Fin de Grado (DAW) 2025-2026
 
 ---
 
-**Última actualización:** Mayo 2026
+## 📄 Licencia
+
+Este proyecto es código académico de uso educativo. Consulta el archivo `LICENSE` para más detalles.
+
+---
+
+**Última actualización:** Julio 2026
