@@ -26,9 +26,14 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 
 function App() {
-    const [isServerReady, setIsServerReady] = useState(false);
+    const [isServerReady, setIsServerReady] = useState(() => {
+        return sessionStorage.getItem('serverReady') === 'true';
+    });
 
     useEffect(() => {
+        // If already marked as ready in this session, no need to check again and delay rendering
+        if (isServerReady) return;
+
         let isMounted = true;
         
         const checkServer = async () => {
@@ -39,6 +44,7 @@ function App() {
                 try {
                     const response = await fetch(`${baseUrl}/health`);
                     if (response.ok && isMounted) {
+                        sessionStorage.setItem('serverReady', 'true');
                         setIsServerReady(true);
                     } else if (isMounted) {
                         throw new Error('Server not ready yet');
@@ -60,7 +66,7 @@ function App() {
         return () => {
             isMounted = false;
         };
-    }, []);
+    }, [isServerReady]);
 
     if (!isServerReady) {
         return (
