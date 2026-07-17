@@ -26,7 +26,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
-    private final PhpMailerService phpMailerService;
+    private final MailService mailService;
 
     @Value("${app.frontend.url}")
     private String frontendUrl;
@@ -115,7 +115,7 @@ public class AuthService {
         String subject = "Recuperación de contraseña - Adventure";
         String body = buildPasswordResetEmailHtml(nombreUsuario, resetLink);
 
-        phpMailerService.sendEmail(toEmail, subject, body);
+        mailService.sendEmail(toEmail, subject, body);
     }
 
     private String buildPasswordResetEmailHtml(String nombreUsuario, String resetLink) {
