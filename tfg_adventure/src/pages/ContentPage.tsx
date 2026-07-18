@@ -6,9 +6,10 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import * as resenaService from '../services/resenaService';
+import * as rutaService from '../services/rutaService';
 import { useWeather } from '../hooks/useWeather';
 import { useToast } from '../hooks/useToast';
-import type { Resena } from '../types';
+import type { Resena, Ruta } from '../types';
 
 function FitBoundsToTrack({ points }: { points: [number, number][] }) {
     const map = useMap();
@@ -28,9 +29,12 @@ export default function ContentPage() {
     const [puntuacion, setPuntuacion] = useState(0);
     const [hoverPuntuacion, setHoverPuntuacion] = useState(0);
     const [gpxPoints, setGpxPoints] = useState<[number, number][]>([]);
+    const [rutaFallback, setRutaFallback] = useState<Ruta | null>(null);
+    const [fallbackChecked, setFallbackChecked] = useState(false);
 
     const idRuta = parseInt(id || '0');
-    const ruta = rutas.find(r => r.id_ruta === idRuta);
+    const rutaFromContext = rutas.find(r => r.id_ruta === idRuta);
+    const ruta = rutaFromContext ?? rutaFallback ?? undefined;
     const { weather, loading: weatherLoading } = useWeather(
         ruta?.latitud ?? null,
         ruta?.longitud ?? null
@@ -41,6 +45,28 @@ export default function ContentPage() {
             resenaService.getResenasByRuta(idRuta).then(setResenas).catch(() => setResenas([]));
         }
     }, [idRuta]);
+
+    useEffect(() => {
+        if (loading || rutaFromContext || idRuta <= 0) {
+            setFallbackChecked(true);
+            return;
+        }
+        let cancelled = false;
+        setFallbackChecked(false);
+        rutaService.getRutaById(idRuta)
+            .then(data => {
+                if (!cancelled) setRutaFallback(data);
+            })
+            .catch(() => {
+                if (!cancelled) setRutaFallback(null);
+            })
+            .finally(() => {
+                if (!cancelled) setFallbackChecked(true);
+            });
+        return () => {
+            cancelled = true;
+        };
+    }, [idRuta, loading, rutaFromContext]);
 
     useEffect(() => {
         if (!ruta?.gpx_url) return;
@@ -59,7 +85,7 @@ export default function ContentPage() {
             .catch(() => setGpxPoints([]));
     }, [ruta?.gpx_url]);
 
-    if (loading) {
+    if (loading || (!ruta && !fallbackChecked)) {
         return (
             <div className="flex flex-col min-h-screen">
                 <header className="bg-gradient-to-br from-primary-light to-primary-dark">
