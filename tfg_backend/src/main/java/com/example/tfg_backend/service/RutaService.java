@@ -150,7 +150,7 @@ public class RutaService {
     }
 
     public List<RutaResponse> getMyRutas(Integer idUsuario) {
-        Usuario usuario = usuarioRepository.findById(idUsuario)
+        usuarioRepository.findById(idUsuario)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
         List<Ruta> rutas = rutaRepository.findByUsuarioIdUsuario(idUsuario);
         return toRutaResponseList(rutas);

@@ -48,11 +48,11 @@ export default function CategoryPage() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <header className="bg-gradient-to-br from-primary-light to-primary-dark">
-                <Header transparent />
+            <header className="bg-linear-to-br from-primary-light to-primary-dark">
+<Header transparent />
             </header>
 
-            <main className="flex-1 bg-gradient-to-br from-primary-light to-primary-dark">
+            <main className="flex-1 bg-linear-to-br from-primary-light to-primary-dark">
 
                 {/* ── HERO ───────────────────────────────────────────────── */}
                 <div className="px-[5%] pt-14 pb-12 text-center">
@@ -110,17 +110,17 @@ export default function CategoryPage() {
                             {Array.from({ length: 8 }).map((_, i) => (
                                 <div key={i} className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden h-full flex flex-col">
                                     <div className="relative h-44 bg-[#2a2a2a] overflow-hidden">
-                                        <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                        <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-linear-to-r from-transparent via-white/8 to-transparent" />
                                     </div>
                                     <div className="flex-1 p-4 flex flex-col gap-3">
                                         <div className="h-4 w-3/4 rounded bg-white/10 overflow-hidden relative">
-                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-linear-to-r from-transparent via-white/8 to-transparent" />
                                         </div>
                                         <div className="h-3 w-1/2 rounded bg-white/10 overflow-hidden relative">
-                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-linear-to-r from-transparent via-white/8 to-transparent" />
                                         </div>
                                         <div className="h-3 w-2/3 rounded bg-white/10 overflow-hidden relative">
-                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
+                                            <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite] bg-linear-to-r from-transparent via-white/8 to-transparent" />
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@ export default function CategoryPage() {
                                             className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300"
                                         />
                                         <div
-                                            className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                                            className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
 
                                         {/* Difficulty badge */}
                                         <span
