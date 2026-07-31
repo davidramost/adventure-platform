@@ -17,17 +17,23 @@ WORKDIR /app
 # Copiar el JAR desde la etapa de build
 COPY --from=build /app/target/*.jar app.jar
 
-# Configurar variables de entorno por defecto (Render sobreescribe estas)
-ENV SPRING_PROFILES_ACTIVE=prod \
-    DB_HOST=gateway01.eu-central-1.prod.aws.tidbcloud.com \
-    DB_PORT=4000 \
-    DB_NAME=rutas_app \
-    DB_USER=${DB_USER} \
-    DB_PASSWORD=${DB_PASSWORD}
+# Configurar memoria de Java (Render proporciona 512MB-1GB)
+ENV JAVA_OPTS="-Xmx256m -Xms128m"
 
-# Exponer el puerto (Render lo sobreescribe con $PORT)
+# Spring Boot profile (prod siempre en Render)
+ENV SPRING_PROFILES_ACTIVE=prod
+
+# Los secretos vienen de Render via variables de entorno:
+# - SPRING_DATASOURCE_URL
+# - SPRING_DATASOURCE_USERNAME
+# - SPRING_DATASOURCE_PASSWORD
+# - JWT_SECRET
+# - JWT_EXPIRATION
+# - MAIL_HOST, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_FROM
+# - FRONTEND_URL
+
+# Exponer el puerto (Render inyecta PORT=10000)
 EXPOSE 8080
 
-
-# Ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Ejecutar la aplicación con timeouts y heap dump si falla
+ENTRYPOINT ["java", "-XX:+UseG1GC", "-XX:MaxGCPauseMillis=200", "-Djava.awt.headless=true", "-jar", "app.jar"]
