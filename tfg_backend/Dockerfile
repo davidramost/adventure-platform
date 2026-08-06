@@ -17,8 +17,8 @@ WORKDIR /app
 # Copiar el JAR desde la etapa de build
 COPY --from=build /app/target/*.jar app.jar
 
-# Configurar memoria de Java (Render proporciona 512MB-1GB)
-ENV JAVA_OPTS="-Xmx256m -Xms128m"
+# Configurar memoria de Java (optimizada para Render)
+ENV JAVA_OPTS="-Xmx512m -Xms256m -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:+ParallelRefProcEnabled -Djava.awt.headless=true"
 
 # Spring Boot profile (prod siempre en Render)
 ENV SPRING_PROFILES_ACTIVE=prod
@@ -35,5 +35,5 @@ ENV SPRING_PROFILES_ACTIVE=prod
 # Exponer el puerto (Render inyecta PORT=10000)
 EXPOSE 8080
 
-# Ejecutar la aplicación con timeouts y heap dump si falla
-ENTRYPOINT ["java", "-XX:+UseG1GC", "-XX:MaxGCPauseMillis=200", "-Djava.awt.headless=true", "-jar", "app.jar"]
+# Ejecutar la aplicación
+ENTRYPOINT ["java", "-XX:+UseG1GC", "-XX:MaxGCPauseMillis=100", "-XX:+ParallelRefProcEnabled", "-Djava.awt.headless=true", "-jar", "app.jar"]
