@@ -36,4 +36,12 @@ ENV SPRING_PROFILES_ACTIVE=prod
 EXPOSE 8080
 
 # Ejecutar la aplicación
-ENTRYPOINT ["java", "-XX:+UseG1GC", "-XX:MaxGCPauseMillis=100", "-XX:+ParallelRefProcEnabled", "-Djava.awt.headless=true", "-jar", "app.jar"]
+ENTRYPOINT ["java", \
+  "-XX:+UseSerialGC", \
+  "-Xmx220m", \
+  "-Xms32m", \
+  "-XX:MaxMetaspaceSize=100m", \
+  "-XX:ReservedCodeCacheSize=64m", \
+  "-Xss256k", \
+  "-Djava.awt.headless=true", \
+  "-jar", "app.jar"]
