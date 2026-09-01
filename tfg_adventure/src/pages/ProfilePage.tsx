@@ -65,10 +65,11 @@ export default function ProfilePage() {
             await usuarioService.uploadAvatar(cloudinaryUrl);
             await refreshUsuario();
             setSuccessMessage('Foto de perfil actualizada correctamente');
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('❌ Error completo:', error);
-            console.error('Mensaje:', error.message);
-            console.error('Response data:', error.response?.data);
+            const axiosError = error as { message?: string; response?: { data?: unknown } };
+            console.error('Mensaje:', axiosError.message);
+            console.error('Response data:', axiosError.response?.data);
             setUploadError('Error al subir la foto. Intenta de nuevo.');
         } finally {
             setIsLoading(false);
@@ -97,8 +98,7 @@ export default function ProfilePage() {
             });
             await refreshUsuario();
             setSuccessMessage('Datos personales actualizados correctamente');
-        } catch (error) {
-            setUploadError('Error al actualizar los datos personales');
+        } catch {
             setPersonalInfo({
                 nombre: usuario?.nombre || '',
                 apellido: usuario?.apellido || '',
@@ -401,7 +401,6 @@ export default function ProfilePage() {
                                                             alt={linea.nombre_producto}
                                                             containerClassName="w-12 h-12 rounded-lg flex-shrink-0"
                                                             className="w-12 h-12 rounded-lg object-cover"
-                                                            fallbackSize={28}
                                                         />
                                                         <div className="flex-1 min-w-0">
                                                             <p className="text-white text-sm font-medium truncate">{linea.nombre_producto}</p>

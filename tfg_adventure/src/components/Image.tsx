@@ -15,13 +15,11 @@ function optimizeCloudinaryUrl(src: string, width?: number): string {
 interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     fallback?: string;
     containerClassName?: string;
-    fallbackSize?: number;
 }
 
 export default function Image({
                                   fallback = '/Img/Icons/sin-imagen.png',
                                   containerClassName = '',
-                                  fallbackSize = 50,
                                   ...props
                               }: ImageProps) {
     const [hasError, setHasError] = useState(false);

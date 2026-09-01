@@ -9,6 +9,7 @@ import * as resenaService from '../services/resenaService';
 import * as rutaService from '../services/rutaService';
 import { useWeather } from '../hooks/useWeather';
 import { useToast } from '../hooks/useToast';
+import { getErrorMessage } from '../utils/getErrorMessage';
 import type { Resena, Ruta } from '../types';
 
 function FitBoundsToTrack({ points }: { points: [number, number][] }) {
@@ -138,8 +139,8 @@ export default function ContentPage() {
             addToast('¡Reseña publicada con éxito!', 'success');
             setComentario('');
             setPuntuacion(0);
-        } catch (err: any) {
-            addToast(err.response?.data?.message || 'Error al publicar la reseña.', 'error');
+        } catch (err: unknown) {
+            addToast(getErrorMessage(err, 'Error al publicar la reseña.'), 'error');
         }
     };
 

@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import { cloudinaryService } from '../services/cloudinaryService';
 import { useToast } from '../hooks/useToast';
+import { getErrorMessage } from '../utils/getErrorMessage';
 
 export default function CreatePage() {
     const { usuario, addRuta } = useAuth();
@@ -136,8 +137,8 @@ export default function CreatePage() {
                 nombre_ubicacion: form.ubicacionRuta,
             });
             navigate('/');
-        } catch (err: any) {
-            addToast(err.response?.data?.message || 'Error al crear la ruta.', 'error');
+        } catch (err: unknown) {
+            addToast(getErrorMessage(err, 'Error al crear la ruta.'), 'error');
             setLoading(false);
         }
     };

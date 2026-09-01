@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { getRutaById } from '../services/rutaService';
 import { cloudinaryService } from '../services/cloudinaryService';
 import { useToast } from '../hooks/useToast';
+import { getErrorMessage } from '../utils/getErrorMessage';
 
 export default function EditRutaPage() {
     const { usuario, updateRuta } = useAuth();
@@ -88,7 +89,7 @@ export default function EditRutaPage() {
                     addToast('No tienes permiso para editar esta ruta.', 'error');
                     setTimeout(() => navigate('/senderos'), 2000);
                 }
-            } catch (err: any) {
+            } catch (err: unknown) {
                 addToast('Error al cargar la ruta.', 'error');
                 console.error(err);
             } finally {
@@ -211,8 +212,8 @@ export default function EditRutaPage() {
                 nombre_ubicacion: form.ubicacionRuta,
             });
             navigate(from === 'admin' ? '/admin' : `/ruta/${id}`);
-        } catch (err: any) {
-            addToast(err.response?.data?.message || 'Error al actualizar la ruta.', 'error');
+        } catch (err: unknown) {
+            addToast(getErrorMessage(err, 'Error al actualizar la ruta.'), 'error');
             setSubmitting(false);
         }
     };

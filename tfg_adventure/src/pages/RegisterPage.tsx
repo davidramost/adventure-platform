@@ -14,7 +14,6 @@ export default function RegisterPage() {
     const { validateProfileData, normalizeProfileData } = useProfileValidation();
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    if (usuario) return <Navigate to="/" replace />;
     const [nombreUsuario, setNombreUsuario] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,6 +25,8 @@ export default function RegisterPage() {
     const [loading, setLoading] = useState(false);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
+
+    if (usuario) return <Navigate to="/" replace />;
 
     const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -134,7 +135,7 @@ export default function RegisterPage() {
             } else {
                 navigate('/');
             }
-        } catch (err: any) {
+        } catch {
             addToast('Error al subir la foto de perfil. Intenta de nuevo.', 'error');
             setLoading(false);
         }

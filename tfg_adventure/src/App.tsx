@@ -49,7 +49,7 @@ function App() {
                     } else if (isMounted) {
                         throw new Error('Server not ready yet');
                     }
-                } catch (error) {
+                } catch {
                     if (isMounted && retries > 0) {
                         setTimeout(() => ping(retries - 1), 5000);
                     } else if (isMounted) {

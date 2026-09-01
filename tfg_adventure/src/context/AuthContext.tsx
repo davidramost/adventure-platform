@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import type { AxiosError } from 'axios';
 import type { Ruta, RutaRequest, Usuario } from '../types';
 import * as authService from '../services/authService';
 import * as rutaService from '../services/rutaService';
@@ -48,8 +49,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         try {
             const favRutas = await favoritoService.getFavoritos();
             setFavoritos(favRutas.map(r => r.id_ruta));
-        } catch (error: any) {
-            console.error('❌ Error cargando favoritos:', error.response?.status, error.message);
+        } catch (error: unknown) {
+            const axiosError = error as AxiosError;
+            console.error('❌ Error cargando favoritos:', axiosError.response?.status, axiosError.message);
             setFavoritos([]);
         }
     }, []);
@@ -73,8 +75,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const favRutas = await favoritoService.getFavoritos();
             setFavoritos(favRutas.map(r => r.id_ruta));
             return null;
-        } catch (err: any) {
-            return err.response?.data?.message || 'Error al iniciar sesión.';
+        } catch (err: unknown) {
+            const axiosError = err as AxiosError<{ message?: string }>;
+            return axiosError.response?.data?.message || 'Error al iniciar sesión.';
         }
     };
 
@@ -102,8 +105,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setUsuario(res.usuario);
             setFavoritos([]);
             return null;
-        } catch (err: any) {
-            return err.response?.data?.message || 'Error al registrarse.';
+        } catch (err: unknown) {
+            const axiosError = err as AxiosError<{ message?: string }>;
+            return axiosError.response?.data?.message || 'Error al registrarse.';
         }
     };
 
@@ -114,8 +118,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setFavoritos(prev =>
                 prev.includes(idRuta) ? prev.filter(id => id !== idRuta) : [...prev, idRuta]
             );
-        } catch (error: any) {
-            console.error('❌ Error al toggle favorito:', error.response?.status, error.message);
+        } catch (error: unknown) {
+            const axiosError = error as AxiosError;
+            console.error('❌ Error al toggle favorito:', axiosError.response?.status, axiosError.message);
         }
     };
 

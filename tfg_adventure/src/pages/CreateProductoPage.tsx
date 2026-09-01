@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { adminService } from '../services/adminService';
 import { cloudinaryService } from '../services/cloudinaryService';
 import { useToast } from '../hooks/useToast';
+import { getErrorMessage } from '../utils/getErrorMessage';
 
 const CATEGORIAS = [
     'Camping',
@@ -103,8 +104,8 @@ export default function CreateProductoPage() {
             });
 
             navigate('/admin');
-        } catch (err: any) {
-            addToast(err.response?.data?.message || 'Error al crear el producto.', 'error');
+        } catch (err: unknown) {
+            addToast(getErrorMessage(err, 'Error al crear el producto.'), 'error');
             setSubmitting(false);
         }
     };

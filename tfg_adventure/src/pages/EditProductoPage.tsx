@@ -7,6 +7,7 @@ import { adminService } from '../services/adminService';
 import { productoService } from '../services/productoService';
 import { cloudinaryService } from '../services/cloudinaryService';
 import { useToast } from '../hooks/useToast';
+import { getErrorMessage } from '../utils/getErrorMessage';
 
 const CATEGORIAS = [
     'Camping',
@@ -60,7 +61,7 @@ export default function EditProductoPage() {
                     setImagenPreview(data.imagen);
                 }
                 setImagenDeleted(false);
-            } catch (err: any) {
+            } catch (err: unknown) {
                 addToast('Error al cargar el producto.', 'error');
                 console.error(err);
             } finally {
@@ -145,8 +146,8 @@ export default function EditProductoPage() {
             });
 
             navigate(from === 'product' ? `/producto/${id}` : '/admin');
-        } catch (err: any) {
-            addToast(err.response?.data?.message || 'Error al actualizar el producto.', 'error');
+        } catch (err: unknown) {
+            addToast(getErrorMessage(err, 'Error al actualizar el producto.'), 'error');
             setSubmitting(false);
         }
     };
