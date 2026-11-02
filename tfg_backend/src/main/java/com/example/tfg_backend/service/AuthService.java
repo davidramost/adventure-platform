@@ -96,7 +96,10 @@ public class AuthService {
                     .used(false)
                     .build();
             passwordResetTokenRepository.save(resetToken);
-            return frontendUrl + "/reset-password?token=" + token + "|" + usuario.getNombreUsuario() + "|"
+            String normalizedFrontendUrl = frontendUrl.endsWith("/")
+                    ? frontendUrl.substring(0, frontendUrl.length() - 1)
+                    : frontendUrl;
+            return normalizedFrontendUrl + "/reset-password?token=" + token + "|" + usuario.getNombreUsuario() + "|"
                     + usuario.getEmail();
         }).orElse(null);
     }
